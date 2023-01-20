@@ -1,8 +1,10 @@
 import Phaser from 'phaser'
+import FirstScene from './FirstScene';
+import InstrScene from './InstrScene';
 import TitleScene from './TitleScene'
 
-const DEFAULT_WIDTH = 2560; 
-const DEFAULT_HEIGHT = 1600; 
+const DEFAULT_WIDTH = 800; //2560
+const DEFAULT_HEIGHT = 600; //1600
 
 const config: Phaser.Types.Core.GameConfig = {
 	type: Phaser.AUTO,
@@ -19,7 +21,7 @@ const config: Phaser.Types.Core.GameConfig = {
 			gravity: { y: 0 },
 		},
 	},
-	scene: [TitleScene],
+	scene: [TitleScene, FirstScene, InstrScene],
 }
 
 export default new Phaser.Game(config)
