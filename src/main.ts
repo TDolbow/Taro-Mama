@@ -1,5 +1,5 @@
 import Phaser from 'phaser'
-import TitleScene from './TitleScene'
+import popupScene from './popupScene'
 
 const DEFAULT_WIDTH = 2560; 
 const DEFAULT_HEIGHT = 1600; 
@@ -19,7 +19,7 @@ const config: Phaser.Types.Core.GameConfig = {
 			gravity: { y: 0 },
 		},
 	},
-	scene: [TitleScene],
+	scene: [popupScene],
 }
 
 export default new Phaser.Game(config)
