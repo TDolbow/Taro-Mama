@@ -7,6 +7,7 @@ export default class FirstScene extends Phaser.Scene {
 
 	preload() {
 		//preload here
+		//testing
 	}
 
 	create() {
