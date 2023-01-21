@@ -3,8 +3,8 @@ import main from './main';
 
 export default class FirstScene extends Phaser.Scene {
     private rice : Phaser.GameObjects.GameObject | undefined;
-    private seaweed : Phaser.GameObjects.GameObject;
-    private spam : Phaser.GameObjects.GameObject;
+    private seaweed : Phaser.GameObjects.GameObject | undefined;
+    private spam : Phaser.GameObjects.GameObject | undefined;
 
 	constructor() {
 		super('first-scene')
