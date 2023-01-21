@@ -6,6 +6,10 @@ export default class FirstScene extends Phaser.Scene {
     private seaweed : Phaser.GameObjects.GameObject | undefined;
     private spam : Phaser.GameObjects.GameObject | undefined;
 
+    //FOR RECIPE POPUP
+    recipeBtn?: Phaser.GameObjects.Image;
+	  
+
 	constructor() {
 		super('first-scene')
 	}
@@ -13,8 +17,11 @@ preload() {
     this.load.image("rice", "assets/ingredients/rice.png");
     this.load.image("seaweed", "assets/ingredients/seaweed.png");
     this.load.image("spam", "assets/ingredients/spam.png");
-    this.load.image('list', 'public/assets/backgrounds/titlescene/ingredientList.png')
-    this.load.image('table', 'public/assets/backgrounds/titlescene/table.png')
+    this.load.image('list', 'assets/backgrounds/titlescene/ingredientList.png')
+    this.load.image('table', 'assets/backgrounds/titlescene/table.png')
+
+    //for recipe popup
+    this.load.image("recipe", "assets/buttons/recipeBook.jpg")
 }
 create() {
     //ingrediet list
@@ -60,5 +67,18 @@ create() {
     this.input.on('dragend', function (_pointer: any, gameObject: { clearTint: () => void; }) {
       gameObject.clearTint();
     });
+
+    // FOR POPUP
+    this.recipeBtn = this.add.image(50, 500, "recipe");
+    this.recipeBtn.setScale(.25)
+    this.recipeBtn.setInteractive({ useHandCursor: true });
+
+    // on popup button clicked
+
+    this.recipeBtn.on('pointerdown',(event: MouseEvent) => {
+      this.scene.start('spam-scene');
+  });
+
+    //this.recipeBtn.on('pointerdown', () => this.scene.start('spam-scene'));
 }
 }

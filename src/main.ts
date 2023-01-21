@@ -2,6 +2,7 @@ import Phaser from 'phaser'
 import FirstScene from './FirstScene';
 import InstrScene from './InstrScene';
 import TitleScene from './TitleScene'
+import SpamRecipe from './spamRecipe'
 
 const DEFAULT_WIDTH = 800; //2560
 const DEFAULT_HEIGHT = 600; //1600
@@ -21,7 +22,7 @@ const config: Phaser.Types.Core.GameConfig = {
 			gravity: { y: 0 },
 		},
 	},
-	scene: [TitleScene, FirstScene, InstrScene],
+	scene: [TitleScene, FirstScene, InstrScene, SpamRecipe],
 }
 
 export default new Phaser.Game(config)
