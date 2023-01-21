@@ -12,9 +12,18 @@ export default class TitleScene extends Phaser.Scene {
 		this.load.image("title", "assets/backgrounds/titlescene/titleText.png");
 		this.load.image("play", "assets/backgrounds/titlescene/playText.png");
 		this.load.image("how", "assets/backgrounds/titlescene/howText.png");
+		this.load.audio("clicksound", ["assets/sounds/mixkit-select-click-1109.wav"])
+		this.load.audio("jazz1", ["assets/sounds/mixkit-chill-bro-494.mp3"])
 	}
 
 	create() {
+		//jazz background
+		const music1 = this.sound.add("jazz1", {
+			volume: .5,
+			loop: true,
+		})
+		music1.play();
+
 		//kitchen background
 		const scaledKicthen = this.add.image(400, 300, "kitchen"); //1280 800
 		scaledKicthen.displayWidth = Number(main.config.width);
@@ -45,4 +54,5 @@ export default class TitleScene extends Phaser.Scene {
 		clickHow() {
 			this.scene.switch("instr-scene");
 		}
-}
+
+	}

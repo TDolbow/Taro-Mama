@@ -24,6 +24,9 @@ preload() {
     this.load.image("recipe", "assets/buttons/recipeBook.jpg")
 }
 create() {
+    //sounds
+    var click_sound = this.sound.add("clicksound")
+
     //ingrediet list
     const scaledList = this.physics.add.image(100, 125, 'list');
     scaledList.displayWidth = Number(275);
@@ -76,6 +79,7 @@ create() {
     // on popup button clicked
 
     this.recipeBtn.on('pointerdown',(event: MouseEvent) => {
+      click_sound.play();
       this.scene.start('spam-scene');
   });
 
