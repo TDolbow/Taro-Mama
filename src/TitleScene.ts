@@ -40,7 +40,7 @@ export default class TitleScene extends Phaser.Scene {
         scaledHow.on('pointerdown', () => this.clickHow());
 	}	
 		clickPlay() {
-			this.scene.switch("first-scene");
+			this.scene.switch("GradeOrder");
 		}
 		clickHow() {
 			this.scene.switch("instr-scene");
