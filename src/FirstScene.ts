@@ -25,7 +25,9 @@ preload() {
 }
 create() {
     //sounds
-    var click_sound = this.sound.add("clicksound")
+    var click_sound = this.sound.add("clicksound", {
+      volume: .3
+    })
 
     //ingrediet list
     const scaledList = this.physics.add.image(100, 125, 'list');
@@ -61,6 +63,7 @@ create() {
     //drag n drop 
     this.input.dragDistanceThreshold = 16;
     this.input.on('dragstart', function (_pointer: any, gameObject: { setTint: (arg0: number) => void; }) {
+      click_sound.play();
       gameObject.setTint(0xff0000);
     });
     this.input.on('drag', function (_pointer: any, gameObject: { x: number; y: number; }, dragX: number, dragY: number) {

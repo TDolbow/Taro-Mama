@@ -14,7 +14,9 @@ export default class spamRecipe extends Phaser.Scene {
     }
     create() {
         this.add.text(200, 300, "spam recipe TBD");;
-        var click_sound = this.sound.add("clicksound")
+        var click_sound = this.sound.add("clicksound", {
+            volume: .3
+        })
         
         //this.back_button = this.add.image(100, 50, "button");
         //this.back_button.setInteractive({ useHandCursor: true });
