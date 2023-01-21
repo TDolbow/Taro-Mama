@@ -23,12 +23,15 @@ export default class GradeOrder extends Phaser.Scene{
         
         //Load play button
         this.load.image("play","assets/backgrounds/titlescene/playText.png");
+
+        //Load scroll
+        this.load.image('scroll',"assets/backgrounds/titlescene/ingredientList.png")
     }
 
     create(){
         //Creates an area that will contain the ordered instructions 
-        const IngredientsLandingZone = this.physics.add.image(100, 125, 'list');
-        IngredientsLandingZone.displayWidth = Number(main.config.width) * .2;
+        const IngredientsLandingZone = this.physics.add.image(100, 125, 'scroll');
+        //IngredientsLandingZone.displayWidth = Number(main.config.width) * .2;
 
         //Creates Instruction 1 object
         const instruction1 = this.physics.add.image(IngredientsLandingZone.displayWidth, Number(main.config.height) * 0.1, "instruction1");
@@ -36,6 +39,7 @@ export default class GradeOrder extends Phaser.Scene{
         instruction1.displayWidth = Number(main.config.width) * 0.5;
         instruction1.displayHeight = Number(main.config.height) * 0.1;
         this.instruction1 = instruction1;
+        this.instruction1.name = 'Instruction 1'
 
         
         this.input.setDraggable(this.instruction1);
@@ -46,6 +50,8 @@ export default class GradeOrder extends Phaser.Scene{
         instruction2.displayWidth = Number(main.config.width) * 0.5;
         instruction2.displayHeight = Number(main.config.height) * 0.1;
         this.instruction2 = instruction2;
+        this.instruction2.name = 'Instruction 2'
+
 
         
         this.input.setDraggable(this.instruction2);
@@ -56,6 +62,8 @@ export default class GradeOrder extends Phaser.Scene{
         instruction3.displayWidth = Number(main.config.width) * 0.5;
         instruction3.displayHeight = Number(main.config.height) * 0.1;
         this.instruction3 = instruction3;
+        this.instruction3.name = 'Instruction 3'
+
 
         
         this.input.setDraggable(this.instruction3);
@@ -66,6 +74,7 @@ export default class GradeOrder extends Phaser.Scene{
         instruction4.displayWidth = Number(main.config.width) * 0.5;
         instruction4.displayHeight = Number(main.config.height) * 0.1;
         this.instruction4 = instruction4;
+        this.instruction4.name = 'Instruction 4'
 
         
         this.input.setDraggable(this.instruction4);
@@ -78,6 +87,8 @@ export default class GradeOrder extends Phaser.Scene{
         instruction5.displayWidth = Number(main.config.width) * 0.5;
         instruction5.displayHeight = Number(main.config.height) * 0.1;
         this.instruction5 = instruction5;
+        this.instruction5.name = 'Instruction 5'
+
 
 
         this.input.setDraggable(this.instruction5);
@@ -86,7 +97,7 @@ export default class GradeOrder extends Phaser.Scene{
 
        this.correctText = this.add.text(16,16,'Click the Button To Determine If The Instructions Are In The Correct Order',{
         fontSize: '16px',
-        fill: '#ff0044'
+        fill: '#ffffff'
     });
 
 
@@ -99,7 +110,7 @@ export default class GradeOrder extends Phaser.Scene{
           });
 
           //play button
-		const scaledPlay = this.add.image(400, 400, "play"); //1280 800
+		const scaledPlay = this.add.image(600, 450, "play"); //1280 800
 		scaledPlay.displayWidth = Number(main.config.width) * 0.2;
 		scaledPlay.displayHeight = Number(main.config.width) * 0.2;
         scaledPlay.setInteractive({ useHandCursor: true });
