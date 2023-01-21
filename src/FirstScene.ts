@@ -14,12 +14,18 @@ preload() {
     this.load.image("seaweed", "assets/ingredients/seaweed.png");
     this.load.image("spam", "assets/ingredients/spam.png");
     this.load.image('list', 'public/assets/backgrounds/titlescene/ingredientList.png')
+    this.load.image('table', 'public/assets/backgrounds/titlescene/table.png')
 }
 create() {
     //ingrediet list
     const scaledList = this.physics.add.image(100, 125, 'list');
     scaledList.displayWidth = Number(275);
     scaledList.scaleY = scaledList.scaleX;
+
+    //table
+    const scaledTable = this.physics.add.image(400, 550, 'table')
+    scaledTable.displayWidth = Number(700)
+    scaledTable.scaleY = scaledTable.scaleX
     
     //rice
     const scaledRice = this.physics.add.image(this.scale.width / 2, this.scale.height / 2, "rice").setInteractive();
