@@ -28,8 +28,19 @@ create() {
         scaledMusubi.scaleY = scaledMusubi.scaleX;
         scaledMusubi.setInteractive({ useHandCursor: true });
         scaledMusubi.on('pointerdown', () => this.clickMusubi());
+
+    //back button
+        const back = this.add.text(30, 500, "BACK", {
+            color: '0xFF0000'
+            });
+        back.setInteractive({ useHandCursor: true });
+        back.on('pointerdown', () => this.clickBack());
+
 }
 clickMusubi() {
     this.scene.switch("musubi-scene");
+}
+clickBack() {
+    this.scene.switch("title-scene");
 }
 }
