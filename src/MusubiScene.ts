@@ -1,29 +1,34 @@
 import Phaser from 'phaser'
 import main from './main';
 
-export default class FirstScene extends Phaser.Scene {
+export default class MusubiScene extends Phaser.Scene {
     private rice : Phaser.GameObjects.GameObject | undefined;
     private seaweed : Phaser.GameObjects.GameObject | undefined;
     private spam : Phaser.GameObjects.GameObject | undefined;
-
-    //FOR RECIPE POPUP
-    recipeBtn?: Phaser.GameObjects.Image;
-	  
+  //FOR RECIPE POPUP
+  recipeBtn?: Phaser.GameObjects.Image;
 
 	constructor() {
-		super('first-scene')
+		super('musubi-scene')
 	}
 preload() {
     this.load.image("rice", "assets/ingredients/rice.png");
     this.load.image("seaweed", "assets/ingredients/seaweed.png");
     this.load.image("spam", "assets/ingredients/spam.png");
-    this.load.image('list', 'assets/backgrounds/titlescene/ingredientList.png')
-    this.load.image('table', 'assets/backgrounds/titlescene/table.png')
+    this.load.image('list', 'assets/backgrounds/firstscene/ingredientList.png');
+    this.load.image('table', 'assets/backgrounds/firstscene/table.png');
+    this.load.image("background", "assets/backgrounds/firstscene/utensilBackground.jpg");
 
     //for recipe popup
     this.load.image("recipe", "assets/buttons/recipeBook.jpg")
-}
+  }
 create() {
+    //background 
+    const scaledbackground = this.add.image(400, 300, "background");
+    scaledbackground.setTint(0xffaf7a);
+    scaledbackground.displayWidth = Number(main.config.width);
+    scaledbackground.displayHeight = Number(main.config.height);
+
     //ingrediet list
     const scaledList = this.physics.add.image(100, 125, 'list');
     scaledList.displayWidth = Number(275);
@@ -35,21 +40,21 @@ create() {
     scaledTable.scaleY = scaledTable.scaleX
     
     //rice
-    const scaledRice = this.physics.add.image(this.scale.width / 2, this.scale.height / 2, "rice").setInteractive();
+    const scaledRice = this.physics.add.image(this.scale.width / 4, this.scale.height / 1.2, "rice").setInteractive();
     scaledRice.displayWidth = Number(main.config.width) * .2;
     scaledRice.scaleY = scaledRice.scaleX;
     this.rice = scaledRice;
     this.input.setDraggable(this.rice);
 
     //seaweed
-    const scaledSeaweed = this.physics.add.image(this.scale.width / 3, this.scale.height / 3, "seaweed").setInteractive();
+    const scaledSeaweed = this.physics.add.image(this.scale.width / 2, this.scale.height / 1.2, "seaweed").setInteractive();
     scaledSeaweed.displayWidth = Number(main.config.width) * .12;
     scaledSeaweed.scaleY = scaledSeaweed.scaleX;
     this.seaweed = scaledSeaweed;
     this.input.setDraggable(this.seaweed);
 
     //spam
-    const scaledSpam = this.physics.add.image(this.scale.width / 4, this.scale.height / 4, "spam").setInteractive();
+    const scaledSpam = this.physics.add.image(this.scale.width / 1.3, this.scale.height / 1.2, "spam").setInteractive();
     scaledSpam.displayWidth = Number(main.config.width) * .15;
     scaledSpam.scaleY = scaledSpam.scaleX;
     this.spam = scaledSpam;
@@ -75,10 +80,10 @@ create() {
 
     // on popup button clicked
 
-    this.recipeBtn.on('pointerdown',(event: MouseEvent) => {
+    this.recipeBtn.on('pointerdown',() => { //event: MouseEvent
       this.scene.start('spam-scene');
-  });
+    });
 
     //this.recipeBtn.on('pointerdown', () => this.scene.start('spam-scene'));
-}
+  }
 }
