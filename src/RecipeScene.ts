@@ -31,8 +31,11 @@ create() {
 
     //back button
         const back = this.add.text(30, 500, "BACK", {
-            color: '0xFF0000'
+            color: '0xFF0000',
+            fontSize: '58px'
             });
+        back.displayWidth = Number(main.config.width) * .1;
+        back.scaleY = back.scaleX;
         back.setInteractive({ useHandCursor: true });
         back.on('pointerdown', () => this.clickBack());
 
