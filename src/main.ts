@@ -11,6 +11,7 @@ const DEFAULT_HEIGHT = 600; //1600
 const config: Phaser.Types.Core.GameConfig = {
 	type: Phaser.AUTO,
 	parent: 'app', 
+	backgroundColor: 0xFFFFFF,
 	scale: {
 		mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
