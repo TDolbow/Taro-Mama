@@ -8,7 +8,7 @@ export default class RecipeScene extends Phaser.Scene {
 preload() {
     this.load.image("kitchen", "assets/backgrounds/titlescene/background.jpg");
     this.load.image("recipeText", "assets/backgrounds/recipeScene/recipeText.png");
-    this.load.image("musubi", "assets/backgrounds/recipeScene/spam-musubi.png");
+    this.load.image("musubiText", "assets/backgrounds/recipeScene/spam-musubi.png");
 }
 create() {
     //kitchen background
@@ -23,7 +23,7 @@ create() {
 
     //span musubi recipe
         //this.add.ellipse(400, 200, 0xffffff);
-        const scaledMusubi = this.add.image(400, 200, "musubi");
+        const scaledMusubi = this.add.image(400, 200, "musubiText");
         scaledMusubi.displayWidth = Number(main.config.width) * .5;
         scaledMusubi.scaleY = scaledMusubi.scaleX;
         scaledMusubi.setInteractive({ useHandCursor: true });
