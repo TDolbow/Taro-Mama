@@ -219,7 +219,6 @@ create() {
   }
 
 
-=======
 update() {
   //Creates Musubi when all items are near each other on table
   if(!this.rice) {
