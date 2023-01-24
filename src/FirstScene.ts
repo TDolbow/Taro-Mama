@@ -10,7 +10,6 @@ export default class FirstScene extends Phaser.Scene {
 
     //FOR RECIPE POPUP
     recipeBtn?: Phaser.GameObjects.Image;
-	  
 
 	constructor() {
 		super('first-scene')
@@ -31,7 +30,7 @@ create() {
     this.recipeFinished = false;
 
     //sounds
-    var click_sound = this.sound.add("clicksound", {
+    const click_sound = this.sound.add("clicksound", {
       volume: .3
     })
 
@@ -87,7 +86,7 @@ create() {
 
     // on popup button clicked
 
-    this.recipeBtn.on('pointerdown',(event: MouseEvent) => {
+    this.recipeBtn.on('pointerdown',() => {
       click_sound.play();
       this.scene.start('spam-scene');
   });
@@ -111,13 +110,15 @@ create() {
       (this.spam.body.position.y >= 375) && 
       (Phaser.Math.Difference(this.rice.body.position.x, this.seaweed.body.position.x) <= 150) && 
       (Phaser.Math.Difference(this.rice.body.position.x, this.spam.body.position.x) <= 150) &&
-      this.recipeFinished == false){
+      this.recipeFinished == false)
+      {
         const soundEffect = this.sound.add("completedRecipe")
         soundEffect.play();
         const scaledMusubi = this.physics.add.image(this.rice.body.position.x + 50, this.rice.body.position.y + 50, "musubi");
         scaledMusubi.displayWidth = Number(main.config.width) * .2;
         scaledMusubi.scaleY = scaledMusubi.scaleX;
         this.musubi = scaledMusubi;
+        this.musubi.body.gameObject.setVisible(true);
         this.rice.destroy;
         this.seaweed.destroy;
         this.spam.destroy;
