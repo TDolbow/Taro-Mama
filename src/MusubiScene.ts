@@ -1,6 +1,9 @@
 import Phaser from 'phaser'
 import main from './main';
 
+//Import function to check correct positions of pseudocode.
+import { CheckPositions } from './CheckPositions';
+
 export default class MusubiScene extends Phaser.Scene {
     //ingredients
     private rice : Phaser.GameObjects.GameObject | undefined;
@@ -15,8 +18,15 @@ export default class MusubiScene extends Phaser.Scene {
     private remove : Phaser.GameObjects.GameObject | undefined;
     private combine : Phaser.GameObjects.GameObject | undefined;
     private wrap : Phaser.GameObjects.GameObject | undefined;
+
+
+    private feedback_text : Phaser.GameObjects.Text | undefined;
+
   //FOR RECIPE POPUP
   recipeBtn?: Phaser.GameObjects.Image;
+ 
+
+  
 
 	constructor() {
 		super('musubi-scene')
@@ -114,6 +124,7 @@ create() {
     back.setInteractive({ useHandCursor: true });
     back.on('pointerdown', () => this.clickBack());
 
+
     //pseudo code 
     const scaledSlice = this.add.text(50, 50, "Slice();", {
       backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
@@ -121,6 +132,7 @@ create() {
     scaledSlice.scale = 0.5;
     this.slice = scaledSlice;
     this.input.setDraggable(this.slice);
+    this.slice.name = 'slice';
 
     const scaledCook = this.add.text(50, 90, "Cook();", {
       backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
@@ -128,6 +140,8 @@ create() {
     scaledCook.scale = 0.5;
     this.cook = scaledCook;
     this.input.setDraggable(this.cook);
+    this.cook.name = 'cook';
+
 
     const scaledMold = this.add.text(50, 130, "Create-Mold();", {
       backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
@@ -135,6 +149,8 @@ create() {
     scaledMold.scale = 0.5;
     this.mold = scaledMold;
     this.input.setDraggable(this.mold);
+    this.mold.name = 'mold';
+
 
     const scaledRemove = this.add.text(50, 170, "Remove-Extra-Rice();", {
       backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
@@ -142,6 +158,8 @@ create() {
     scaledRemove.scale = 0.5;
     this.remove = scaledRemove;
     this.input.setDraggable(this.remove);
+    this.remove.name = 'remove';
+
 
     const scaledCombine = this.add.text(50, 210, "Combine();", {
       backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
@@ -149,6 +167,8 @@ create() {
     scaledCombine.scale = 0.5;
     this.combine = scaledCombine;
     this.input.setDraggable(this.combine);
+    this.combine.name = 'combine';
+
 
     const scaledWrap = this.add.text(50, 250, "Wrap();", {
       backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
@@ -156,10 +176,50 @@ create() {
     scaledWrap.scale = 0.5;
     this.wrap = scaledWrap;
     this.input.setDraggable(this.wrap);
+    this.wrap.name = 'wrap';
+
+    const feedback_text = this.add.text(20,20,"Click the check button to get feedback.",{
+    fontSize: '58px', fontStyle: 'bold',color:'0xff0000'
+    });
+    feedback_text.scale=0.5;
+    this.feedback_text = feedback_text;
+
+    const checkCode = this.add.text(200, 500, "Check Code", {
+      fontSize: '58px'
+      });
+      checkCode.setTint(0xFF0000);
+      checkCode.displayWidth = Number(main.config.width) * .1;
+      checkCode.scaleY = back.scaleX;
+      checkCode.setInteractive({ useHandCursor: true });
+      checkCode.on('pointerdown', () => this.clickCheckOrder());
+
+    
+
   }
   clickBack() {
     this.scene.switch("recipe-scene");
 }
+
+
+  clickCheckOrder(){
+    
+    
+    let order: Array<Phaser.GameObjects.GameObject> = [
+                <Phaser.GameObjects.GameObject>this.slice,
+                <Phaser.GameObjects.GameObject>this.cook,
+                <Phaser.GameObjects.GameObject>this.mold,
+                <Phaser.GameObjects.GameObject>this.remove,
+                <Phaser.GameObjects.GameObject>this.combine,
+                <Phaser.GameObjects.GameObject>this.wrap];
+                
+                
+                
+                this.feedback_text?.setText(CheckPositions(order));
+  
+  }
+
+
+=======
 update() {
   //Creates Musubi when all items are near each other on table
   if(!this.rice) {
