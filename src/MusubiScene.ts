@@ -6,6 +6,8 @@ export default class MusubiScene extends Phaser.Scene {
     private rice : Phaser.GameObjects.GameObject | undefined;
     private seaweed : Phaser.GameObjects.GameObject | undefined;
     private spam : Phaser.GameObjects.GameObject | undefined;
+    private musubi: Phaser.GameObjects.GameObject | undefined;
+    private recipeFinished?: boolean;
     //pseudo code
     private slice : Phaser.GameObjects.GameObject | undefined;
     private cook : Phaser.GameObjects.GameObject | undefined;
@@ -25,7 +27,8 @@ preload() {
     this.load.image("spam", "assets/ingredients/spam.png");
     //this.load.image('list', 'assets/backgrounds/firstscene/ingredientList.png');
     this.load.image('table', 'assets/backgrounds/firstscene/table.png');
-    this.load.image("brick", "assets/backgrounds/firstscene/brickBackground.jpg")
+    this.load.image("brick", "assets/backgrounds/firstscene/brickBackground.jpg");
+    this.load.image("musubi", "assets/ingredients/musubi.png");
 
     //for recipe popup
     this.load.image("recipe", "assets/buttons/recipeBook.jpg")
@@ -36,7 +39,13 @@ create() {
     scaledbackground.displayWidth = Number(main.config.width);
     scaledbackground.displayHeight = Number(main.config.height);
 
+    //Recipe Not Finished
+    this.recipeFinished = false;
 
+    //sounds
+    const click_sound = this.sound.add("clicksound", {
+      volume: .3
+    })
     //ingrediet list
     /*
     const scaledList = this.physics.add.image(100, 125, 'list');
@@ -73,6 +82,7 @@ create() {
     //drag n drop 
     this.input.dragDistanceThreshold = 16;
     this.input.on('dragstart', function (_pointer: any, gameObject: { setTint: (arg0: number) => void; }) {
+      click_sound.play();
       gameObject.setTint(0xff0000);
     });
     this.input.on('drag', function (_pointer: any, gameObject: { x: number; y: number; }, dragX: number, dragY: number) {
@@ -90,6 +100,7 @@ create() {
 
     // on popup button clicked
     this.recipeBtn.on('pointerdown',() => { //event: MouseEvent
+      click_sound.play();
       this.scene.start('spam-scene');
     });
 
@@ -149,4 +160,38 @@ create() {
   clickBack() {
     this.scene.switch("recipe-scene");
 }
+update() {
+  //Creates Musubi when all items are near each other on table
+  if(!this.rice) {
+    return
+  }
+  if(!this.seaweed) {
+    return
+  }
+  if(!this.spam) {
+    return
+  }
+  if ((this.rice.body.position.y >= 375) && 
+    (this.seaweed.body.position.y >= 375) && 
+    (this.spam.body.position.y >= 375) && 
+    (Phaser.Math.Difference(this.rice.body.position.x, this.seaweed.body.position.x) <= 150) && 
+    (Phaser.Math.Difference(this.rice.body.position.x, this.spam.body.position.x) <= 150) &&
+    this.recipeFinished == false)
+    {
+      const soundEffect = this.sound.add("completedRecipe")
+      soundEffect.play();
+      const scaledMusubi = this.physics.add.image(this.rice.body.position.x + 50, this.rice.body.position.y + 50, "musubi");
+      scaledMusubi.displayWidth = Number(main.config.width) * .2;
+      scaledMusubi.scaleY = scaledMusubi.scaleX;
+      this.musubi = scaledMusubi;
+      this.musubi.body.gameObject.setVisible(true);
+      this.rice.destroy;
+      this.seaweed.destroy;
+      this.spam.destroy;
+      this.rice.body.gameObject.setVisible(false);
+      this.seaweed.body.gameObject.setVisible(false);
+      this.spam.body.gameObject.setVisible(false);
+      this.recipeFinished = true;
+    }
+  }
 }
