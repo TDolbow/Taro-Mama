@@ -184,11 +184,11 @@ create() {
     feedback_text.scale=0.5;
     this.feedback_text = feedback_text;
 
-    const checkCode = this.add.text(200, 500, "Check Code", {
+    const checkCode = this.add.text(10, 450, "Check Code", {
       fontSize: '58px'
       });
       checkCode.setTint(0xFF0000);
-      checkCode.displayWidth = Number(main.config.width) * .1;
+      checkCode.displayWidth = Number(main.config.width) * .25;
       checkCode.scaleY = back.scaleX;
       checkCode.setInteractive({ useHandCursor: true });
       checkCode.on('pointerdown', () => this.clickCheckOrder());
