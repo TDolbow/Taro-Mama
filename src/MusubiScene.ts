@@ -213,8 +213,8 @@ create() {
                 <Phaser.GameObjects.GameObject>this.wrap];
                 
                 
-                
-                this.feedback_text?.setText(CheckPositions(order));
+                var feedbackString:String = CheckPositions(order);
+                this.feedback_text?.setText(<string>feedbackString);
   
   }
 
