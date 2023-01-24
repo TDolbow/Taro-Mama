@@ -9,6 +9,8 @@ preload() {
 }
 create() {
     //create here
-    this.add.text(200, 300, "instruction scene - will implement later");
+    this.add.text(200, 300, "instruction scene - will implement later", {
+        color: '0x000000'
+    });
 }
 }

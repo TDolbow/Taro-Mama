@@ -28,7 +28,7 @@ export default class TitleScene extends Phaser.Scene {
 		//kitchen background
 		const scaledKicthen = this.add.image(400, 300, "kitchen"); //1280 800
 		scaledKicthen.displayWidth = Number(main.config.width);
-		scaledKicthen.scaleY = scaledKicthen.scaleX;
+		scaledKicthen.displayHeight = Number(main.config.height);
 
 		//Taro Mama title
 		const scaledTitle = this.add.image(400, 150, "title"); //1280 350
@@ -50,7 +50,7 @@ export default class TitleScene extends Phaser.Scene {
         scaledHow.on('pointerdown', () => this.clickHow());
 	}	
 		clickPlay() {
-			this.scene.switch("first-scene");
+			this.scene.switch("recipe-scene");
 		}
 		clickHow() {
 			this.scene.switch("instr-scene");
