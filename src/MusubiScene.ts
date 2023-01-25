@@ -21,12 +21,7 @@ export default class MusubiScene extends Phaser.Scene {
 
 
     private feedback_text : Phaser.GameObjects.Text | undefined;
-
-  //FOR RECIPE POPUP
-  recipeBtn?: Phaser.GameObjects.Image;
- 
-
-  
+   
 
 	constructor() {
 		super('musubi-scene')
@@ -35,19 +30,18 @@ preload() {
     this.load.image("rice", "assets/ingredients/rice.png");
     this.load.image("seaweed", "assets/ingredients/seaweed.png");
     this.load.image("spam", "assets/ingredients/spam.png");
-    //this.load.image('list', 'assets/backgrounds/firstscene/ingredientList.png');
+    this.load.image('list', 'assets/backgrounds/firstscene/ingredientList.png');
     this.load.image('table', 'assets/backgrounds/firstscene/table.png');
     this.load.image("brick", "assets/backgrounds/firstscene/brickBackground.jpg");
     this.load.image("musubi", "assets/ingredients/musubi.png");
 
     //for recipe help button
     this.load.image('recipe', 'assets/buttons/recipeBook.png')
-
     //for direction help button 
     this.load.image('help', 'assets/buttons/help.png')
-
     //for recipe popup
     this.load.image('exit', 'assets/buttons/exit.png')
+
   } //end preload function
 create() {
     //background 
@@ -108,18 +102,7 @@ create() {
     this.input.on('dragend', function (_pointer: any, gameObject: { clearTint: () => void; }) {
       gameObject.clearTint();
     });
-
-    // FOR POPUP
-    this.recipeBtn = this.add.image(750, 500, "recipe");
-    this.recipeBtn.setScale(.25)
-    this.recipeBtn.setInteractive({ useHandCursor: true });
-
-    // on popup button clicked
-    this.recipeBtn.on('pointerdown',() => { //event: MouseEvent
-      click_sound.play();
-      this.scene.start('spam-scene');
-    });
-
+    
     //back button
     const back = this.add.text(10, 500, "Quit", {
       fontSize: '58px'
@@ -199,6 +182,8 @@ create() {
       checkCode.setInteractive({ useHandCursor: true });
       checkCode.on('pointerdown', () => this.clickCheckOrder());
 
+
+    // ------------------------------------------- MAIN SCREEN POPUPS -------------------------------------------------
     //recipe help button
     const recipeBtn = this.add.image(125,535, "recipe");
     recipeBtn.scale = .125;
@@ -210,39 +195,49 @@ create() {
     helpBtn.setInteractive({ useHandCursor: true });
 
     //for recipe popup
-    const recipePaper = this.add.image(75,0, "list")
+    const recipePaper = this.add.image(275,-10, "list")
     recipePaper.setOrigin(0,0)
-    recipePaper.scale = .9
+    recipePaper.scale = .85
     recipePaper.setVisible(false)
 
-    const exitRecipeBtn = this.add.image(550,100, "exit")
-    exitRecipeBtn.scale = .1
+    const exitRecipeBtn = this.add.image(725,70, "exit")
+    exitRecipeBtn.scale = .06
     exitRecipeBtn.setInteractive({ useHandCursor: true });
     exitRecipeBtn.setVisible(false)
 
-    const spamText = this.add.text(125,100,`Spam Musubi Recipe \n 
-      Step 1: Slice spam into 8-10 slices. Mix oyster sauce, soy sauce, and sugar until sugar is dissolved and marinate with the SPAM. \n
+    const spamTitle = this.add.text(475,70,'Spam Musubi Recipe')
+    const spamSteps = this.add.text(425, 100, 
+      `Step 1: Slice spam into 8-10 slices. Mix oyster sauce, soy sauce, and sugar until sugar is dissolved and marinate with the SPAM. \n
       Step 2: Drain off marinade and fry SPAM on each side over medium heat until slightly crispy or until desired doneness. \n
       Step 3: Place a strip of nori on a cutting board or clean surface (shiny side down). Place your Musubi mold across the middle of the nori. Add Sushi Rice to the mold. \n
       Step 4: Next, remove the mold from the rice. Now you will have a nice little block of rice right on the nori. Add some of the cooked SPAM to the top. Wrap up one side of the nori and stick it to the top of the SPAM, then wrap up the other side.
-            
-      `)
-    spamText.setVisible(false)
+      `, {wordWrap: {width: 325}})
+    
+    spamTitle.setVisible(false)
+    spamSteps.setVisible(false)
 
     //for help popup
-    const exitHelpBtn = this.add.image(550,100, "exit")
-    exitHelpBtn.scale = .1
+    const exitHelpBtn = this.add.image(725,70, "exit")
+    exitHelpBtn.scale = .06
     exitHelpBtn.setInteractive({ useHandCursor: true });
     exitHelpBtn.setVisible(false)
 
-    const helpText = this.add.text(300,100,"Directions")
+    const helpText = this.add.text(475,100,"Directions")
     helpText.setVisible(false)
+
+    const directions = this.add.text(425, 100, 
+      `
+      TBD
+      `)
+
+      directions.setVisible(false)
 
     //on recipe button pushed
     recipeBtn.on('pointerdown', (event: MouseEvent) => {
       recipePaper.setVisible(true)
       exitRecipeBtn.setVisible(true)
-      spamText.setVisible(true)
+      spamTitle.setVisible(true)
+      spamSteps.setVisible(true)
 
     });
 
@@ -251,6 +246,7 @@ create() {
       recipePaper.setVisible(true)
       exitHelpBtn.setVisible(true)
       helpText.setVisible(true)
+      directions.setVisible(true)
 
     });
 
@@ -258,7 +254,9 @@ create() {
     exitRecipeBtn.on('pointerdown', (event: MouseEvent) => {
       recipePaper.setVisible(false)
       exitRecipeBtn.setVisible(false)
-      spamText.setVisible(false)
+      spamTitle.setVisible(false)
+      spamSteps.setVisible(false)
+      directions.setVisible(true)
 
     });
 
@@ -269,6 +267,8 @@ create() {
       helpText.setVisible(false)
 
     });
+
+    // ------------------------------------------- END POPUPS -------------------------------------------------
 
   } // end create function
 

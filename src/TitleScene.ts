@@ -15,6 +15,10 @@ export default class TitleScene extends Phaser.Scene {
 		this.load.audio("clicksound", ["assets/sounds/mixkit-select-click-1109.wav"]);
 		this.load.audio("jazz1", ["assets/sounds/mixkit-chill-bro-494.mp3"]);
 		this.load.audio("completedRecipe", ["assets/sounds/mixkit-instant-win-2021.wav"]);
+
+		//for mute button
+		this.load.image('mute', 'assets/buttons/mute.png')
+		
 	}
 
 	create() {
@@ -48,7 +52,18 @@ export default class TitleScene extends Phaser.Scene {
 		scaledHow.scaleY = scaledPlay.scaleX;
         scaledHow.setInteractive({ useHandCursor: true });
         scaledHow.on('pointerdown', () => this.clickHow());
-	}	
+
+		// -------------------------------- MUTE BUTTON --------------------------------
+
+		const muteBtn = this.add.image()
+
+
+
+
+
+		// -------------------------------- MUTE BUTTON --------------------------------
+
+	} // end create function	
 		clickPlay() {
 			this.scene.switch("recipe-scene");
 		}
