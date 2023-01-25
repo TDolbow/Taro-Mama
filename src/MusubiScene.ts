@@ -10,7 +10,7 @@ export default class MusubiScene extends Phaser.Scene {
     private seaweed : Phaser.GameObjects.GameObject | undefined;
     private spam : Phaser.GameObjects.GameObject | undefined;
     private musubi: Phaser.GameObjects.GameObject | undefined;
-    private recipeFinished?: boolean;
+    private recipeFinished ?: boolean;
     //pseudo code
     private slice : Phaser.GameObjects.GameObject | undefined;
     private cook : Phaser.GameObjects.GameObject | undefined;
@@ -19,19 +19,16 @@ export default class MusubiScene extends Phaser.Scene {
     private combine : Phaser.GameObjects.GameObject | undefined;
     private wrap : Phaser.GameObjects.GameObject | undefined;
 
-
+    //solution text
     private feedback_text : Phaser.GameObjects.Text | undefined;
 
   //FOR RECIPE POPUP
   recipeBtn?: Phaser.GameObjects.Image;
  
-
-  
-
 	constructor() {
 		super('musubi-scene')
 	}
-preload() {
+  preload() {
     this.load.image("rice", "assets/ingredients/rice.png");
     this.load.image("seaweed", "assets/ingredients/seaweed.png");
     this.load.image("spam", "assets/ingredients/spam.png");
@@ -43,7 +40,7 @@ preload() {
     //for recipe popup
     this.load.image("recipe", "assets/buttons/recipeBook.jpg")
   }
-create() {
+  create() {
     //background 
     const scaledbackground = this.add.image(400, 300, "brick");
     scaledbackground.displayWidth = Number(main.config.width);
@@ -64,9 +61,9 @@ create() {
     */
 
     //table
-    const scaledTable = this.physics.add.image(400, 550, 'table')
-    scaledTable.displayWidth = Number(700)
-    scaledTable.scaleY = scaledTable.scaleX
+    const scaledTable = this.physics.add.image(400, 550, 'table');
+    scaledTable.displayWidth = Number(700);
+    scaledTable.scaleY = scaledTable.scaleX;
     
     //rice
     const scaledRice = this.physics.add.image(this.scale.width / 4, this.scale.height / 1.2, "rice").setInteractive();
@@ -124,16 +121,17 @@ create() {
     back.setInteractive({ useHandCursor: true });
     back.on('pointerdown', () => this.clickBack());
 
-
+    /*
     //pseudo code 
     const scaledSlice = this.add.text(50, 50, "Slice();", {
       backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
     }).setInteractive();
     scaledSlice.scale = 0.5;
+    scaledSlice.setVisible(false);
     this.slice = scaledSlice;
     this.input.setDraggable(this.slice);
     this.slice.name = 'slice';
-
+      
     const scaledCook = this.add.text(50, 90, "Cook();", {
       backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
     }).setInteractive();
@@ -141,8 +139,7 @@ create() {
     this.cook = scaledCook;
     this.input.setDraggable(this.cook);
     this.cook.name = 'cook';
-
-
+      
     const scaledMold = this.add.text(50, 130, "Create-Mold();", {
       backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
     }).setInteractive();
@@ -150,8 +147,7 @@ create() {
     this.mold = scaledMold;
     this.input.setDraggable(this.mold);
     this.mold.name = 'mold';
-
-
+      
     const scaledRemove = this.add.text(50, 170, "Remove-Extra-Rice();", {
       backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
     }).setInteractive();
@@ -159,8 +155,7 @@ create() {
     this.remove = scaledRemove;
     this.input.setDraggable(this.remove);
     this.remove.name = 'remove';
-
-
+      
     const scaledCombine = this.add.text(50, 210, "Combine();", {
       backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
     }).setInteractive();
@@ -168,8 +163,7 @@ create() {
     this.combine = scaledCombine;
     this.input.setDraggable(this.combine);
     this.combine.name = 'combine';
-
-
+      
     const scaledWrap = this.add.text(50, 250, "Wrap();", {
       backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
     }).setInteractive();
@@ -177,65 +171,51 @@ create() {
     this.wrap = scaledWrap;
     this.input.setDraggable(this.wrap);
     this.wrap.name = 'wrap';
-
+      
     const feedback_text = this.add.text(20,20,"Click the check button to get feedback.",{
-    fontSize: '58px', fontStyle: 'bold',color:'0xff0000'
+      fontSize: '58px', fontStyle: 'bold',color:'0xff0000'
     });
     feedback_text.scale=0.5;
     this.feedback_text = feedback_text;
-
+        
     const checkCode = this.add.text(10, 450, "Check Code", {
       fontSize: '58px'
-      });
-      checkCode.setTint(0xFF0000);
-      checkCode.displayWidth = Number(main.config.width) * .25;
-      checkCode.scaleY = back.scaleX;
-      checkCode.setInteractive({ useHandCursor: true });
-      checkCode.on('pointerdown', () => this.clickCheckOrder());
-
-    
-
+    });
+    checkCode.setTint(0xFF0000);
+    checkCode.displayWidth = Number(main.config.width) * .25;
+    checkCode.scaleY = checkCode.scaleX;
+    checkCode.setInteractive({ useHandCursor: true });
+    checkCode.on('pointerdown', () => this.clickCheckOrder());
+    */
   }
+    
   clickBack() {
     this.scene.switch("recipe-scene");
-}
-
-
+  }
   clickCheckOrder(){
-    
-    
-    let order: Array<Phaser.GameObjects.GameObject> = [
+    const order: Array<Phaser.GameObjects.GameObject> = [
                 <Phaser.GameObjects.GameObject>this.slice,
                 <Phaser.GameObjects.GameObject>this.cook,
                 <Phaser.GameObjects.GameObject>this.mold,
                 <Phaser.GameObjects.GameObject>this.remove,
                 <Phaser.GameObjects.GameObject>this.combine,
                 <Phaser.GameObjects.GameObject>this.wrap];
-                
-                
-                var feedbackString:String = CheckPositions(order);
+                const feedbackString = String(CheckPositions(order));
                 this.feedback_text?.setText(<string>feedbackString);
-  
   }
-
 
 update() {
   //Creates Musubi when all items are near each other on table
-  if(!this.rice) {
-    return
-  }
-  if(!this.seaweed) {
-    return
-  }
-  if(!this.spam) {
-    return
-  }
+  if(!this.rice) { return }
+  if(!this.seaweed) { return }
+  if(!this.spam) { return }
+
+  //mixing ingredients part
   if ((this.rice.body.position.y >= 375) && 
     (this.seaweed.body.position.y >= 375) && 
     (this.spam.body.position.y >= 375) && 
     (Phaser.Math.Difference(this.rice.body.position.x, this.seaweed.body.position.x) <= 150) && 
-    (Phaser.Math.Difference(this.rice.body.position.x, this.spam.body.position.x) <= 150) &&
-    this.recipeFinished == false)
+    (Phaser.Math.Difference(this.rice.body.position.x, this.spam.body.position.x) <= 150) && this.recipeFinished == false)
     {
       const soundEffect = this.sound.add("completedRecipe")
       soundEffect.play();
@@ -244,13 +224,13 @@ update() {
       scaledMusubi.scaleY = scaledMusubi.scaleX;
       this.musubi = scaledMusubi;
       this.musubi.body.gameObject.setVisible(true);
-      this.rice.destroy;
-      this.seaweed.destroy;
-      this.spam.destroy;
       this.rice.body.gameObject.setVisible(false);
       this.seaweed.body.gameObject.setVisible(false);
       this.spam.body.gameObject.setVisible(false);
       this.recipeFinished = true;
     }
+  if (this.recipeFinished) {
+    this.scene.switch('musubi-scene-2');
+  }
   }
 }

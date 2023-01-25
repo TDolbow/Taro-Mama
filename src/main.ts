@@ -4,6 +4,8 @@ import TitleScene from './TitleScene'
 import SpamRecipe from './spamRecipe'
 import RecipeScene from './RecipeScene';
 import MusubiScene from './MusubiScene';
+import MusubiScene2 from './MusubiScene2';
+import MusubiScene3 from './MusubiScene3';
 
 const DEFAULT_WIDTH = 800; //2560
 const DEFAULT_HEIGHT = 600; //1600
@@ -24,7 +26,7 @@ const config: Phaser.Types.Core.GameConfig = {
 			gravity: { y: 0 },
 		},
 	},
-	scene: [TitleScene, RecipeScene, MusubiScene, InstrScene, SpamRecipe],
+	scene: [TitleScene, RecipeScene, MusubiScene, MusubiScene2, MusubiScene3, InstrScene, SpamRecipe],
 }
 
 export default new Phaser.Game(config)
