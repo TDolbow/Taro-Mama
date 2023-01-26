@@ -18,6 +18,8 @@ export default class TitleScene extends Phaser.Scene {
 
 		//for mute button
 		this.load.image('mute', 'assets/buttons/mute.png')
+		//for unmute button
+		this.load.image('unmute', 'assets/buttons/unmute.png')
 		
 	}
 
@@ -55,13 +57,29 @@ export default class TitleScene extends Phaser.Scene {
 
 		// -------------------------------- MUTE BUTTON --------------------------------
 
-		const muteBtn = this.add.image()
+		const muteBtn = this.add.image(700,550, 'mute');
+		muteBtn.scale = .05
+		muteBtn.setInteractive()
 
+		//on mute button pushed
+		muteBtn.on('pointerdown', (event: MouseEvent) => {
+			music1.pause()
+				  
+		});
+		// -------------------------------- END MUTE BUTTON --------------------------------
 
+		// -------------------------------- UNMUTE BUTTON --------------------------------
 
+		const unmuteBtn = this.add.image(750,550, 'unmute');
+		unmuteBtn.scale = .05
+		unmuteBtn.setInteractive()
 
-
-		// -------------------------------- MUTE BUTTON --------------------------------
+		//on mute button pushed
+		unmuteBtn.on('pointerdown', (event: MouseEvent) => {
+			music1.play()
+	
+		});
+		// -------------------------------- END UNMUTE BUTTON --------------------------------
 
 	} // end create function	
 		clickPlay() {

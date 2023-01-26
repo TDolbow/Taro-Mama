@@ -41,6 +41,8 @@ preload() {
     this.load.image('help', 'assets/buttons/help.png')
     //for recipe popup
     this.load.image('exit', 'assets/buttons/exit.png')
+    //for popup background
+    this.load.image('background', 'assets/backgrounds/firstscene/black.jpg')
 
   } //end preload function
 create() {
@@ -184,6 +186,7 @@ create() {
 
 
     // ------------------------------------------- MAIN SCREEN POPUPS -------------------------------------------------
+    
     //recipe help button
     const recipeBtn = this.add.image(125,535, "recipe");
     recipeBtn.scale = .125;
@@ -194,6 +197,10 @@ create() {
     helpBtn.scale = .075
     helpBtn.setInteractive({ useHandCursor: true });
 
+    //background to stop interactivity
+    //const background = this.add.image(0, 0, 'background')
+    //background.setAlpha(.7,.7,.7,.7);
+    
     //for recipe popup
     const recipePaper = this.add.image(275,-10, "list")
     recipePaper.setOrigin(0,0)
@@ -217,6 +224,11 @@ create() {
     spamSteps.setVisible(false)
 
     //for help popup
+    const helpPaper = this.add.image(275,-10, "list")
+    helpPaper.setOrigin(0,0)
+    helpPaper.scale = .85
+    helpPaper.setVisible(false)
+
     const exitHelpBtn = this.add.image(725,70, "exit")
     exitHelpBtn.scale = .06
     exitHelpBtn.setInteractive({ useHandCursor: true });
@@ -239,14 +251,28 @@ create() {
       spamTitle.setVisible(true)
       spamSteps.setVisible(true)
 
+      helpPaper.setVisible(false)
+      exitHelpBtn.setVisible(false);
+      helpText.setVisible(false);
+      directions.setVisible(false);
+
+
+      this.physics.pause();
+
     });
+    
 
     //on help button pushed
     helpBtn.on('pointerdown', (event: MouseEvent) => {
-      recipePaper.setVisible(true)
+      helpPaper.setVisible(true)
       exitHelpBtn.setVisible(true)
       helpText.setVisible(true)
       directions.setVisible(true)
+
+      recipePaper.setVisible(false)
+      exitRecipeBtn.setVisible(false)
+      spamTitle.setVisible(false)
+      spamSteps.setVisible(false)
 
     });
 
@@ -256,13 +282,13 @@ create() {
       exitRecipeBtn.setVisible(false)
       spamTitle.setVisible(false)
       spamSteps.setVisible(false)
-      directions.setVisible(true)
+      //directions.setVisible(false)
 
     });
 
     //on exit help button pushed
     exitHelpBtn.on('pointerdown', (event: MouseEvent) => {
-      recipePaper.setVisible(false)
+      helpPaper.setVisible(false)
       exitHelpBtn.setVisible(false)
       helpText.setVisible(false)
 
