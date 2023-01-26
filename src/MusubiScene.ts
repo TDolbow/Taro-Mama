@@ -15,6 +15,9 @@ export default class MusubiScene extends Phaser.Scene {
     private poptext : Phaser.GameObjects.Text | undefined;
     private arrow : Phaser.GameObjects.Image | undefined;
 
+    //sounds
+    private sceneCompletion : Phaser.Sound.BaseSound | undefined;
+
   //FOR RECIPE POPUP
   recipeBtn?: Phaser.GameObjects.Image;
  
@@ -52,6 +55,16 @@ export default class MusubiScene extends Phaser.Scene {
     const scaledbackground = this.add.image(400, 300, "brick");
     scaledbackground.displayWidth = Number(main.config.width);
     scaledbackground.displayHeight = Number(main.config.height);
+    const MainTitle = this.add.text(20,20,"Level 1: Combine The Ingredients",{
+      fontSize: '58px', fontStyle: 'bold',color:'0xff0000'
+    });
+
+    //title
+    MainTitle.scale=0.65;
+    MainTitle.setVisible(true)
+
+    //bottom bar
+    this.add.rectangle(400, 550, 800, 100, 0xffffff);
 
     //Recipe Not Finished
     this.recipeFinished = false;
@@ -60,28 +73,32 @@ export default class MusubiScene extends Phaser.Scene {
     const click_sound = this.sound.add("clicksound", {
       volume: .3
     })
+    const sceneCompletion_sound = this.sound.add("sceneCompletion", {
+      volume: .6
+    })
+    this.sceneCompletion = sceneCompletion_sound;
 
     //table
-    const scaledTable = this.physics.add.image(400, 550, 'table');
+    const scaledTable = this.physics.add.image(400, 460, 'table');
     scaledTable.displayWidth = Number(700);
     scaledTable.scaleY = scaledTable.scaleX;
     
     //rice
-    const scaledRice = this.physics.add.image(this.scale.width / 4, this.scale.height / 1.2, "rice").setInteractive();
+    const scaledRice = this.physics.add.image(this.scale.width / 4, 440, "rice").setInteractive();
     scaledRice.displayWidth = Number(main.config.width) * .2;
     scaledRice.scaleY = scaledRice.scaleX;
     this.rice = scaledRice;
     this.input.setDraggable(this.rice);
 
     //seaweed
-    const scaledSeaweed = this.physics.add.image(this.scale.width / 2, this.scale.height / 1.2, "seaweed").setInteractive();
+    const scaledSeaweed = this.physics.add.image(this.scale.width / 2, 430, "seaweed").setInteractive();
     scaledSeaweed.displayWidth = Number(main.config.width) * .12;
     scaledSeaweed.scaleY = scaledSeaweed.scaleX;
     this.seaweed = scaledSeaweed;
     this.input.setDraggable(this.seaweed);
 
     //spam
-    const scaledSpam = this.physics.add.image(this.scale.width / 1.3, this.scale.height / 1.2, "spam").setInteractive();
+    const scaledSpam = this.physics.add.image(this.scale.width / 1.3, 430, "spam").setInteractive();
     scaledSpam.displayWidth = Number(main.config.width) * .15;
     scaledSpam.scaleY = scaledSpam.scaleX;
     this.spam = scaledSpam;
@@ -104,11 +121,8 @@ export default class MusubiScene extends Phaser.Scene {
     
 
     //back button
-    const back = this.add.text(10, 500, "Quit", {
-      fontSize: '58px'
-      });
-    back.setTint(0xFF0000);
-    back.displayWidth = Number(main.config.width) * .1;
+    const back = this.add.image(45, 555, "exit");
+    back.displayWidth = Number(main.config.width) * .08;
     back.scaleY = back.scaleX;
     back.setInteractive({ useHandCursor: true });
     back.on('pointerdown', () => this.clickBack());
@@ -132,12 +146,12 @@ export default class MusubiScene extends Phaser.Scene {
 
     // ------------------------------------------- POPUPS -------------------------------------------------    
     //recipe help button
-    const recipeBtn = this.add.image(125,535, "recipe");
+    const recipeBtn = this.add.image(125,555, "recipe");
     recipeBtn.scale = .125;
     recipeBtn.setInteractive({ useHandCursor: true });
 
     //direction help button
-    const helpBtn = this.add.image(200, 540, "help")
+    const helpBtn = this.add.image(200, 560, "help")
     helpBtn.scale = .075
     helpBtn.setInteractive({ useHandCursor: true });
     
@@ -168,7 +182,7 @@ export default class MusubiScene extends Phaser.Scene {
     //for help popup
     const helpPaper = this.add.image(275,-10, "list")
     helpPaper.setOrigin(0,0)
-    helpPaper.scale = .85
+    helpPaper.scale = 1.2
     helpPaper.setVisible(false)
 
     const exitHelpBtn = this.add.image(725,70, "exit")
@@ -179,9 +193,11 @@ export default class MusubiScene extends Phaser.Scene {
     const helpText = this.add.text(525, 70,"Directions")
     helpText.setVisible(false)
 
+
     const directions = this.add.text(430, 100, 
       `Level 1: Ingredient Matching \n\n Drag and drop the ingredients on the screen to combine them to make spam musubi. \n \n Reference the recipe in the recipe book for help. \n\n The ingredients only need to be put together, not prepared.
       `, {wordWrap: {width: 325}, align: 'center'});
+    
       directions.setVisible(false);
 
     //on recipe button pushed
@@ -194,6 +210,10 @@ export default class MusubiScene extends Phaser.Scene {
       exitHelpBtn.setVisible(false);
       helpText.setVisible(false);
       directions.setVisible(false);
+      this.spam?.disableInteractive()
+      this.rice?.disableInteractive()
+      this.seaweed?.disableInteractive()
+
     });
     
     //on help button pushed
@@ -206,6 +226,9 @@ export default class MusubiScene extends Phaser.Scene {
       exitRecipeBtn.setVisible(false)
       spamTitle.setVisible(false)
       spamSteps.setVisible(false)
+      this.spam?.disableInteractive()
+      this.rice?.disableInteractive()
+      this.seaweed?.disableInteractive()
     });
 
     //on exit recipe button pushed
@@ -215,6 +238,9 @@ export default class MusubiScene extends Phaser.Scene {
       spamTitle.setVisible(false)
       spamSteps.setVisible(false)
       directions.setVisible(false)
+      this.spam?.setInteractive();
+      this.seaweed?.setInteractive();
+      this.rice?.setInteractive();
     });
 
     //on exit help button pushed
@@ -223,6 +249,9 @@ export default class MusubiScene extends Phaser.Scene {
       exitHelpBtn.setVisible(false)
       helpText.setVisible(false)
       directions.setVisible(false)
+      this.spam?.setInteractive();
+      this.seaweed?.setInteractive();
+      this.rice?.setInteractive();
     });
 
     // ------------------------------------------- END POPUPS -------------------------------------------------
@@ -231,7 +260,11 @@ export default class MusubiScene extends Phaser.Scene {
   clickBack() {
     this.scene.switch("recipe-scene");
   }
-  clickNext() {
+  clickNext() {e2
+
+    this.scene.restart(this)
+    this.sceneCompletion?.play();
+
     this.scene.switch("musubi-scene-2");
   }
   update() {
@@ -240,16 +273,16 @@ export default class MusubiScene extends Phaser.Scene {
     if(!this.seaweed) { return }
     if(!this.spam) { return }
   
-    //mixing ingredients part
-    if ((this.rice.body.position.y >= 375) && 
-      (this.seaweed.body.position.y >= 375) && 
-      (this.spam.body.position.y >= 375) && 
+    //mixing ingredients part //375
+    if ((this.rice.body.position.y >= 300) && 
+      (this.seaweed.body.position.y >= 300) && 
+      (this.spam.body.position.y >= 300) && 
       (Phaser.Math.Difference(this.rice.body.position.x, this.seaweed.body.position.x) <= 150) && 
       (Phaser.Math.Difference(this.rice.body.position.x, this.spam.body.position.x) <= 150) && this.recipeFinished == false)
       {
         const soundEffect = this.sound.add("completedRecipe")
         soundEffect.play();
-        const scaledMusubi = this.physics.add.image(400, 530, "musubi");
+        const scaledMusubi = this.physics.add.image(400, 450, "musubi");
         scaledMusubi.displayWidth = Number(main.config.width) * .2;
         scaledMusubi.scaleY = scaledMusubi.scaleX;
         this.musubi = scaledMusubi;
