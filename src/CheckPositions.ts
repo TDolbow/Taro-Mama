@@ -1,15 +1,12 @@
 import Phaser from 'phaser';
 
 export function CheckPositions(name_order: Phaser.GameObjects.GameObject[]){
-    
-    var name_order_copy = name_order;
+    const name_order_copy = name_order;
     console.log("Before sort - name_order");
     console.log(name_order);
 
-
-   
     //Sort elements by their y value.
-    var sortedByHeight:Phaser.GameObjects.GameObject[] = name_order_copy.slice(0).sort((n1,n2) =>{
+    const sortedByHeight:Phaser.GameObjects.GameObject[] = name_order_copy.slice(0).sort((n1,n2) =>{
         if(n1.y > n2.y){
             return(1);
         }
@@ -21,7 +18,6 @@ export function CheckPositions(name_order: Phaser.GameObjects.GameObject[]){
     )
 
     //Starting comparison
-    
     console.log("After sort - name_order");
     console.log(name_order);
     console.log("After sort -- sortedByHeight");
@@ -37,9 +33,7 @@ export function CheckPositions(name_order: Phaser.GameObjects.GameObject[]){
         }
 
     }
-    
     return (String('All instructions are in the correct location'));
-
 
     /*
     //Make sure the instructions are in the correct order here. 

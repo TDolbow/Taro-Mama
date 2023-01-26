@@ -149,6 +149,7 @@ export default class MusubiScene extends Phaser.Scene {
 
     }
     clickNext() {
+        this.scene.restart(this)
         this.scene.switch("musubi-scene-3");
       }
     clickCheckOrder(){

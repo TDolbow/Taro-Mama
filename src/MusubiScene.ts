@@ -101,27 +101,6 @@ export default class MusubiScene extends Phaser.Scene {
       gameObject.clearTint();
     });
 
-    //Ingredient List
-    const scaledRecipe = this.physics.add.image(630,225, 'list')
-    scaledRecipe.displayWidth = Number(main.config.width) * 0.6;
-    scaledRecipe.scaleY = scaledRecipe.scaleX
-    
-    //recipe text
-    const title = this.add.text(525, 35, "SPAM MUSUBI", { color: '0xFF0000', fontSize: '50px'})
-    title.scale = 0.7;
-    this.add.text(500, 100,"step 1:",  { color: '0xFF0000', fontStyle: 'bold'});
-    this.add.text(530, 120, "slice spam", { color: '0xFF0000', fontStyle: 'bold'});
-    this.add.text(500, 140,"step 2:",  { color: '0xFF0000', fontStyle: 'bold'});
-    this.add.text(530, 160, "cook spam", { color: '0xFF0000', fontStyle: 'bold'});  
-    this.add.text(500, 180,"step 3:",  { color: '0xFF0000', fontStyle: 'bold'});
-    this.add.text(530, 200, "add rice to musubi mold \nand press down", { color: '0xFF0000', fontStyle: 'bold'}); 
-    this.add.text(500, 240,"step 4:",  { color: '0xFF0000', fontStyle: 'bold'});
-    this.add.text(530, 260, "remove the rice from \nthe mold", { color: '0xFF0000', fontStyle: 'bold'});
-    this.add.text(500, 300,"step 5:",  { color: '0xFF0000', fontStyle: 'bold'});
-    this.add.text(530, 320, "add a slice of cooked \nspam to the top of the rice", { color: '0xFF0000', fontStyle: 'bold'});
-    this.add.text(500, 360,"step 6:",  { color: '0xFF0000', fontStyle: 'bold'});
-    this.add.text(530, 380, "wrap the nori around \nthe spam and rice", { color: '0xFF0000', fontStyle: 'bold'});
-
     //back button
     const back = this.add.text(10, 500, "Quit", {
       fontSize: '58px'
@@ -177,11 +156,13 @@ export default class MusubiScene extends Phaser.Scene {
 
     const spamTitle = this.add.text(475,70,'Spam Musubi Recipe')
     const spamSteps = this.add.text(425, 100, 
-      `Step 1: Slice spam into 8-10 slices. Mix oyster sauce, soy sauce, and sugar until sugar is dissolved and marinate with the SPAM. \n
-      Step 2: Drain off marinade and fry SPAM on each side over medium heat until slightly crispy or until desired doneness. \n
-      Step 3: Place a strip of nori on a cutting board or clean surface (shiny side down). Place your Musubi mold across the middle of the nori. Add Sushi Rice to the mold. \n
-      Step 4: Next, remove the mold from the rice. Now you will have a nice little block of rice right on the nori. Add some of the cooked SPAM to the top. Wrap up one side of the nori and stick it to the top of the SPAM, then wrap up the other side.
-      `, {wordWrap: {width: 325}})
+      `Step 1: Slice spam into 8-10 slices. \n
+      Step 2: Fry SPAM on each side over medium heat until slightly crispy or until desired doneness. \n
+      Step 3: Place a strip of nori on a cutting board. Place your Musubi mold across the middle of the nori. Add Sushi Rice to the mold and press down. \n
+      Step 4: Remove the mold from the rice. 
+      Step 5: Add some of the cooked SPAM to the top. 
+      Step 6: Wrap up one side of the nori and stick it to the top of the SPAM, then wrap up the other side.
+      `, {wordWrap: {width: 325}, align: 'center'})
     
     spamTitle.setVisible(false)
     spamSteps.setVisible(false)
@@ -197,13 +178,13 @@ export default class MusubiScene extends Phaser.Scene {
     exitHelpBtn.setInteractive({ useHandCursor: true });
     exitHelpBtn.setVisible(false)
 
-    const helpText = this.add.text(475,100,"Directions")
+    const helpText = this.add.text(500,100,"Directions")
     helpText.setVisible(false)
 
-    const directions = this.add.text(425, 100, 
-      `Level 1: Ingredient Matching /n
-      Drag and drop the ingredients on the screen to combine them to make spam musubi. Reference the recipe in the recipe book for help. 
+    const directions = this.add.text(425, 120, 
+      `Level 1: Ingredient Matching Drag and drop the ingredients on the screen to combine them to make spam musubi. Reference the recipe in the recipe book for help. 
       `, {wordWrap: {width: 325}});
+
       directions.setVisible(false);
 
     //on recipe button pushed
@@ -216,7 +197,10 @@ export default class MusubiScene extends Phaser.Scene {
       exitHelpBtn.setVisible(false);
       helpText.setVisible(false);
       directions.setVisible(false);
+
+      
       this.physics.pause();
+
     });
     
     //on help button pushed
@@ -237,7 +221,7 @@ export default class MusubiScene extends Phaser.Scene {
       exitRecipeBtn.setVisible(false)
       spamTitle.setVisible(false)
       spamSteps.setVisible(false)
-      //directions.setVisible(false)
+      directions.setVisible(false)
     });
 
     //on exit help button pushed
@@ -245,6 +229,8 @@ export default class MusubiScene extends Phaser.Scene {
       helpPaper.setVisible(false)
       exitHelpBtn.setVisible(false)
       helpText.setVisible(false)
+      directions.setVisible(false)
+      directions.setVisible(false)
     });
 
     // ------------------------------------------- END POPUPS -------------------------------------------------
@@ -254,6 +240,7 @@ export default class MusubiScene extends Phaser.Scene {
     this.scene.switch("recipe-scene");
   }
   clickNext() {
+    this.scene.restart(this)
     this.scene.switch("musubi-scene-2");
   }
   update() {
