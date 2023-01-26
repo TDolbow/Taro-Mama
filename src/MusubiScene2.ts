@@ -23,8 +23,10 @@ export default class MusubiScene extends Phaser.Scene {
     //random placement parameters
     private randomxMin : integer;
     private randomxMax : integer;
+   
     private randomyMin : integer;
     private randomyMax : integer;
+    private yIncrement : integer;
 
 
 
@@ -39,6 +41,7 @@ export default class MusubiScene extends Phaser.Scene {
         this.randomxMax = 400;
         this.randomyMin = 50;
         this.randomyMax = 400;
+        this.yIncrement = 20;
 	}
 
     preload() {
@@ -64,7 +67,7 @@ export default class MusubiScene extends Phaser.Scene {
         scaledTable.scaleY = scaledTable.scaleX
 
         //recipe directions 
-        const scaledStep1 = this.add.text(50, Phaser.Math.Between(this.randomyMin,this.randomyMax), "Slice the spam", {
+        const scaledStep1 = this.add.text(50, (this.randomyMin + (Phaser.Math.Between(0,Math.floor((this.randomyMax-this.randomyMin)/this.yIncrement))*this.yIncrement)), "Slice the spam", {
             color: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
         scaledStep1.scale = 0.5;
@@ -72,7 +75,7 @@ export default class MusubiScene extends Phaser.Scene {
         this.input.setDraggable(this.step1);
         this.step1.name = 'step1';
         
-        const scaledStep2 = this.add.text(50, Phaser.Math.Between(this.randomyMin,this.randomyMax), "Cook the spam", {
+        const scaledStep2 = this.add.text(50, (this.randomyMin + (Phaser.Math.Between(0,Math.floor((this.randomyMax-this.randomyMin)/this.yIncrement))*this.yIncrement)), "Cook the spam", {
             color: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
         scaledStep2.scale = 0.5;
@@ -80,7 +83,7 @@ export default class MusubiScene extends Phaser.Scene {
         this.input.setDraggable(this.step2);
         this.step2.name = 'step2';
         
-        const scaledStep3 = this.add.text(50, Phaser.Math.Between(this.randomyMin,this.randomyMax), "make musubi mold with rice", {
+        const scaledStep3 = this.add.text(50, (this.randomyMin + (Phaser.Math.Between(0,Math.floor((this.randomyMax-this.randomyMin)/this.yIncrement))*this.yIncrement)), "make musubi mold with rice", {
             color: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
         scaledStep3.scale = 0.5;
@@ -88,7 +91,7 @@ export default class MusubiScene extends Phaser.Scene {
         this.input.setDraggable(this.step3);
         this.step3.name = 'step3';
         
-        const scaledStep4 = this.add.text(50, Phaser.Math.Between(this.randomyMin,this.randomyMax), "remove extra rice from musubi mold", {
+        const scaledStep4 = this.add.text(50, (this.randomyMin + (Phaser.Math.Between(0,Math.floor((this.randomyMax-this.randomyMin)/this.yIncrement))*this.yIncrement)), "remove extra rice from musubi mold", {
             color: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
         scaledStep4.scale = 0.5;
@@ -96,7 +99,7 @@ export default class MusubiScene extends Phaser.Scene {
         this.input.setDraggable(this.step4);
         this.step4.name = 'step4';
         
-        const scaledStep5 = this.add.text(50, Phaser.Math.Between(this.randomyMin,this.randomyMax), "add cooked spam to rice mold", {
+        const scaledStep5 = this.add.text(50, (this.randomyMin + (Phaser.Math.Between(0,Math.floor((this.randomyMax-this.randomyMin)/this.yIncrement))*this.yIncrement)), "add cooked spam to rice mold", {
             color: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
         scaledStep5.scale = 0.5;
@@ -104,7 +107,7 @@ export default class MusubiScene extends Phaser.Scene {
         this.input.setDraggable(this.step5);
         this.step5.name = 'step5';
         
-        const scaledStep6 = this.add.text(50, Phaser.Math.Between(this.randomyMin,this.randomyMax), "wrap spam & rice in nori", {
+        const scaledStep6 = this.add.text(50, (this.randomyMin + (Phaser.Math.Between(0,Math.floor((this.randomyMax-this.randomyMin)/this.yIncrement))*this.yIncrement)), "wrap spam & rice in nori", {
             color: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
         scaledStep6.scale = 0.5;
