@@ -47,48 +47,48 @@ export default class MusubiScene extends Phaser.Scene {
         scaledTable.scaleY = scaledTable.scaleX
 
         //recipe directions
-        const scaledStep1 = this.add.text(50, 50, "step1;", {
-            color: '0xff0000', fontSize: '58px', fontStyle: 'bold'
+        const scaledStep1 = this.add.text(50, 50, "Slice the spam", {
+            color: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
         scaledStep1.scale = 0.5;
         this.step1 = scaledStep1;
         this.input.setDraggable(this.step1);
         this.step1.name = 'step1';
         
-        const scaledStep2 = this.add.text(50, 90, "step2;", {
-            color: '0xff0000', fontSize: '58px', fontStyle: 'bold'
+        const scaledStep2 = this.add.text(50, 90, "Cook the spam", {
+            color: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
         scaledStep2.scale = 0.5;
         this.step2 = scaledStep2;
         this.input.setDraggable(this.step2);
         this.step2.name = 'step2';
         
-        const scaledStep3 = this.add.text(50, 130, "step3;", {
-            color: '0xff0000', fontSize: '58px', fontStyle: 'bold'
+        const scaledStep3 = this.add.text(50, 130, "make musubi mold with rice", {
+            color: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
         scaledStep3.scale = 0.5;
         this.step3 = scaledStep3;
         this.input.setDraggable(this.step3);
         this.step3.name = 'step3';
         
-        const scaledStep4 = this.add.text(50, 170, "step4;", {
-            color: '0xff0000', fontSize: '58px', fontStyle: 'bold'
+        const scaledStep4 = this.add.text(50, 170, "remove extra rice from musubi mold", {
+            color: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
         scaledStep4.scale = 0.5;
         this.step4 = scaledStep4;
         this.input.setDraggable(this.step4);
         this.step4.name = 'step4';
         
-        const scaledStep5 = this.add.text(50, 210, "step5;", {
-            color: '0xff0000', fontSize: '58px', fontStyle: 'bold'
+        const scaledStep5 = this.add.text(50, 210, "add cooked spam to rice mold", {
+            color: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
         scaledStep5.scale = 0.5;
         this.step5 = scaledStep5;
         this.input.setDraggable(this.step5);
         this.step5.name = 'step5';
         
-        const scaledStep6 = this.add.text(50, 250, "step6;", {
-            color: '0xff0000', fontSize: '58px', fontStyle: 'bold'
+        const scaledStep6 = this.add.text(50, 250, "wrap spam & rice in nori", {
+            color: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
         scaledStep6.scale = 0.5;
         this.step6 = scaledStep6;
