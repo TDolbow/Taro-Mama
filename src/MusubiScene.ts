@@ -101,6 +101,8 @@ export default class MusubiScene extends Phaser.Scene {
       gameObject.clearTint();
     });
 
+    
+
     //back button
     const back = this.add.text(10, 500, "Quit", {
       fontSize: '58px'
@@ -128,7 +130,7 @@ export default class MusubiScene extends Phaser.Scene {
     this.arrow.on('pointerdown', () => this.clickNext());
     this.arrow.setVisible(false);
 
-    // ------------------------------------------- MAIN SCREEN POPUPS -------------------------------------------------    
+    // ------------------------------------------- POPUPS -------------------------------------------------    
     //recipe help button
     const recipeBtn = this.add.image(125,535, "recipe");
     recipeBtn.scale = .125;
@@ -138,10 +140,6 @@ export default class MusubiScene extends Phaser.Scene {
     const helpBtn = this.add.image(200, 540, "help")
     helpBtn.scale = .075
     helpBtn.setInteractive({ useHandCursor: true });
-
-    //background to stop interactivity
-    //const background = this.add.image(0, 0, 'background')
-    //background.setAlpha(.7,.7,.7,.7);
     
     //for recipe popup
     const recipePaper = this.add.image(275,-10, "list")
@@ -154,14 +152,14 @@ export default class MusubiScene extends Phaser.Scene {
     exitRecipeBtn.setInteractive({ useHandCursor: true });
     exitRecipeBtn.setVisible(false)
 
-    const spamTitle = this.add.text(475,70,'Spam Musubi Recipe')
+    const spamTitle = this.add.text(490,70,'Spam Musubi Recipe')
     const spamSteps = this.add.text(425, 100, 
       `Step 1: Slice spam into 8-10 slices. \n
       Step 2: Fry SPAM on each side over medium heat until slightly crispy or until desired doneness. \n
       Step 3: Place a strip of nori on a cutting board. Place your Musubi mold across the middle of the nori. Add Sushi Rice to the mold and press down. \n
-      Step 4: Remove the mold from the rice. 
-      Step 5: Add some of the cooked SPAM to the top. 
-      Step 6: Wrap up one side of the nori and stick it to the top of the SPAM, then wrap up the other side.
+      Step 4: Remove the mold from the rice. \n
+      Step 5: Add some of the cooked SPAM to the top. \n
+      Step 6: Wrap up one side of the nori and stick it to the top of the SPAM, then wrap up the other side.\n
       `, {wordWrap: {width: 325}, align: 'center'})
     
     spamTitle.setVisible(false)
@@ -178,13 +176,12 @@ export default class MusubiScene extends Phaser.Scene {
     exitHelpBtn.setInteractive({ useHandCursor: true });
     exitHelpBtn.setVisible(false)
 
-    const helpText = this.add.text(500,100,"Directions")
+    const helpText = this.add.text(525, 70,"Directions")
     helpText.setVisible(false)
 
-    const directions = this.add.text(425, 120, 
-      `Level 1: Ingredient Matching Drag and drop the ingredients on the screen to combine them to make spam musubi. Reference the recipe in the recipe book for help. 
-      `, {wordWrap: {width: 325}});
-
+    const directions = this.add.text(430, 100, 
+      `Level 1: Ingredient Matching \n\n Drag and drop the ingredients on the screen to combine them to make spam musubi. \n \n Reference the recipe in the recipe book for help. \n\n The ingredients only need to be put together, not prepared.
+      `, {wordWrap: {width: 325}, align: 'center'});
       directions.setVisible(false);
 
     //on recipe button pushed
@@ -197,10 +194,6 @@ export default class MusubiScene extends Phaser.Scene {
       exitHelpBtn.setVisible(false);
       helpText.setVisible(false);
       directions.setVisible(false);
-
-      
-      this.physics.pause();
-
     });
     
     //on help button pushed
@@ -230,7 +223,6 @@ export default class MusubiScene extends Phaser.Scene {
       exitHelpBtn.setVisible(false)
       helpText.setVisible(false)
       directions.setVisible(false)
-      directions.setVisible(false)
     });
 
     // ------------------------------------------- END POPUPS -------------------------------------------------
@@ -240,7 +232,6 @@ export default class MusubiScene extends Phaser.Scene {
     this.scene.switch("recipe-scene");
   }
   clickNext() {
-    this.scene.restart(this)
     this.scene.switch("musubi-scene-2");
   }
   update() {
