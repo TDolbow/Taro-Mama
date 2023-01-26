@@ -6,6 +6,12 @@ export default class MusubiScene extends Phaser.Scene {
     //solution text
     private feedback_text : Phaser.GameObjects.Text | undefined;
 
+    //pop up objects
+    private rect : Phaser.GameObjects.Rectangle | undefined;
+    private popback : Phaser.GameObjects.Image | undefined;
+    private poptext : Phaser.GameObjects.Text | undefined;
+    private arrow : Phaser.GameObjects.Image | undefined;
+
     //pseudo code
     private step1 : Phaser.GameObjects.GameObject | undefined;
     private step2 : Phaser.GameObjects.GameObject | undefined;
@@ -23,6 +29,9 @@ export default class MusubiScene extends Phaser.Scene {
         this.load.image('table', 'assets/backgrounds/firstscene/table.png');
         this.load.image("brick", "assets/backgrounds/firstscene/brickBackground.jpg");
         this.load.image("check", "assets/buttons/checkmark.png");
+        //win pop-up
+        this.load.image("utensilpop", "assets/backgrounds/firstscene/utensilBackground.jpg");
+        this.load.image("arrow","assets/buttons/rightarrow.png");
         //musubi
         this.load.image("musubi", "assets/ingredients/musubi.png");
     }
@@ -120,7 +129,28 @@ export default class MusubiScene extends Phaser.Scene {
         checkDirections.scaleY = checkDirections.scaleX;
         checkDirections.setInteractive({ useHandCursor: true });
         checkDirections.on('pointerdown', () => this.clickCheckOrder());
+
+        //win pop up 
+        this.rect = this.add.rectangle(400, 300, 410, 310, 0x000000);
+        this.rect.setVisible(false);
+        this.popback = this.add.image(400, 300, "utensilpop");
+        this.popback.displayWidth = 400;
+        this.popback.displayHeight = 300;
+        this.popback.setVisible(false);
+        this.poptext = this.add.text(260, 150, "CORRECT!", {
+            fontSize: '58px', fontStyle: 'bold', color: '0x000000'
+        });
+        this.poptext.setVisible(false);
+        this.arrow = this.add.image(400, 350, 'arrow');
+        this.arrow.scale = 0.2;
+        this.arrow.setInteractive({ useHandCursor: true });
+        this.arrow.on('pointerdown', () => this.clickNext());
+        this.arrow.setVisible(false);
+
     }
+    clickNext() {
+        this.scene.switch("musubi-scene-3");
+      }
     clickCheckOrder(){
         const order: Array<Phaser.GameObjects.GameObject> = [
                     <Phaser.GameObjects.GameObject>this.step1,
@@ -129,7 +159,21 @@ export default class MusubiScene extends Phaser.Scene {
                     <Phaser.GameObjects.GameObject>this.step4,
                     <Phaser.GameObjects.GameObject>this.step5,
                     <Phaser.GameObjects.GameObject>this.step6];
-                    const feedbackString = String(CheckPositions(order));
-                    this.feedback_text?.setText(<string>feedbackString);
-      }
+        const feedbackString = String(CheckPositions(order));
+        this.feedback_text?.setText(<string>feedbackString);
+        if(String(CheckPositions(order)) == 'All instructions are in the correct location') {
+            this.rect?.setVisible(true);
+            this.popback?.setVisible(true);
+            this.poptext?.setVisible(true);
+            this.arrow?.setVisible(true);
+        } else {
+            this.rect?.setVisible(false);
+            this.popback?.setVisible(false);
+            this.poptext?.setVisible(false);
+            this.arrow?.setVisible(false);
+        }
+    }
+    update() {
+        //
+    }
 }
