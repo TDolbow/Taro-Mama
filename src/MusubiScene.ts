@@ -9,6 +9,11 @@ export default class MusubiScene extends Phaser.Scene {
     private musubi: Phaser.GameObjects.GameObject | undefined;
     private recipeFinished ?: boolean;
 
+
+    private feedback_text : Phaser.GameObjects.Text | undefined;
+   
+
+
     //pop up objects
     private rect : Phaser.GameObjects.Rectangle | undefined;
     private popback : Phaser.GameObjects.Image | undefined;
@@ -18,6 +23,7 @@ export default class MusubiScene extends Phaser.Scene {
   //FOR RECIPE POPUP
   recipeBtn?: Phaser.GameObjects.Image;
  
+
 	constructor() {
 		super('musubi-scene')
 	}
@@ -26,9 +32,12 @@ export default class MusubiScene extends Phaser.Scene {
     this.load.image("rice", "assets/ingredients/rice.png");
     this.load.image("seaweed", "assets/ingredients/seaweed.png");
     this.load.image("spam", "assets/ingredients/spam.png");
+
+
     this.load.image("musubi", "assets/ingredients/musubi.png");
 
     //background
+
     this.load.image('list', 'assets/backgrounds/firstscene/ingredientList.png');
     this.load.image('table', 'assets/backgrounds/firstscene/table.png');
     this.load.image("brick", "assets/backgrounds/firstscene/brickBackground.jpg");
@@ -37,9 +46,18 @@ export default class MusubiScene extends Phaser.Scene {
     this.load.image("utensilpop", "assets/backgrounds/firstscene/utensilBackground.jpg");
     this.load.image("arrow","assets/buttons/rightarrow.png");
 
+    //for recipe help button
+    this.load.image('recipe', 'assets/buttons/recipeBook.png')
+    //for direction help button 
+    this.load.image('help', 'assets/buttons/help.png')
     //for recipe popup
-    this.load.image("recipe", "assets/buttons/recipeBook.jpg")
-  }
+
+    this.load.image('exit', 'assets/buttons/exit.png')
+    //for popup background
+    this.load.image('background', 'assets/backgrounds/firstscene/black.jpg')
+
+  } //end preload function
+
   create() {
     //background 
     const scaledbackground = this.add.image(400, 300, "brick");
@@ -93,6 +111,9 @@ export default class MusubiScene extends Phaser.Scene {
     this.input.on('dragend', function (_pointer: any, gameObject: { clearTint: () => void; }) {
       gameObject.clearTint();
     });
+
+    
+
     //Ingredient List
     const scaledRecipe = this.physics.add.image(630,225, 'list')
     scaledRecipe.displayWidth = Number(main.config.width) * 0.6;
@@ -125,6 +146,7 @@ export default class MusubiScene extends Phaser.Scene {
       this.scene.start('spam-scene');
     });
  */
+
     //back button
     const back = this.add.text(10, 500, "Quit", {
       fontSize: '58px'
@@ -145,6 +167,135 @@ export default class MusubiScene extends Phaser.Scene {
     this.poptext = this.add.text(320, 150, "NICE!", {
         fontSize: '58px', fontStyle: 'bold', color: '0x000000'
     });
+
+    feedback_text.scale=0.5;
+    this.feedback_text = feedback_text;
+
+    const checkCode = this.add.text(10, 450, "Check Code", {
+      fontSize: '58px'
+      });
+      checkCode.setTint(0xFF0000);
+      checkCode.displayWidth = Number(main.config.width) * .25;
+      checkCode.scaleY = back.scaleX;
+      checkCode.setInteractive({ useHandCursor: true });
+      checkCode.on('pointerdown', () => this.clickCheckOrder());
+
+
+    // ------------------------------------------- MAIN SCREEN POPUPS -------------------------------------------------
+    
+    //recipe help button
+    const recipeBtn = this.add.image(125,535, "recipe");
+    recipeBtn.scale = .125;
+    recipeBtn.setInteractive({ useHandCursor: true });
+
+    //direction help button
+    const helpBtn = this.add.image(200, 540, "help")
+    helpBtn.scale = .075
+    helpBtn.setInteractive({ useHandCursor: true });
+
+    //background to stop interactivity
+    //const background = this.add.image(0, 0, 'background')
+    //background.setAlpha(.7,.7,.7,.7);
+    
+    //for recipe popup
+    const recipePaper = this.add.image(275,-10, "list")
+    recipePaper.setOrigin(0,0)
+    recipePaper.scale = .85
+    recipePaper.setVisible(false)
+
+    const exitRecipeBtn = this.add.image(725,70, "exit")
+    exitRecipeBtn.scale = .06
+    exitRecipeBtn.setInteractive({ useHandCursor: true });
+    exitRecipeBtn.setVisible(false)
+
+    const spamTitle = this.add.text(475,70,'Spam Musubi Recipe')
+    const spamSteps = this.add.text(425, 100, 
+      `Step 1: Slice spam into 8-10 slices. Mix oyster sauce, soy sauce, and sugar until sugar is dissolved and marinate with the SPAM. \n
+      Step 2: Drain off marinade and fry SPAM on each side over medium heat until slightly crispy or until desired doneness. \n
+      Step 3: Place a strip of nori on a cutting board or clean surface (shiny side down). Place your Musubi mold across the middle of the nori. Add Sushi Rice to the mold. \n
+      Step 4: Next, remove the mold from the rice. Now you will have a nice little block of rice right on the nori. Add some of the cooked SPAM to the top. Wrap up one side of the nori and stick it to the top of the SPAM, then wrap up the other side.
+      `, {wordWrap: {width: 325}})
+    
+    spamTitle.setVisible(false)
+    spamSteps.setVisible(false)
+
+    //for help popup
+    const helpPaper = this.add.image(275,-10, "list")
+    helpPaper.setOrigin(0,0)
+    helpPaper.scale = .85
+    helpPaper.setVisible(false)
+
+    const exitHelpBtn = this.add.image(725,70, "exit")
+    exitHelpBtn.scale = .06
+    exitHelpBtn.setInteractive({ useHandCursor: true });
+    exitHelpBtn.setVisible(false)
+
+    const helpText = this.add.text(475,100,"Directions")
+    helpText.setVisible(false)
+
+    const directions = this.add.text(425, 100, 
+      `
+      Level 1: Ingredient Matching /n
+      Drag and drop the ingredients on the screen to combine them to make spam musubi. Reference the recipe in the recipe book for help. 
+      `, {wordWrap: {width: 325}})
+
+      directions.setVisible(false)
+
+    //on recipe button pushed
+    recipeBtn.on('pointerdown', (event: MouseEvent) => {
+      recipePaper.setVisible(true)
+      exitRecipeBtn.setVisible(true)
+      spamTitle.setVisible(true)
+      spamSteps.setVisible(true)
+
+      helpPaper.setVisible(false)
+      exitHelpBtn.setVisible(false);
+      helpText.setVisible(false);
+      directions.setVisible(false);
+
+
+      this.physics.pause();
+
+    });
+    
+
+    //on help button pushed
+    helpBtn.on('pointerdown', (event: MouseEvent) => {
+      helpPaper.setVisible(true)
+      exitHelpBtn.setVisible(true)
+      helpText.setVisible(true)
+      directions.setVisible(true)
+
+      recipePaper.setVisible(false)
+      exitRecipeBtn.setVisible(false)
+      spamTitle.setVisible(false)
+      spamSteps.setVisible(false)
+
+    });
+
+    //on exit recipe button pushed
+    exitRecipeBtn.on('pointerdown', (event: MouseEvent) => {
+      recipePaper.setVisible(false)
+      exitRecipeBtn.setVisible(false)
+      spamTitle.setVisible(false)
+      spamSteps.setVisible(false)
+      //directions.setVisible(false)
+
+    });
+
+    //on exit help button pushed
+    exitHelpBtn.on('pointerdown', (event: MouseEvent) => {
+      helpPaper.setVisible(false)
+      exitHelpBtn.setVisible(false)
+      helpText.setVisible(false)
+
+    });
+
+    // ------------------------------------------- END POPUPS -------------------------------------------------
+
+  } // end create function
+
+
     this.poptext.setVisible(false);
     this.arrow = this.add.image(400, 350, 'arrow');
     this.arrow.scale = 0.2;
@@ -152,7 +303,7 @@ export default class MusubiScene extends Phaser.Scene {
     this.arrow.on('pointerdown', () => this.clickNext());
     this.arrow.setVisible(false);
   }
-    
+
   clickBack() {
     this.scene.switch("recipe-scene");
   }
