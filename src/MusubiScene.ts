@@ -15,6 +15,9 @@ export default class MusubiScene extends Phaser.Scene {
     private poptext : Phaser.GameObjects.Text | undefined;
     private arrow : Phaser.GameObjects.Image | undefined;
 
+    //sounds
+    private sceneCompletion : Phaser.Sound.BaseSound | undefined;
+
   //FOR RECIPE POPUP
   recipeBtn?: Phaser.GameObjects.Image;
  
@@ -52,6 +55,11 @@ export default class MusubiScene extends Phaser.Scene {
     const scaledbackground = this.add.image(400, 300, "brick");
     scaledbackground.displayWidth = Number(main.config.width);
     scaledbackground.displayHeight = Number(main.config.height);
+    const MainTitle = this.add.text(20,20,"Level 1: Combine The Ingredients",{
+      fontSize: '58px', fontStyle: 'bold',color:'0xff0000'
+    });
+    MainTitle.scale=0.65;
+    MainTitle.setVisible(true)
 
     //Recipe Not Finished
     this.recipeFinished = false;
@@ -60,6 +68,10 @@ export default class MusubiScene extends Phaser.Scene {
     const click_sound = this.sound.add("clicksound", {
       volume: .3
     })
+    const sceneCompletion_sound = this.sound.add("sceneCompletion", {
+      volume: .6
+    })
+    this.sceneCompletion = sceneCompletion_sound;
 
     //table
     const scaledTable = this.physics.add.image(400, 550, 'table');
@@ -248,6 +260,7 @@ export default class MusubiScene extends Phaser.Scene {
   }
   clickNext() {
     this.scene.restart(this)
+    this.sceneCompletion?.play();
     this.scene.switch("musubi-scene-2");
   }
   update() {

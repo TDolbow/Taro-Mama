@@ -15,6 +15,8 @@ export default class TitleScene extends Phaser.Scene {
 		this.load.audio("clicksound", ["assets/sounds/mixkit-select-click-1109.wav"]);
 		this.load.audio("jazz1", ["assets/sounds/mixkit-chill-bro-494.mp3"]);
 		this.load.audio("completedRecipe", ["assets/sounds/mixkit-instant-win-2021.wav"]);
+		this.load.audio("sceneCompletion", ["assets/sounds/mixkit-video-game-treasure-2066.wav"]);
+		this.load.audio("levelCompletion", ["assets/sounds/mixkit-game-level-completed-2059.wav"]);
 
 		//for mute button
 		this.load.image('mute', 'assets/buttons/mute.png')
@@ -30,7 +32,7 @@ export default class TitleScene extends Phaser.Scene {
 			loop: true,
 		})
 		music1.play();
-		
+
 		//kitchen background
 		const scaledKicthen = this.add.image(400, 300, "kitchen"); //1280 800
 		scaledKicthen.displayWidth = Number(main.config.width);
@@ -88,4 +90,5 @@ export default class TitleScene extends Phaser.Scene {
 		clickHow() {
 			this.scene.switch("instr-scene");
 		}
-}
+
+	}

@@ -14,8 +14,8 @@ export default class spamRecipe extends Phaser.Scene {
         this.load.image('list', 'assets/backgrounds/firstscene/ingredientList.png');
     }
     create() {
-        //sounds
-        const click_sound = this.sound.add("clicksound", {
+        this.add.text(200, 300, "spam recipe TBD");;
+        var click_sound = this.sound.add("clicksound", {
             volume: .3
         })
 
@@ -34,9 +34,10 @@ export default class spamRecipe extends Phaser.Scene {
 
         this.back_button = this.add.image(50, 100, "button2").setScale(.1);
         this.back_button.setInteractive({ useHandCursor: true });
-        this.back_button.on('pointerdown',() => {
+            
+        this.back_button.on('pointerdown',(event: MouseEvent) => {
             click_sound.play();
-            this.scene.switch('musubi-scene');
+            this.scene.switch('first-scene');
         });
 
         //recipe text

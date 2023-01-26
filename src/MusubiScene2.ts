@@ -20,6 +20,9 @@ export default class MusubiScene extends Phaser.Scene {
     private step5 : Phaser.GameObjects.GameObject | undefined;
     private step6 : Phaser.GameObjects.GameObject | undefined;
 
+    //sound
+    private sceneCompletion : Phaser.Sound.BaseSound | undefined;
+
     constructor() {
 		super('musubi-scene-2')
 	}
@@ -103,6 +106,10 @@ export default class MusubiScene extends Phaser.Scene {
         const click_sound = this.sound.add("clicksound", {
             volume: .3
         })
+        const sceneCompletion_sound = this.sound.add("sceneCompletion", {
+            volume: .6
+          })
+        this.sceneCompletion = sceneCompletion_sound;
 
         //drag n drop 
         this.input.dragDistanceThreshold = 16;
@@ -150,6 +157,7 @@ export default class MusubiScene extends Phaser.Scene {
     }
     clickNext() {
         this.scene.restart(this)
+        this.sceneCompletion?.play();
         this.scene.switch("musubi-scene-3");
       }
     clickCheckOrder(){
