@@ -181,8 +181,9 @@ export default class MusubiScene extends Phaser.Scene {
     const helpText = this.add.text(500,100,"Directions")
     helpText.setVisible(false)
 
-    const directions = this.add.text(425, 100, 
-      'Level 1: Ingredient Matching /n Drag and drop the ingredients on the screen to combine them to make spam musubi. Reference the recipe in the recipe book for help.', {wordWrap: {width: 325}});
+    const directions = this.add.text(425, 120, 
+      `Level 1: Ingredient Matching Drag and drop the ingredients on the screen to combine them to make spam musubi. Reference the recipe in the recipe book for help. 
+      `, {wordWrap: {width: 325}});
 
       directions.setVisible(false);
 
@@ -228,6 +229,7 @@ export default class MusubiScene extends Phaser.Scene {
       helpPaper.setVisible(false)
       exitHelpBtn.setVisible(false)
       helpText.setVisible(false)
+      directions.setVisible(false)
       directions.setVisible(false)
     });
 
