@@ -27,6 +27,7 @@ export default class MusubiScene extends Phaser.Scene {
     private randomyMin : integer;
     private randomyMax : integer;
     private yIncrement : integer;
+    private possibleYSteps : integer[];
 
 
 
@@ -42,6 +43,8 @@ export default class MusubiScene extends Phaser.Scene {
         this.randomyMin = 50;
         this.randomyMax = 400;
         this.yIncrement = 20;
+        this.possibleYSteps = [140,180,220,260,300,340];
+
 	}
 
     preload() {
@@ -67,53 +70,89 @@ export default class MusubiScene extends Phaser.Scene {
         scaledTable.scaleY = scaledTable.scaleX
 
         //recipe directions 
-        const scaledStep1 = this.add.text(50, (this.randomyMin + (Phaser.Math.Between(0,Math.floor((this.randomyMax-this.randomyMin)/this.yIncrement))*this.yIncrement)), "Slice the spam", {
+
+        var tempStep = Phaser.Math.Between(0,this.possibleYSteps.length-1);
+        console.log(this.possibleYSteps);
+        console.log(this.possibleYSteps[tempStep])
+
+        const scaledStep1 = this.add.text(50, this.possibleYSteps[tempStep], "Slice the spam", {
             color: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
+        this.possibleYSteps.splice(tempStep,1);
         scaledStep1.scale = 0.5;
         this.step1 = scaledStep1;
         this.input.setDraggable(this.step1);
-        this.step1.name = 'step1';
+        this.step1.name = 'Slice the...';
         
-        const scaledStep2 = this.add.text(50, (this.randomyMin + (Phaser.Math.Between(0,Math.floor((this.randomyMax-this.randomyMin)/this.yIncrement))*this.yIncrement)), "Cook the spam", {
+        var tempStep = Phaser.Math.Between(0,this.possibleYSteps.length-1);
+        
+        console.log(this.possibleYSteps);
+        console.log(this.possibleYSteps[tempStep])
+
+        const scaledStep2 = this.add.text(50, this.possibleYSteps[tempStep], "Cook the spam", {
             color: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
+        this.possibleYSteps.splice(tempStep,1);
         scaledStep2.scale = 0.5;
         this.step2 = scaledStep2;
         this.input.setDraggable(this.step2);
-        this.step2.name = 'step2';
+        this.step2.name = 'Cook the...';
         
-        const scaledStep3 = this.add.text(50, (this.randomyMin + (Phaser.Math.Between(0,Math.floor((this.randomyMax-this.randomyMin)/this.yIncrement))*this.yIncrement)), "make musubi mold with rice", {
+        var tempStep = Phaser.Math.Between(0,this.possibleYSteps.length-1);
+
+        console.log(this.possibleYSteps);
+        console.log(this.possibleYSteps[tempStep])
+
+        const scaledStep3 = this.add.text(50, this.possibleYSteps[tempStep], "make musubi mold with rice", {
             color: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
+        this.possibleYSteps.splice(tempStep,1);
         scaledStep3.scale = 0.5;
         this.step3 = scaledStep3;
         this.input.setDraggable(this.step3);
-        this.step3.name = 'step3';
+        this.step3.name = 'make musubi...';
         
-        const scaledStep4 = this.add.text(50, (this.randomyMin + (Phaser.Math.Between(0,Math.floor((this.randomyMax-this.randomyMin)/this.yIncrement))*this.yIncrement)), "remove extra rice from musubi mold", {
+        var tempStep = Phaser.Math.Between(0,this.possibleYSteps.length-1);
+
+        console.log(this.possibleYSteps);
+        console.log(this.possibleYSteps[tempStep])
+
+        const scaledStep4 = this.add.text(50, this.possibleYSteps[tempStep], "remove extra rice from musubi mold", {
             color: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
+        this.possibleYSteps.splice(tempStep,1);
         scaledStep4.scale = 0.5;
         this.step4 = scaledStep4;
         this.input.setDraggable(this.step4);
-        this.step4.name = 'step4';
+        this.step4.name = 'remove extra...';
         
-        const scaledStep5 = this.add.text(50, (this.randomyMin + (Phaser.Math.Between(0,Math.floor((this.randomyMax-this.randomyMin)/this.yIncrement))*this.yIncrement)), "add cooked spam to rice mold", {
+        var tempStep = Phaser.Math.Between(0,this.possibleYSteps.length-1);
+
+        console.log(this.possibleYSteps);
+        console.log(this.possibleYSteps[tempStep])
+
+        const scaledStep5 = this.add.text(50,this.possibleYSteps[tempStep], "add cooked spam to rice mold", {
             color: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
+        this.possibleYSteps.splice(tempStep,1);
         scaledStep5.scale = 0.5;
         this.step5 = scaledStep5;
         this.input.setDraggable(this.step5);
-        this.step5.name = 'step5';
+        this.step5.name = 'add cooked...';
         
-        const scaledStep6 = this.add.text(50, (this.randomyMin + (Phaser.Math.Between(0,Math.floor((this.randomyMax-this.randomyMin)/this.yIncrement))*this.yIncrement)), "wrap spam & rice in nori", {
+        var tempStep = Phaser.Math.Between(0,this.possibleYSteps.length-1);
+
+        console.log(this.possibleYSteps);
+        console.log(this.possibleYSteps[tempStep])
+
+        const scaledStep6 = this.add.text(50, this.possibleYSteps[tempStep], "wrap spam & rice in nori", {
             color: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
+        this.possibleYSteps.splice(tempStep,1);
         scaledStep6.scale = 0.5;
         this.step6 = scaledStep6;
         this.input.setDraggable(this.step6);
-        this.step6.name = 'step6';
+        this.step6.name = 'wrap spam...';
 
         const scaledMusubi = this.add.image(400, 540, "musubi");
         scaledMusubi.displayWidth = Number(main.config.width) * .2;
@@ -139,7 +178,7 @@ export default class MusubiScene extends Phaser.Scene {
         });
 
         const feedback_text = this.add.text(20,20,"Click the check button to get feedback.",{
-            fontSize: '58px', fontStyle: 'bold',color:'0xff0000'
+            fontSize: '50px', fontStyle: 'bold',color:'0xff0000'
         });
         feedback_text.scale=0.5;
         this.feedback_text = feedback_text;
