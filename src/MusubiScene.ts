@@ -9,11 +9,6 @@ export default class MusubiScene extends Phaser.Scene {
     private musubi: Phaser.GameObjects.GameObject | undefined;
     private recipeFinished ?: boolean;
 
-
-    private feedback_text : Phaser.GameObjects.Text | undefined;
-   
-
-
     //pop up objects
     private rect : Phaser.GameObjects.Rectangle | undefined;
     private popback : Phaser.GameObjects.Image | undefined;
@@ -23,7 +18,6 @@ export default class MusubiScene extends Phaser.Scene {
   //FOR RECIPE POPUP
   recipeBtn?: Phaser.GameObjects.Image;
  
-
 	constructor() {
 		super('musubi-scene')
 	}
@@ -32,12 +26,9 @@ export default class MusubiScene extends Phaser.Scene {
     this.load.image("rice", "assets/ingredients/rice.png");
     this.load.image("seaweed", "assets/ingredients/seaweed.png");
     this.load.image("spam", "assets/ingredients/spam.png");
-
-
     this.load.image("musubi", "assets/ingredients/musubi.png");
 
     //background
-
     this.load.image('list', 'assets/backgrounds/firstscene/ingredientList.png');
     this.load.image('table', 'assets/backgrounds/firstscene/table.png');
     this.load.image("brick", "assets/backgrounds/firstscene/brickBackground.jpg");
@@ -51,11 +42,9 @@ export default class MusubiScene extends Phaser.Scene {
     //for direction help button 
     this.load.image('help', 'assets/buttons/help.png')
     //for recipe popup
-
     this.load.image('exit', 'assets/buttons/exit.png')
     //for popup background
     this.load.image('background', 'assets/backgrounds/firstscene/black.jpg')
-
   } //end preload function
 
   create() {
@@ -112,8 +101,6 @@ export default class MusubiScene extends Phaser.Scene {
       gameObject.clearTint();
     });
 
-    
-
     //Ingredient List
     const scaledRecipe = this.physics.add.image(630,225, 'list')
     scaledRecipe.displayWidth = Number(main.config.width) * 0.6;
@@ -134,18 +121,6 @@ export default class MusubiScene extends Phaser.Scene {
     this.add.text(530, 320, "add a slice of cooked \nspam to the top of the rice", { color: '0xFF0000', fontStyle: 'bold'});
     this.add.text(500, 360,"step 6:",  { color: '0xFF0000', fontStyle: 'bold'});
     this.add.text(530, 380, "wrap the nori around \nthe spam and rice", { color: '0xFF0000', fontStyle: 'bold'});
-   /*  
-    // FOR POPUP
-    this.recipeBtn = this.add.image(750, 500, "recipe");
-    this.recipeBtn.setScale(.25)
-    this.recipeBtn.setInteractive({ useHandCursor: true });
-
-    // on popup button clicked
-    this.recipeBtn.on('pointerdown',() => { //event: MouseEvent
-      click_sound.play();
-      this.scene.start('spam-scene');
-    });
- */
 
     //back button
     const back = this.add.text(10, 500, "Quit", {
@@ -167,22 +142,14 @@ export default class MusubiScene extends Phaser.Scene {
     this.poptext = this.add.text(320, 150, "NICE!", {
         fontSize: '58px', fontStyle: 'bold', color: '0x000000'
     });
+    this.poptext.setVisible(false);
+    this.arrow = this.add.image(400, 350, 'arrow');
+    this.arrow.scale = 0.2;
+    this.arrow.setInteractive({ useHandCursor: true });
+    this.arrow.on('pointerdown', () => this.clickNext());
+    this.arrow.setVisible(false);
 
-    feedback_text.scale=0.5;
-    this.feedback_text = feedback_text;
-
-    const checkCode = this.add.text(10, 450, "Check Code", {
-      fontSize: '58px'
-      });
-      checkCode.setTint(0xFF0000);
-      checkCode.displayWidth = Number(main.config.width) * .25;
-      checkCode.scaleY = back.scaleX;
-      checkCode.setInteractive({ useHandCursor: true });
-      checkCode.on('pointerdown', () => this.clickCheckOrder());
-
-
-    // ------------------------------------------- MAIN SCREEN POPUPS -------------------------------------------------
-    
+    // ------------------------------------------- MAIN SCREEN POPUPS -------------------------------------------------    
     //recipe help button
     const recipeBtn = this.add.image(125,535, "recipe");
     recipeBtn.scale = .125;
@@ -234,118 +201,96 @@ export default class MusubiScene extends Phaser.Scene {
     helpText.setVisible(false)
 
     const directions = this.add.text(425, 100, 
-      `
-      Level 1: Ingredient Matching /n
+      `Level 1: Ingredient Matching /n
       Drag and drop the ingredients on the screen to combine them to make spam musubi. Reference the recipe in the recipe book for help. 
-      `, {wordWrap: {width: 325}})
-
-      directions.setVisible(false)
+      `, {wordWrap: {width: 325}});
+      directions.setVisible(false);
 
     //on recipe button pushed
-    recipeBtn.on('pointerdown', (event: MouseEvent) => {
+    recipeBtn.on('pointerdown', () => {
       recipePaper.setVisible(true)
       exitRecipeBtn.setVisible(true)
       spamTitle.setVisible(true)
       spamSteps.setVisible(true)
-
       helpPaper.setVisible(false)
       exitHelpBtn.setVisible(false);
       helpText.setVisible(false);
       directions.setVisible(false);
-
-
       this.physics.pause();
-
     });
     
-
     //on help button pushed
-    helpBtn.on('pointerdown', (event: MouseEvent) => {
+    helpBtn.on('pointerdown', () => {
       helpPaper.setVisible(true)
       exitHelpBtn.setVisible(true)
       helpText.setVisible(true)
       directions.setVisible(true)
-
       recipePaper.setVisible(false)
       exitRecipeBtn.setVisible(false)
       spamTitle.setVisible(false)
       spamSteps.setVisible(false)
-
     });
 
     //on exit recipe button pushed
-    exitRecipeBtn.on('pointerdown', (event: MouseEvent) => {
+    exitRecipeBtn.on('pointerdown', () => {
       recipePaper.setVisible(false)
       exitRecipeBtn.setVisible(false)
       spamTitle.setVisible(false)
       spamSteps.setVisible(false)
       //directions.setVisible(false)
-
     });
 
     //on exit help button pushed
-    exitHelpBtn.on('pointerdown', (event: MouseEvent) => {
+    exitHelpBtn.on('pointerdown', () => {
       helpPaper.setVisible(false)
       exitHelpBtn.setVisible(false)
       helpText.setVisible(false)
-
     });
 
     // ------------------------------------------- END POPUPS -------------------------------------------------
 
   } // end create function
-
-
-    this.poptext.setVisible(false);
-    this.arrow = this.add.image(400, 350, 'arrow');
-    this.arrow.scale = 0.2;
-    this.arrow.setInteractive({ useHandCursor: true });
-    this.arrow.on('pointerdown', () => this.clickNext());
-    this.arrow.setVisible(false);
-  }
-
   clickBack() {
     this.scene.switch("recipe-scene");
   }
   clickNext() {
     this.scene.switch("musubi-scene-2");
   }
+  update() {
+    //Creates Musubi when all items are near each other on table
+    if(!this.rice) { return }
+    if(!this.seaweed) { return }
+    if(!this.spam) { return }
   
-update() {
-  //Creates Musubi when all items are near each other on table
-  if(!this.rice) { return }
-  if(!this.seaweed) { return }
-  if(!this.spam) { return }
-
-  //mixing ingredients part
-  if ((this.rice.body.position.y >= 375) && 
-    (this.seaweed.body.position.y >= 375) && 
-    (this.spam.body.position.y >= 375) && 
-    (Phaser.Math.Difference(this.rice.body.position.x, this.seaweed.body.position.x) <= 150) && 
-    (Phaser.Math.Difference(this.rice.body.position.x, this.spam.body.position.x) <= 150) && this.recipeFinished == false)
-    {
-      const soundEffect = this.sound.add("completedRecipe")
-      soundEffect.play();
-      const scaledMusubi = this.physics.add.image(400, 530, "musubi");
-      scaledMusubi.displayWidth = Number(main.config.width) * .2;
-      scaledMusubi.scaleY = scaledMusubi.scaleX;
-      this.musubi = scaledMusubi;
-      this.musubi.body.gameObject.setVisible(true);
-      this.rice.body.gameObject.setVisible(false);
-      this.seaweed.body.gameObject.setVisible(false);
-      this.spam.body.gameObject.setVisible(false);
-      this.recipeFinished = true;
+    //mixing ingredients part
+    if ((this.rice.body.position.y >= 375) && 
+      (this.seaweed.body.position.y >= 375) && 
+      (this.spam.body.position.y >= 375) && 
+      (Phaser.Math.Difference(this.rice.body.position.x, this.seaweed.body.position.x) <= 150) && 
+      (Phaser.Math.Difference(this.rice.body.position.x, this.spam.body.position.x) <= 150) && this.recipeFinished == false)
+      {
+        const soundEffect = this.sound.add("completedRecipe")
+        soundEffect.play();
+        const scaledMusubi = this.physics.add.image(400, 530, "musubi");
+        scaledMusubi.displayWidth = Number(main.config.width) * .2;
+        scaledMusubi.scaleY = scaledMusubi.scaleX;
+        this.musubi = scaledMusubi;
+        this.musubi.body.gameObject.setVisible(true);
+        this.rice.body.gameObject.setVisible(false);
+        this.seaweed.body.gameObject.setVisible(false);
+        this.spam.body.gameObject.setVisible(false);
+        this.recipeFinished = true;
+      }
+      if(this.recipeFinished) {
+        this.rect?.setVisible(true);
+        this.popback?.setVisible(true);
+        this.poptext?.setVisible(true);
+        this.arrow?.setVisible(true);
+    } else {
+        this.rect?.setVisible(false);
+        this.popback?.setVisible(false);
+        this.poptext?.setVisible(false);
+        this.arrow?.setVisible(false);
     }
-    if(this.recipeFinished) {
-      this.rect?.setVisible(true);
-      this.popback?.setVisible(true);
-      this.poptext?.setVisible(true);
-      this.arrow?.setVisible(true);
-  } else {
-      this.rect?.setVisible(false);
-      this.popback?.setVisible(false);
-      this.poptext?.setVisible(false);
-      this.arrow?.setVisible(false);
-  }
   }
 }
