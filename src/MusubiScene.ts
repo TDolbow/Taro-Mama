@@ -100,25 +100,25 @@ export default class MusubiScene extends Phaser.Scene {
       gameObject.clearTint();
     });
     //Ingredient List
-    const scaledRecipe = this.physics.add.image(650,225, 'list')
-    scaledRecipe.displayWidth = Number(main.config.width) * 0.5;
+    const scaledRecipe = this.physics.add.image(630,225, 'list')
+    scaledRecipe.displayWidth = Number(main.config.width) * 0.6;
     scaledRecipe.scaleY = scaledRecipe.scaleX
     
     //recipe text
-    const title = this.add.text(580, 70, "SPAM MUSUBI", { color: '0xFF0000', fontSize: '45px'})
-    title.scale = 0.5;
-    this.add.text(540, 100,"step 1:",  { color: '0xFF0000', fontStyle: 'bold'});
-    this.add.text(560, 120, "slice spam", { color: '0xFF0000', fontStyle: 'bold'});
-    this.add.text(540, 140,"step 2:",  { color: '0xFF0000', fontStyle: 'bold'});
-    this.add.text(560, 160, "cook spam", { color: '0xFF0000', fontStyle: 'bold'});  
-    this.add.text(540, 180,"step 3:",  { color: '0xFF0000', fontStyle: 'bold'});
-    this.add.text(560, 200, "add rice to musubi mold and press down", { color: '0xFF0000', fontStyle: 'bold'}); 
-    this.add.text(540, 220,"step 4:",  { color: '0xFF0000', fontStyle: 'bold'});
-    this.add.text(560, 240, "remove the rice from the mold", { color: '0xFF0000', fontStyle: 'bold'});
-    this.add.text(540, 260,"step 5:",  { color: '0xFF0000', fontStyle: 'bold'});
-    this.add.text(560, 280, "add a slice of cooked spam to the top of the rice", { color: '0xFF0000', fontStyle: 'bold'});
-    this.add.text(540, 300,"step 6:",  { color: '0xFF0000', fontStyle: 'bold'});
-    this.add.text(560, 320, "wrap the nori around the spam and rice", { color: '0xFF0000', fontStyle: 'bold'});
+    const title = this.add.text(525, 35, "SPAM MUSUBI", { color: '0xFF0000', fontSize: '50px'})
+    title.scale = 0.7;
+    this.add.text(500, 100,"step 1:",  { color: '0xFF0000', fontStyle: 'bold'});
+    this.add.text(530, 120, "slice spam", { color: '0xFF0000', fontStyle: 'bold'});
+    this.add.text(500, 140,"step 2:",  { color: '0xFF0000', fontStyle: 'bold'});
+    this.add.text(530, 160, "cook spam", { color: '0xFF0000', fontStyle: 'bold'});  
+    this.add.text(500, 180,"step 3:",  { color: '0xFF0000', fontStyle: 'bold'});
+    this.add.text(530, 200, "add rice to musubi mold \nand press down", { color: '0xFF0000', fontStyle: 'bold'}); 
+    this.add.text(500, 240,"step 4:",  { color: '0xFF0000', fontStyle: 'bold'});
+    this.add.text(530, 260, "remove the rice from \nthe mold", { color: '0xFF0000', fontStyle: 'bold'});
+    this.add.text(500, 300,"step 5:",  { color: '0xFF0000', fontStyle: 'bold'});
+    this.add.text(530, 320, "add a slice of cooked \nspam to the top of the rice", { color: '0xFF0000', fontStyle: 'bold'});
+    this.add.text(500, 360,"step 6:",  { color: '0xFF0000', fontStyle: 'bold'});
+    this.add.text(530, 380, "wrap the nori around \nthe spam and rice", { color: '0xFF0000', fontStyle: 'bold'});
    /*  
     // FOR POPUP
     this.recipeBtn = this.add.image(750, 500, "recipe");
