@@ -30,7 +30,7 @@ create() {
         scaledMusubi.on('pointerdown', () => this.clickMusubi());
 
     //back button
-        const back = this.add.text(30, 500, "BACK", {
+        const back = this.add.text(30, 500, "Back", {
             color: '0xFF0000',
             fontSize: '58px'
             });
