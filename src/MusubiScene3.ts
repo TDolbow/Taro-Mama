@@ -175,7 +175,104 @@ export default class MusubiScene extends Phaser.Scene {
         //zone colors
         this.add.rectangle
         */
-    }
+
+        // ------------------------------------------- POPUPS -------------------------------------------------    
+    //recipe help button
+    const recipeBtn = this.add.image(125,535, "recipe");
+    recipeBtn.scale = .125;
+    recipeBtn.setInteractive({ useHandCursor: true });
+
+    //direction help button
+    const helpBtn = this.add.image(200, 540, "help")
+    helpBtn.scale = .075
+    helpBtn.setInteractive({ useHandCursor: true });
+    
+    //for recipe popup
+    const recipePaper = this.add.image(275,-10, "list")
+    recipePaper.setOrigin(0,0)
+    recipePaper.scale = .85
+    recipePaper.setVisible(false)
+
+    const exitRecipeBtn = this.add.image(725,70, "exit")
+    exitRecipeBtn.scale = .06
+    exitRecipeBtn.setInteractive({ useHandCursor: true });
+    exitRecipeBtn.setVisible(false)
+
+    const spamTitle = this.add.text(490,70,'Spam Musubi Recipe')
+    const spamSteps = this.add.text(425, 100, 
+      `Step 1: Slice spam into 8-10 slices. \n
+      Step 2: Fry SPAM on each side over medium heat until slightly crispy or until desired doneness. \n
+      Step 3: Place a strip of nori on a cutting board. Place your Musubi mold across the middle of the nori. Add Sushi Rice to the mold and press down. \n
+      Step 4: Remove the mold from the rice. \n
+      Step 5: Add some of the cooked SPAM to the top. \n
+      Step 6: Wrap up one side of the nori and stick it to the top of the SPAM, then wrap up the other side.\n
+      `, {wordWrap: {width: 325}, align: 'center'})
+    
+    spamTitle.setVisible(false)
+    spamSteps.setVisible(false)
+
+    //for help popup
+    const helpPaper = this.add.image(275,-10, "list")
+    helpPaper.setOrigin(0,0)
+    helpPaper.scale = .85
+    helpPaper.setVisible(false)
+
+    const exitHelpBtn = this.add.image(725,70, "exit")
+    exitHelpBtn.scale = .06
+    exitHelpBtn.setInteractive({ useHandCursor: true });
+    exitHelpBtn.setVisible(false)
+
+    const helpText = this.add.text(525, 70,"Directions")
+    helpText.setVisible(false)
+
+    const directions = this.add.text(430, 100, 
+      `Level 3: Pseudocode Sorting \n\n Drag and drop the pseudocode on the screen in the correct order to make spam musubi. \n \n Reference the recipe in the recipe book for help. 
+      `, {wordWrap: {width: 325}, align: 'center'});
+      directions.setVisible(false);
+
+    //on recipe button pushed
+    recipeBtn.on('pointerdown', () => {
+      recipePaper.setVisible(true)
+      exitRecipeBtn.setVisible(true)
+      spamTitle.setVisible(true)
+      spamSteps.setVisible(true)
+      helpPaper.setVisible(false)
+      exitHelpBtn.setVisible(false);
+      helpText.setVisible(false);
+      directions.setVisible(false);
+    });
+    
+    //on help button pushed
+    helpBtn.on('pointerdown', () => {
+      helpPaper.setVisible(true)
+      exitHelpBtn.setVisible(true)
+      helpText.setVisible(true)
+      directions.setVisible(true)
+      recipePaper.setVisible(false)
+      exitRecipeBtn.setVisible(false)
+      spamTitle.setVisible(false)
+      spamSteps.setVisible(false)
+    });
+
+    //on exit recipe button pushed
+    exitRecipeBtn.on('pointerdown', () => {
+      recipePaper.setVisible(false)
+      exitRecipeBtn.setVisible(false)
+      spamTitle.setVisible(false)
+      spamSteps.setVisible(false)
+      directions.setVisible(false)
+    });
+
+    //on exit help button pushed
+    exitHelpBtn.on('pointerdown', () => {
+      helpPaper.setVisible(false)
+      exitHelpBtn.setVisible(false)
+      helpText.setVisible(false)
+      directions.setVisible(false)
+    });
+
+    // ------------------------------------------- END POPUPS -------------------------------------------------
+    } // end create function
     clickFinish() {
         this.scene.restart(this)
         this.levelCompletion?.play();
