@@ -239,8 +239,9 @@ create() {
 
     const directions = this.add.text(425, 100, 
       `
-      TBD
-      `)
+      Level 1: Ingredient Matching /n
+      Drag and drop the ingredients on the screen to combine them to make spam musubi. Reference the recipe in the recipe book for help. 
+      `, {wordWrap: {width: 325}})
 
       directions.setVisible(false)
 
