@@ -178,10 +178,10 @@ export default class MusubiScene extends Phaser.Scene {
     exitHelpBtn.setInteractive({ useHandCursor: true });
     exitHelpBtn.setVisible(false)
 
-    const helpText = this.add.text(475,100,"Directions")
+    const helpText = this.add.text(500,100,"Directions")
     helpText.setVisible(false)
 
-    const directions = this.add.text(500, 125, 
+    const directions = this.add.text(450, 125, 
       `Level 1: Ingredient Matching \nDrag and drop the ingredients on the screen to combine them to make spam musubi. Reference the recipe in the recipe book for help. 
       `, {wordWrap: {width: 325}, align: 'center'});
       directions.setVisible(false);
