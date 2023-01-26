@@ -184,7 +184,6 @@ export default class MusubiScene extends Phaser.Scene {
     const directions = this.add.text(425, 120, 
       `Level 1: Ingredient Matching Drag and drop the ingredients on the screen to combine them to make spam musubi. Reference the recipe in the recipe book for help. 
       `, {wordWrap: {width: 325}});
-
       directions.setVisible(false);
 
     //on recipe button pushed
@@ -197,10 +196,9 @@ export default class MusubiScene extends Phaser.Scene {
       exitHelpBtn.setVisible(false);
       helpText.setVisible(false);
       directions.setVisible(false);
-
-      
-      this.physics.pause();
-
+      this.spam?.disableInteractive()
+      this.rice?.disableInteractive()
+      this.seaweed?.disableInteractive()
     });
     
     //on help button pushed
@@ -213,6 +211,9 @@ export default class MusubiScene extends Phaser.Scene {
       exitRecipeBtn.setVisible(false)
       spamTitle.setVisible(false)
       spamSteps.setVisible(false)
+      this.spam?.disableInteractive()
+      this.rice?.disableInteractive()
+      this.seaweed?.disableInteractive()
     });
 
     //on exit recipe button pushed
@@ -222,6 +223,9 @@ export default class MusubiScene extends Phaser.Scene {
       spamTitle.setVisible(false)
       spamSteps.setVisible(false)
       directions.setVisible(false)
+      this.spam?.setInteractive();
+      this.seaweed?.setInteractive();
+      this.rice?.setInteractive();
     });
 
     //on exit help button pushed
@@ -231,6 +235,9 @@ export default class MusubiScene extends Phaser.Scene {
       helpText.setVisible(false)
       directions.setVisible(false)
       directions.setVisible(false)
+      this.spam?.setInteractive();
+      this.seaweed?.setInteractive();
+      this.rice?.setInteractive();
     });
 
     // ------------------------------------------- END POPUPS -------------------------------------------------
