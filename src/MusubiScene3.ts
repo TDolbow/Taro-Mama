@@ -22,6 +22,9 @@ export default class MusubiScene extends Phaser.Scene {
     private poptext : Phaser.GameObjects.Text | undefined;
     private arrow : Phaser.GameObjects.Image | undefined;
 
+    //zones
+    //private zone1 : Phaser.GameObjects.Zone | undefined;
+
     constructor() {
 		super('musubi-scene-3')
 	}
@@ -155,8 +158,19 @@ export default class MusubiScene extends Phaser.Scene {
         this.arrow.setInteractive({ useHandCursor: true });
         this.arrow.on('pointerdown', () => this.clickFinish());
         this.arrow.setVisible(false);
+
+        /*
+        //zone 1
+        this.zone1?.setRectangleDropZone(200, 50);
+        this.zone1?.setX(400);
+        this.zone1?.setY(450);
+
+        //zone colors
+        this.add.rectangle
+        */
     }
     clickFinish() {
+        this.scene.restart(this)
         this.scene.switch('title-scene');
     }
     clickCheckOrder(){

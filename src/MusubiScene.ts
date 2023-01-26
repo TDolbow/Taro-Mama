@@ -254,6 +254,7 @@ export default class MusubiScene extends Phaser.Scene {
     this.scene.switch("recipe-scene");
   }
   clickNext() {
+    this.scene.restart(this)
     this.scene.switch("musubi-scene-2");
   }
   update() {
