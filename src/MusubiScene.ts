@@ -1,9 +1,6 @@
 import Phaser from 'phaser'
 import main from './main';
 
-//Import function to check correct positions of pseudocode.
-import { CheckPositions } from './CheckPositions';
-
 export default class MusubiScene extends Phaser.Scene {
     //ingredients
     private rice : Phaser.GameObjects.GameObject | undefined;
@@ -11,16 +8,12 @@ export default class MusubiScene extends Phaser.Scene {
     private spam : Phaser.GameObjects.GameObject | undefined;
     private musubi: Phaser.GameObjects.GameObject | undefined;
     private recipeFinished ?: boolean;
-    //pseudo code
-    private slice : Phaser.GameObjects.GameObject | undefined;
-    private cook : Phaser.GameObjects.GameObject | undefined;
-    private mold : Phaser.GameObjects.GameObject | undefined;
-    private remove : Phaser.GameObjects.GameObject | undefined;
-    private combine : Phaser.GameObjects.GameObject | undefined;
-    private wrap : Phaser.GameObjects.GameObject | undefined;
 
-    //solution text
-    private feedback_text : Phaser.GameObjects.Text | undefined;
+    //pop up objects
+    private rect : Phaser.GameObjects.Rectangle | undefined;
+    private popback : Phaser.GameObjects.Image | undefined;
+    private poptext : Phaser.GameObjects.Text | undefined;
+    private arrow : Phaser.GameObjects.Image | undefined;
 
   //FOR RECIPE POPUP
   recipeBtn?: Phaser.GameObjects.Image;
@@ -29,13 +22,20 @@ export default class MusubiScene extends Phaser.Scene {
 		super('musubi-scene')
 	}
   preload() {
+    //ingredients
     this.load.image("rice", "assets/ingredients/rice.png");
     this.load.image("seaweed", "assets/ingredients/seaweed.png");
     this.load.image("spam", "assets/ingredients/spam.png");
+    this.load.image("musubi", "assets/ingredients/musubi.png");
+
+    //background
     this.load.image('list', 'assets/backgrounds/firstscene/ingredientList.png');
     this.load.image('table', 'assets/backgrounds/firstscene/table.png');
     this.load.image("brick", "assets/backgrounds/firstscene/brickBackground.jpg");
-    this.load.image("musubi", "assets/ingredients/musubi.png");
+
+    //pop-up
+    this.load.image("utensilpop", "assets/backgrounds/firstscene/utensilBackground.jpg");
+    this.load.image("arrow","assets/buttons/rightarrow.png");
 
     //for recipe popup
     this.load.image("recipe", "assets/buttons/recipeBook.jpg")
@@ -53,12 +53,6 @@ export default class MusubiScene extends Phaser.Scene {
     const click_sound = this.sound.add("clicksound", {
       volume: .3
     })
-    //ingrediet list
-    /*
-    const scaledList = this.physics.add.image(100, 125, 'list');
-    scaledList.displayWidth = Number(275);
-    scaledList.scaleY = scaledList.scaleX;
-    */
 
     //table
     const scaledTable = this.physics.add.image(400, 550, 'table');
@@ -141,89 +135,31 @@ export default class MusubiScene extends Phaser.Scene {
     back.setInteractive({ useHandCursor: true });
     back.on('pointerdown', () => this.clickBack());
 
-    /*
-    //pseudo code 
-    const scaledSlice = this.add.text(50, 50, "Slice();", {
-      backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
-    }).setInteractive();
-    scaledSlice.scale = 0.5;
-    scaledSlice.setVisible(false);
-    this.slice = scaledSlice;
-    this.input.setDraggable(this.slice);
-    this.slice.name = 'slice';
-      
-    const scaledCook = this.add.text(50, 90, "Cook();", {
-      backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
-    }).setInteractive();
-    scaledCook.scale = 0.5;
-    this.cook = scaledCook;
-    this.input.setDraggable(this.cook);
-    this.cook.name = 'cook';
-      
-    const scaledMold = this.add.text(50, 130, "Create-Mold();", {
-      backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
-    }).setInteractive();
-    scaledMold.scale = 0.5;
-    this.mold = scaledMold;
-    this.input.setDraggable(this.mold);
-    this.mold.name = 'mold';
-      
-    const scaledRemove = this.add.text(50, 170, "Remove-Extra-Rice();", {
-      backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
-    }).setInteractive();
-    scaledRemove.scale = 0.5;
-    this.remove = scaledRemove;
-    this.input.setDraggable(this.remove);
-    this.remove.name = 'remove';
-      
-    const scaledCombine = this.add.text(50, 210, "Combine();", {
-      backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
-    }).setInteractive();
-    scaledCombine.scale = 0.5;
-    this.combine = scaledCombine;
-    this.input.setDraggable(this.combine);
-    this.combine.name = 'combine';
-      
-    const scaledWrap = this.add.text(50, 250, "Wrap();", {
-      backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
-    }).setInteractive();
-    scaledWrap.scale = 0.5;
-    this.wrap = scaledWrap;
-    this.input.setDraggable(this.wrap);
-    this.wrap.name = 'wrap';
-      
-    const feedback_text = this.add.text(20,20,"Click the check button to get feedback.",{
-      fontSize: '58px', fontStyle: 'bold',color:'0xff0000'
+    //win pop up 
+    this.rect = this.add.rectangle(400, 300, 410, 310, 0x000000);
+    this.rect.setVisible(false);
+    this.popback = this.add.image(400, 300, "utensilpop");
+    this.popback.displayWidth = 400;
+    this.popback.displayHeight = 300;
+    this.popback.setVisible(false);
+    this.poptext = this.add.text(320, 150, "NICE!", {
+        fontSize: '58px', fontStyle: 'bold', color: '0x000000'
     });
-    feedback_text.scale=0.5;
-    this.feedback_text = feedback_text;
-        
-    const checkCode = this.add.text(10, 450, "Check Code", {
-      fontSize: '58px'
-    });
-    checkCode.setTint(0xFF0000);
-    checkCode.displayWidth = Number(main.config.width) * .25;
-    checkCode.scaleY = checkCode.scaleX;
-    checkCode.setInteractive({ useHandCursor: true });
-    checkCode.on('pointerdown', () => this.clickCheckOrder());
-    */
+    this.poptext.setVisible(false);
+    this.arrow = this.add.image(400, 350, 'arrow');
+    this.arrow.scale = 0.2;
+    this.arrow.setInteractive({ useHandCursor: true });
+    this.arrow.on('pointerdown', () => this.clickNext());
+    this.arrow.setVisible(false);
   }
     
   clickBack() {
     this.scene.switch("recipe-scene");
   }
-  clickCheckOrder(){
-    const order: Array<Phaser.GameObjects.GameObject> = [
-                <Phaser.GameObjects.GameObject>this.slice,
-                <Phaser.GameObjects.GameObject>this.cook,
-                <Phaser.GameObjects.GameObject>this.mold,
-                <Phaser.GameObjects.GameObject>this.remove,
-                <Phaser.GameObjects.GameObject>this.combine,
-                <Phaser.GameObjects.GameObject>this.wrap];
-                const feedbackString = String(CheckPositions(order));
-                this.feedback_text?.setText(<string>feedbackString);
+  clickNext() {
+    this.scene.switch("musubi-scene-2");
   }
-
+  
 update() {
   //Creates Musubi when all items are near each other on table
   if(!this.rice) { return }
@@ -239,7 +175,7 @@ update() {
     {
       const soundEffect = this.sound.add("completedRecipe")
       soundEffect.play();
-      const scaledMusubi = this.physics.add.image(this.rice.body.position.x + 50, this.rice.body.position.y + 50, "musubi");
+      const scaledMusubi = this.physics.add.image(400, 530, "musubi");
       scaledMusubi.displayWidth = Number(main.config.width) * .2;
       scaledMusubi.scaleY = scaledMusubi.scaleX;
       this.musubi = scaledMusubi;
@@ -249,8 +185,16 @@ update() {
       this.spam.body.gameObject.setVisible(false);
       this.recipeFinished = true;
     }
-  if (this.recipeFinished) {
-    this.scene.switch('musubi-scene-2');
+    if(this.recipeFinished) {
+      this.rect?.setVisible(true);
+      this.popback?.setVisible(true);
+      this.poptext?.setVisible(true);
+      this.arrow?.setVisible(true);
+  } else {
+      this.rect?.setVisible(false);
+      this.popback?.setVisible(false);
+      this.poptext?.setVisible(false);
+      this.arrow?.setVisible(false);
   }
   }
 }
