@@ -183,7 +183,12 @@ export default class MusubiScene extends Phaser.Scene {
 
     const directions = this.add.text(450, 125, 
       `Level 1: Ingredient Matching \nDrag and drop the ingredients on the screen to combine them to make spam musubi. Reference the recipe in the recipe book for help. 
-      `, {wordWrap: {width: 325}, align: 'center'});
+
+    const directions = this.add.text(425, 100, 
+      `Level 1: Ingredient Matching /n
+      Drag and drop the ingredients on the screen to combine them to make spam musubi. Reference the recipe in the recipe book for help. 
+      `, {wordWrap: {width: 325}});
+
       directions.setVisible(false);
 
     //on recipe button pushed
@@ -196,7 +201,10 @@ export default class MusubiScene extends Phaser.Scene {
       exitHelpBtn.setVisible(false);
       helpText.setVisible(false);
       directions.setVisible(false);
+
       
+      this.physics.pause();
+
     });
     
     //on help button pushed
@@ -235,6 +243,7 @@ export default class MusubiScene extends Phaser.Scene {
     this.scene.switch("recipe-scene");
   }
   clickNext() {
+    this.scene.restart(this)
     this.scene.switch("musubi-scene-2");
   }
   update() {

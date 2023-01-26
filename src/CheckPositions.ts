@@ -1,19 +1,50 @@
 import Phaser from 'phaser';
 
-
 export function CheckPositions(name_order: Phaser.GameObjects.GameObject[]){
+    const name_order_copy = name_order;
+    console.log("Before sort - name_order");
+    console.log(name_order);
 
-    //Make sure the instructions are in the correct order here. 
-    const objectsToCheck = name_order;
-    console.log(objectsToCheck);
-
-    for(var i = 0; i < objectsToCheck.length-1; i +=  1){
-        if(Number(objectsToCheck[i]?.y) > Number(objectsToCheck[i+1]?.y)){
-
-           return (<String>`The instruction ${objectsToCheck[i]?.name} is out of order.`);
+    //Sort elements by their y value.
+    const sortedByHeight:Phaser.GameObjects.GameObject[] = name_order_copy.slice(0).sort((n1,n2) =>{
+        if(n1.y > n2.y){
+            return(1);
         }
-        //console.log(`${objectsToCheck[i].name} y: ${objectsToCheck[i].y}`);
+        if(n1.y < n2.y){
+            return(-1);
+        }
+        return(0);
+    }
+    )
+
+    //Starting comparison
+    console.log("After sort - name_order");
+    console.log(name_order);
+    console.log("After sort -- sortedByHeight");
+    console.log(sortedByHeight);
+
+    for(let i = 0; i < name_order.length; i += 1){
+        if(name_order[i].name !== sortedByHeight[i].name){
+            console.log('Printing i value');
+            console.log(name_order.indexOf(sortedByHeight[i]) - i);
+            
+                return(String(`The instruction ${name_order[i]?.name} is out of order.`));
+            
+        }
 
     }
-    return (<String> 'All instructions are in the correct location');
+    return (String('All instructions are in the correct location'));
+
+    /*
+    //Make sure the instructions are in the correct order here. 
+    const objectsToCheck = name_order;
+    //console.log(objectsToCheck);
+    for(let i = 0; i < objectsToCheck.length-1; i +=  1){
+        if(Number(objectsToCheck[i]?.y) > Number(objectsToCheck[i+1]?.y)){
+           return (String(`The instruction ${objectsToCheck[i]?.name} is out of order.`));
+        }
+        //console.log(`${objectsToCheck[i].name} y: ${objectsToCheck[i].y}`);
+    }
+    return (String('All instructions are in the correct location'));
+    */
 }
