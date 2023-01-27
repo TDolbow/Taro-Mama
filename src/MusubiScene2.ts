@@ -147,17 +147,17 @@ export default class MusubiScene extends Phaser.Scene {
         checkDirections.on('pointerdown', () => this.clickCheckOrder());
 
         //win pop up 
-        this.rect = this.add.rectangle(400, 300, 410, 310, 0x000000);
+        this.rect = this.add.rectangle(400, 230, 410, 310, 0x000000);
         this.rect.setVisible(false);
-        this.popback = this.add.image(400, 300, "utensilpop");
+        this.popback = this.add.image(400, 230, "utensilpop");
         this.popback.displayWidth = 400;
         this.popback.displayHeight = 300;
         this.popback.setVisible(false);
-        this.poptext = this.add.text(260, 150, "CORRECT!", {
+        this.poptext = this.add.text(280, 120, "CORRECT!", {
             fontSize: '58px', fontStyle: 'bold', color: '0x000000'
         });
         this.poptext.setVisible(false);
-        this.arrow = this.add.image(400, 350, 'arrow');
+        this.arrow = this.add.image(400, 300, 'arrow');
         this.arrow.scale = 0.2;
         this.arrow.setInteractive({ useHandCursor: true });
         this.arrow.on('pointerdown', () => this.clickNext());
@@ -169,6 +169,8 @@ export default class MusubiScene extends Phaser.Scene {
         back.scaleY = back.scaleX;
         back.setInteractive({ useHandCursor: true });
         back.on('pointerdown', () => this.clickBack());
+
+        
 
        // ------------------------------------------- POPUPS -------------------------------------------------    
     //recipe help button
