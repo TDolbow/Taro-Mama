@@ -295,6 +295,14 @@ export default class MusubiScene extends Phaser.Scene {
       exitHelpBtn.setVisible(false);
       helpText.setVisible(false);
       directions.setVisible(false);
+    
+      //disable interactivity
+      this.step1?.disableInteractive();
+      this.step2?.disableInteractive();
+      this.step3?.disableInteractive();
+      this.step4?.disableInteractive();
+      this.step5?.disableInteractive();
+      this.step6?.disableInteractive();
     });
     
     //on help button pushed
@@ -307,6 +315,14 @@ export default class MusubiScene extends Phaser.Scene {
       exitRecipeBtn.setVisible(false)
       spamTitle.setVisible(false)
       spamSteps.setVisible(false)
+
+      //disable interactivity
+      this.step1?.disableInteractive();
+      this.step2?.disableInteractive();
+      this.step3?.disableInteractive();
+      this.step4?.disableInteractive();
+      this.step5?.disableInteractive();
+      this.step6?.disableInteractive();
     });
 
     //on exit recipe button pushed
@@ -316,6 +332,14 @@ export default class MusubiScene extends Phaser.Scene {
       spamTitle.setVisible(false)
       spamSteps.setVisible(false)
       directions.setVisible(false)
+
+      //enable interactivity
+      this.step1?.setInteractive();
+      this.step2?.setInteractive();
+      this.step3?.setInteractive();
+      this.step4?.setInteractive();
+      this.step5?.setInteractive();
+      this.step6?.setInteractive();
     });
 
     //on exit help button pushed
@@ -324,6 +348,14 @@ export default class MusubiScene extends Phaser.Scene {
       exitHelpBtn.setVisible(false)
       helpText.setVisible(false)
       directions.setVisible(false)
+
+      //enable interactivity
+      this.step1?.setInteractive();
+      this.step2?.setInteractive();
+      this.step3?.setInteractive();
+      this.step4?.setInteractive();
+      this.step5?.setInteractive();
+      this.step6?.setInteractive();
     });
 
     // ------------------------------------------- END POPUPS -------------------------------------------------

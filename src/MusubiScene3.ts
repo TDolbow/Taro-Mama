@@ -271,6 +271,14 @@ export default class MusubiScene extends Phaser.Scene {
       exitHelpBtn.setVisible(false);
       helpText.setVisible(false);
       directions.setVisible(false);
+
+      //disable interactivity
+      this.slice?.disableInteractive()
+      this.cook?.disableInteractive()
+      this.mold?.disableInteractive()
+      this.remove?.disableInteractive()
+      this.combine?.disableInteractive()
+      this.wrap?.disableInteractive()
     });
     
     //on help button pushed
@@ -283,6 +291,14 @@ export default class MusubiScene extends Phaser.Scene {
       exitRecipeBtn.setVisible(false)
       spamTitle.setVisible(false)
       spamSteps.setVisible(false)
+
+      //disable interactivity
+      this.slice?.disableInteractive()
+      this.cook?.disableInteractive()
+      this.mold?.disableInteractive()
+      this.remove?.disableInteractive()
+      this.combine?.disableInteractive()
+      this.wrap?.disableInteractive()
     });
 
     //on exit recipe button pushed
@@ -292,6 +308,14 @@ export default class MusubiScene extends Phaser.Scene {
       spamTitle.setVisible(false)
       spamSteps.setVisible(false)
       directions.setVisible(false)
+
+      //enable interactivity
+      this.slice?.setInteractive()
+      this.cook?.setInteractive()
+      this.mold?.setInteractive()
+      this.remove?.setInteractive()
+      this.combine?.setInteractive()
+      this.wrap?.setInteractive()
     });
 
     //on exit help button pushed
@@ -300,6 +324,14 @@ export default class MusubiScene extends Phaser.Scene {
       exitHelpBtn.setVisible(false)
       helpText.setVisible(false)
       directions.setVisible(false)
+
+      //enable interactivity
+      this.slice?.setInteractive()
+      this.cook?.setInteractive()
+      this.mold?.setInteractive()
+      this.remove?.setInteractive()
+      this.combine?.setInteractive()
+      this.wrap?.setInteractive()
     });
 
     // ------------------------------------------- END POPUPS -------------------------------------------------
