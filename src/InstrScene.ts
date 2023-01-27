@@ -10,7 +10,7 @@ preload() {
 }
 create() {
     //create here
-    this.add.text(200, 300, "instruction scene - will implement later", {
+    this.add.text(100, 200, "Welcome to Taro Mama!\nYou will cook a traditional Hawaiin meal by following \na recipe. Each level will progess in difficulty: \n\nFirst level - drag and drop the picture ingredients together\nSecond level - drag the ingredient intructions in order \nThird level - correctly order the pseudocode to create the dish.", {
         color: '0x000000'
     });
 
