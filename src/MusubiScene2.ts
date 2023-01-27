@@ -201,6 +201,13 @@ export default class MusubiScene extends Phaser.Scene {
             gameObject.clearTint();
         });
 
+        //title
+        const MainTitle = this.add.text(20,20,"Level 2: Place the ingredients in order",{
+            fontSize: '58px', fontStyle: 'bold',color:'0xff0000'
+        });
+         MainTitle.scale=0.65;
+        MainTitle.setVisible(true)
+
         const feedback_text = this.add.text(250,520,"Click the check button\nto get feedback.",{
             fontSize: '50px', fontStyle: 'bold',color:'0xff0000'
         });
