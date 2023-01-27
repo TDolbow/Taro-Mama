@@ -170,9 +170,9 @@ export default class MusubiScene extends Phaser.Scene {
     const spamSteps = this.add.text(425, 100, 
       `Step 1: Slice spam into 8-10 slices. \n
       Step 2: Fry SPAM on each side over medium heat until slightly crispy or until desired doneness. \n
-      Step 3: Place a strip of nori on a cutting board. Place your Musubi mold across the middle of the nori. Add Sushi Rice to the mold and press down. \n
-      Step 4: Remove the mold from the rice. \n
-      Step 5: Add some of the cooked SPAM to the top. \n
+      Step 3: Add Sushi Rice to the mold and press down. \n
+      Step 4: Remove the rice from the mold. \n
+      Step 5: Add a slice of cooked SPAM to the top of the rice. \n
       Step 6: Wrap up one side of the nori and stick it to the top of the SPAM, then wrap up the other side.\n
       `, {wordWrap: {width: 325}, align: 'center', color: "000000"})
     
@@ -258,6 +258,7 @@ export default class MusubiScene extends Phaser.Scene {
 
   } // end create function
   clickBack() {
+    this.scene.restart(this)
     this.scene.switch("recipe-scene");
   }
   clickNext() {

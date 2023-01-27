@@ -59,48 +59,48 @@ export default class MusubiScene extends Phaser.Scene {
         scaledTable.scaleY = scaledTable.scaleX
 
         //recipe directions
-        const scaledStep1 = this.add.text(50, 50, "Slice the spam", {
-            color: '0x000000', fontSize: '58px', fontStyle: 'bold'
+        const scaledStep1 = this.add.text(50, 50, "Slice the SPAM", {
+            color: '#FFFFFF', backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
         scaledStep1.scale = 0.5;
         this.step1 = scaledStep1;
         this.input.setDraggable(this.step1);
         this.step1.name = 'step1';
         
-        const scaledStep2 = this.add.text(50, 90, "Cook the spam", {
-            color: '0x000000', fontSize: '58px', fontStyle: 'bold'
+        const scaledStep2 = this.add.text(50, 90, "Fry the SPAM until crispy", {
+            color: '#FFFFFF', backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
         scaledStep2.scale = 0.5;
         this.step2 = scaledStep2;
         this.input.setDraggable(this.step2);
         this.step2.name = 'step2';
         
-        const scaledStep3 = this.add.text(50, 130, "make musubi mold with rice", {
-            color: '0x000000', fontSize: '58px', fontStyle: 'bold'
+        const scaledStep3 = this.add.text(50, 130, "Add rice to the sushi mold", {
+            color: '#FFFFFF', backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
         scaledStep3.scale = 0.5;
         this.step3 = scaledStep3;
         this.input.setDraggable(this.step3);
         this.step3.name = 'step3';
         
-        const scaledStep4 = this.add.text(50, 170, "remove extra rice from musubi mold", {
-            color: '0x000000', fontSize: '58px', fontStyle: 'bold'
+        const scaledStep4 = this.add.text(50, 170, "Remove rice from the sushi mold", {
+            color: '#FFFFFF', backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
         scaledStep4.scale = 0.5;
         this.step4 = scaledStep4;
         this.input.setDraggable(this.step4);
         this.step4.name = 'step4';
         
-        const scaledStep5 = this.add.text(50, 210, "add cooked spam to rice mold", {
-            color: '0x000000', fontSize: '58px', fontStyle: 'bold'
+        const scaledStep5 = this.add.text(50, 210, "Stack SPAM on top of the rice", {
+            color: '#FFFFFF', backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
         scaledStep5.scale = 0.5;
         this.step5 = scaledStep5;
         this.input.setDraggable(this.step5);
         this.step5.name = 'step5';
         
-        const scaledStep6 = this.add.text(50, 250, "wrap spam & rice in nori", {
-            color: '0x000000', fontSize: '58px', fontStyle: 'bold'
+        const scaledStep6 = this.add.text(50, 250, "Wrap the nori over the rice and SPAM", {
+            color: '#FFFFFF', backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
         scaledStep6.scale = 0.5;
         this.step6 = scaledStep6;
@@ -163,6 +163,13 @@ export default class MusubiScene extends Phaser.Scene {
         this.arrow.on('pointerdown', () => this.clickNext());
         this.arrow.setVisible(false);
 
+        //back button
+        const back = this.add.image(45, 555, "exit");
+        back.displayWidth = Number(main.config.width) * .08;
+        back.scaleY = back.scaleX;
+        back.setInteractive({ useHandCursor: true });
+        back.on('pointerdown', () => this.clickBack());
+
        // ------------------------------------------- POPUPS -------------------------------------------------    
     //recipe help button
     const recipeBtn = this.add.image(125,535, "recipe");
@@ -187,13 +194,13 @@ export default class MusubiScene extends Phaser.Scene {
 
     const spamTitle = this.add.text(480,70,'Spam Musubi Recipe', {color: "000000", fontSize: '20px'})
     const spamSteps = this.add.text(425, 100, 
-      `Step 1: Slice spam into 8-10 slices. \n
-      Step 2: Fry SPAM on each side over medium heat until slightly crispy or until desired doneness. \n
-      Step 3: Place a strip of nori on a cutting board. Place your Musubi mold across the middle of the nori. Add Sushi Rice to the mold and press down. \n
-      Step 4: Remove the mold from the rice. \n
-      Step 5: Add some of the cooked SPAM to the top. \n
-      Step 6: Wrap up one side of the nori and stick it to the top of the SPAM, then wrap up the other side.\n
-      `, {wordWrap: {width: 325}, align: 'center', color: "000000"})
+    `Step 1: Slice spam into 8-10 slices. \n
+    Step 2: Fry SPAM on each side over medium heat until slightly crispy or until desired doneness. \n
+    Step 3: Add Sushi Rice to the mold and press down. \n
+    Step 4: Remove the rice from the mold. \n
+    Step 5: Add a slice of cooked SPAM to the top of the rice. \n
+    Step 6: Wrap up one side of the nori and stick it to the top of the SPAM, then wrap up the other side.\n
+    `, {wordWrap: {width: 325}, align: 'center', color: "000000"})
     
     spamTitle.setVisible(false)
     spamSteps.setVisible(false)
@@ -293,11 +300,15 @@ export default class MusubiScene extends Phaser.Scene {
     // ------------------------------------------- END POPUPS -------------------------------------------------
 
     } // end create function
+    clickBack() {
+        this.scene.restart(this)
+        this.scene.switch("recipe-scene");
+    }
     clickNext() {
         this.scene.restart(this)
         this.sceneCompletion?.play();
         this.scene.switch("musubi-scene-3");
-      }
+    }
     clickCheckOrder(){
         const order: Array<Phaser.GameObjects.GameObject> = [
                     <Phaser.GameObjects.GameObject>this.step1,
