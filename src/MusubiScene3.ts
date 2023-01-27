@@ -5,6 +5,15 @@ import main from './main';
 import { CheckPositions } from './CheckPositions';
 
 export default class MusubiScene extends Phaser.Scene {
+    //sound
+    private levelCompletion : Phaser.Sound.BaseSound | undefined;
+
+    //ingredients
+    private rice : Phaser.GameObjects.GameObject | undefined;
+    private seaweed : Phaser.GameObjects.GameObject | undefined;
+    private spam : Phaser.GameObjects.GameObject | undefined;
+    private musubi: Phaser.GameObjects.GameObject | undefined;
+
     //pseudo code
     private slice : Phaser.GameObjects.GameObject | undefined;
     private cook : Phaser.GameObjects.GameObject | undefined;
@@ -51,14 +60,14 @@ export default class MusubiScene extends Phaser.Scene {
         //win pop-up
         this.load.image("utensilpop", "assets/backgrounds/firstscene/utensilBackground.jpg");
         this.load.image("arrow","assets/buttons/rightarrow.png");
+        //ingredients
+        this.load.image("rice", "assets/ingredients/rice.png");
+        this.load.image("seaweed", "assets/ingredients/seaweed.png");
+        this.load.image("spam", "assets/ingredients/spam.png");
+        this.load.image("musubi", "assets/ingredients/musubi.png");
     }
 
     create() {
-        //musubi
-        const scaledMusubi = this.add.image(400, 450, "musubi");
-        scaledMusubi.displayWidth = Number(main.config.width) * .2;
-        scaledMusubi.scaleY = scaledMusubi.scaleX;
-
         //background 
         const scaledbackground = this.add.image(400, 300, "brick");
         scaledbackground.displayWidth = Number(main.config.width);
@@ -68,6 +77,35 @@ export default class MusubiScene extends Phaser.Scene {
         const scaledTable = this.physics.add.image(400, 460, 'table');
         scaledTable.displayWidth = Number(700)
         scaledTable.scaleY = scaledTable.scaleX
+
+        //ingredients
+        //rice
+        const scaledRice = this.physics.add.image(this.scale.width / 4, 440, "rice");
+        scaledRice.displayWidth = Number(main.config.width) * .2;
+        scaledRice.scaleY = scaledRice.scaleX;
+        this.rice = scaledRice;
+        this.musubi?.body.gameObject.setVisible(true);
+
+        //seaweed
+        const scaledSeaweed = this.physics.add.image(this.scale.width / 2, 430, "seaweed");
+        scaledSeaweed.displayWidth = Number(main.config.width) * .12;
+        scaledSeaweed.scaleY = scaledSeaweed.scaleX;
+        this.seaweed = scaledSeaweed;
+        this.musubi?.body.gameObject.setVisible(true);
+
+        //spam
+        const scaledSpam = this.physics.add.image(this.scale.width / 1.3, 430, "spam");
+        scaledSpam.displayWidth = Number(main.config.width) * .15;
+        scaledSpam.scaleY = scaledSpam.scaleX;
+        this.spam = scaledSpam;
+        this.musubi?.body.gameObject.setVisible(true);
+
+        //musubi
+        const scaledMusubi = this.physics.add.image(400, 450, "musubi");
+        scaledMusubi.displayWidth = Number(main.config.width) * .2;
+        scaledMusubi.scaleY = scaledMusubi.scaleX;
+        this.musubi = scaledMusubi;
+        this.musubi?.body.gameObject.setVisible(false);
 
         //bottom bar
         this.add.rectangle(400, 550, 800, 100, 0xffffff);
@@ -328,11 +366,19 @@ export default class MusubiScene extends Phaser.Scene {
             this.popback?.setVisible(true);
             this.poptext?.setVisible(true);
             this.arrow?.setVisible(true);
+            this.musubi?.body.gameObject.setVisible(true);
+            this.rice?.body.gameObject.setVisible(false);
+            this.seaweed?.body.gameObject.setVisible(false);
+            this.spam?.body.gameObject.setVisible(false);
         } else {
             this.rect?.setVisible(false);
             this.popback?.setVisible(false);
             this.poptext?.setVisible(false);
             this.arrow?.setVisible(false);
+            this.musubi?.body.gameObject.setVisible(false);
+            this.seaweed?.body.gameObject.setVisible(true);
+            this.spam?.body.gameObject.setVisible(true);
+            this.rice?.body.gameObject.setVisible(true);
         }
       }
     update() {
