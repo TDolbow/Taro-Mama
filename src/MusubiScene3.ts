@@ -170,15 +170,15 @@ export default class MusubiScene extends Phaser.Scene {
         this.input.setDraggable(this.wrap);
         this.wrap.name = 'wrap';
         
-        //title for level 2
-        const MainTitle = this.add.text(20,20,"Level 3: Place the pseudocode in order",{
+        //title for level 3
+        const MainTitle = this.add.text(20,20,"Level 3: Place the Pseudocode in Order",{
             fontSize: '58px', fontStyle: 'bold',color:'0xff0000'
         });
-        MainTitle.scale=0.65;
+        MainTitle.scale=0.5;
         MainTitle.setVisible(true)
         
-        const feedback_text = this.add.text(20,20,"Click the check button to get feedback.",{
-            fontSize: '58px', fontStyle: 'bold',color:'0xff0000'
+        const feedback_text = this.add.text(250,520,"Click the check button to\nget feedback.",{
+            fontSize: '50px', fontStyle: 'bold',color:'0xff0000'
         });
         feedback_text.scale=0.5;
         this.feedback_text = feedback_text;
