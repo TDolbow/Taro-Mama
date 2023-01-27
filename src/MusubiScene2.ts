@@ -77,16 +77,18 @@ export default class MusubiScene extends Phaser.Scene {
         scaledbackground.displayHeight = Number(main.config.height);
 
         //table
-        const scaledTable = this.physics.add.image(400, 550, 'table')
+        const scaledTable = this.physics.add.image(400, 460, 'table');
         scaledTable.displayWidth = Number(700)
         scaledTable.scaleY = scaledTable.scaleX
 
-        //recipe directions 
+        //bottom bar
+        this.add.rectangle(400, 550, 800, 100, 0xffffff);
 
         var tempStep = Phaser.Math.Between(0,this.possibleYSteps.length-1);
         console.log(this.possibleYSteps);
         console.log(this.possibleYSteps[tempStep])
 
+        //recipe directions
         const scaledStep1 = this.add.text(50, this.possibleYSteps[tempStep], "Slice the spam", {
             color: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
@@ -165,7 +167,7 @@ export default class MusubiScene extends Phaser.Scene {
         this.input.setDraggable(this.step6);
         this.step6.name = 'wrap spam...';
 
-        const scaledMusubi = this.add.image(400, 540, "musubi");
+        const scaledMusubi = this.add.image(400, 450, "musubi");
         scaledMusubi.displayWidth = Number(main.config.width) * .2;
         scaledMusubi.scaleY = scaledMusubi.scaleX;
 
@@ -197,8 +199,16 @@ export default class MusubiScene extends Phaser.Scene {
         });
         feedback_text.scale=0.5;
         this.feedback_text = feedback_text;
-          
-        const checkDirections = this.add.image(760, 480, 'check');
+        
+        //back button
+        const back = this.add.image(45, 555, "exit");
+        back.displayWidth = Number(main.config.width) * .08;
+        back.scaleY = back.scaleX;
+        back.setInteractive({ useHandCursor: true });
+        back.on('pointerdown', () => this.clickBack());
+
+        //check directions button
+        const checkDirections = this.add.image(760, 550, 'check');
         checkDirections.displayWidth = Number(main.config.width) * .08;
         checkDirections.scaleY = checkDirections.scaleX;
         checkDirections.setInteractive({ useHandCursor: true });
@@ -223,12 +233,12 @@ export default class MusubiScene extends Phaser.Scene {
 
        // ------------------------------------------- POPUPS -------------------------------------------------    
     //recipe help button
-    const recipeBtn = this.add.image(125,535, "recipe");
+    const recipeBtn = this.add.image(125,555, "recipe");
     recipeBtn.scale = .125;
     recipeBtn.setInteractive({ useHandCursor: true });
 
     //direction help button
-    const helpBtn = this.add.image(200, 540, "help")
+    const helpBtn = this.add.image(200, 560, "help")
     helpBtn.scale = .075
     helpBtn.setInteractive({ useHandCursor: true });
     
@@ -319,6 +329,10 @@ export default class MusubiScene extends Phaser.Scene {
     // ------------------------------------------- END POPUPS -------------------------------------------------
 
     } // end create function
+    clickBack() {
+        this.scene.restart(this);
+        this.scene.switch("title-scene");
+    }
     clickNext() {
         this.scene.restart(this)
         this.sceneCompletion?.play();

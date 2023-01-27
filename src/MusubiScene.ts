@@ -2,21 +2,21 @@ import Phaser from 'phaser'
 import main from './main';
 
 export default class MusubiScene extends Phaser.Scene {
-    //ingredients
-    private rice : Phaser.GameObjects.GameObject | undefined;
-    private seaweed : Phaser.GameObjects.GameObject | undefined;
-    private spam : Phaser.GameObjects.GameObject | undefined;
-    private musubi: Phaser.GameObjects.GameObject | undefined;
-    private recipeFinished ?: boolean;
+  //ingredients
+  private rice : Phaser.GameObjects.GameObject | undefined;
+  private seaweed : Phaser.GameObjects.GameObject | undefined;
+  private spam : Phaser.GameObjects.GameObject | undefined;
+  private musubi: Phaser.GameObjects.GameObject | undefined;
+  private recipeFinished ?: boolean;
 
-    //pop up objects
-    private rect : Phaser.GameObjects.Rectangle | undefined;
-    private popback : Phaser.GameObjects.Image | undefined;
-    private poptext : Phaser.GameObjects.Text | undefined;
-    private arrow : Phaser.GameObjects.Image | undefined;
+  //pop up objects
+  private rect : Phaser.GameObjects.Rectangle | undefined;
+  private popback : Phaser.GameObjects.Image | undefined;
+  private poptext : Phaser.GameObjects.Text | undefined;
+  private arrow : Phaser.GameObjects.Image | undefined;
 
-    //sounds
-    private sceneCompletion : Phaser.Sound.BaseSound | undefined;
+  //sounds
+  private sceneCompletion : Phaser.Sound.BaseSound | undefined;
 
   //FOR RECIPE POPUP
   recipeBtn?: Phaser.GameObjects.Image;
@@ -55,11 +55,11 @@ export default class MusubiScene extends Phaser.Scene {
     const scaledbackground = this.add.image(400, 300, "brick");
     scaledbackground.displayWidth = Number(main.config.width);
     scaledbackground.displayHeight = Number(main.config.height);
+
+    //title
     const MainTitle = this.add.text(20,20,"Level 1: Combine The Ingredients",{
       fontSize: '58px', fontStyle: 'bold',color:'0xff0000'
     });
-
-    //title
     MainTitle.scale=0.65;
     MainTitle.setVisible(true)
 
@@ -117,8 +117,6 @@ export default class MusubiScene extends Phaser.Scene {
     this.input.on('dragend', function (_pointer: any, gameObject: { clearTint: () => void; }) {
       gameObject.clearTint();
     });
-
-    
 
     //back button
     const back = this.add.image(45, 555, "exit");
@@ -193,12 +191,10 @@ export default class MusubiScene extends Phaser.Scene {
     const helpText = this.add.text(525, 70,"Directions", {color: "000000",  fontSize: '20px'})
     helpText.setVisible(false)
 
-
     const directions = this.add.text(430, 100, 
       `Level 1: Ingredient Matching \n\n Drag and drop the ingredients on the screen to combine them to make spam musubi. \n \n Reference the recipe in the recipe book for help. \n\n The ingredients only need to be put together, not prepared.
       `, {wordWrap: {width: 325}, align: 'center', color: "000000"});
-    
-      directions.setVisible(false);
+    directions.setVisible(false);
 
     //on recipe button pushed
     recipeBtn.on('pointerdown', () => {
@@ -261,10 +257,8 @@ export default class MusubiScene extends Phaser.Scene {
     this.scene.switch("recipe-scene");
   }
   clickNext() {
-
     this.scene.restart(this)
     this.sceneCompletion?.play();
-
     this.scene.switch("musubi-scene-2");
   }
   update() {
