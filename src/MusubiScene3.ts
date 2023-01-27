@@ -34,15 +34,16 @@ export default class MusubiScene extends Phaser.Scene {
     //random placement parameters
     private randomxMin : integer;
     private randomxMax : integer;
-   
     private randomyMin : integer;
     private randomyMax : integer;
     private yIncrement : integer;
     private possibleYSteps : integer[];
 
+    //sound
+    private sceneCompletion : Phaser.Sound.BaseSound | undefined;
+
     constructor() {
 		super('musubi-scene-3')
-
         //define random placement parameters
         this.randomxMin = 50;
         this.randomxMax = 400;
@@ -68,6 +69,12 @@ export default class MusubiScene extends Phaser.Scene {
     }
 
     create() {
+        this.randomxMax;
+        this.randomxMin;
+        this.randomyMax;
+        this.randomyMin;
+        this.yIncrement;
+
         //background 
         const scaledbackground = this.add.image(400, 300, "brick");
         scaledbackground.displayWidth = Number(main.config.width);
@@ -117,7 +124,7 @@ export default class MusubiScene extends Phaser.Scene {
         const levelCompletion_sound = this.sound.add("levelCompletion", {
             volume: .6
           })
-        this.levelCompletion = levelCompletion_sound;
+        this.sceneCompletion = levelCompletion_sound;
 
         //drag n drop 
         this.input.dragDistanceThreshold = 16;
@@ -141,62 +148,58 @@ export default class MusubiScene extends Phaser.Scene {
         back.on('pointerdown', () => this.clickBack());
 
         //pseudo code 
-
-        var tempStep = Phaser.Math.Between(0,this.possibleYSteps.length-1);
-        const scaledSlice = this.add.text(50, this.possibleYSteps[tempStep], "Slice();", {
+        const tempStep1 = Phaser.Math.Between(0,this.possibleYSteps.length-1);
+        const scaledSlice = this.add.text(50, this.possibleYSteps[tempStep1], "Slice(SPAM);", {
             backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
-        this.possibleYSteps.splice(tempStep,1);
+        this.possibleYSteps.splice(tempStep1,1);
         scaledSlice.scale = 0.5;
         this.slice = scaledSlice;
         this.input.setDraggable(this.slice);
         this.slice.name = 'slice';
         
-
-        var tempStep = Phaser.Math.Between(0,this.possibleYSteps.length-1);
-        const scaledCook = this.add.text(50, this.possibleYSteps[tempStep], "Cook();", {
+        const tempStep2 = Phaser.Math.Between(0,this.possibleYSteps.length-1);
+        const scaledCook = this.add.text(50, this.possibleYSteps[tempStep2], "Fry(SPAM);", {
             backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
-        this.possibleYSteps.splice(tempStep,1);
+        this.possibleYSteps.splice(tempStep2,1);
         scaledCook.scale = 0.5;
         this.cook = scaledCook;
         this.input.setDraggable(this.cook);
         this.cook.name = 'cook';
         
-
-        var tempStep = Phaser.Math.Between(0,this.possibleYSteps.length-1);
-        const scaledMold = this.add.text(50, this.possibleYSteps[tempStep], "Create-Mold();", {
+        const tempStep3 = Phaser.Math.Between(0,this.possibleYSteps.length-1);
+        const scaledMold = this.add.text(50, this.possibleYSteps[tempStep3], "Add-To-Mold(Rice);", {
             backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
-        this.possibleYSteps.splice(tempStep,1);
+        this.possibleYSteps.splice(tempStep3,1);
         scaledMold.scale = 0.5;
         this.mold = scaledMold;
         this.input.setDraggable(this.mold);
         this.mold.name = 'mold';
         
-
-        var tempStep = Phaser.Math.Between(0,this.possibleYSteps.length-1);
-        const scaledRemove = this.add.text(50, this.possibleYSteps[tempStep], "Remove-Extra-Rice();", {
+        const tempStep4 = Phaser.Math.Between(0,this.possibleYSteps.length-1);
+        const scaledRemove = this.add.text(50, this.possibleYSteps[tempStep4], "Remove-From-Mold(Rice);", {
             backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
-        this.possibleYSteps.splice(tempStep,1);
+        this.possibleYSteps.splice(tempStep4,1);
         scaledRemove.scale = 0.5;
         this.remove = scaledRemove;
         this.input.setDraggable(this.remove);
         this.remove.name = 'remove';
         
-        var tempStep = Phaser.Math.Between(0,this.possibleYSteps.length-1);
-        const scaledCombine = this.add.text(50, this.possibleYSteps[tempStep], "Combine();", {
+        const tempStep5 = Phaser.Math.Between(0,this.possibleYSteps.length-1);
+        const scaledCombine = this.add.text(50, this.possibleYSteps[tempStep5], "Stack(SPAM, rice);", {
             backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
-        this.possibleYSteps.splice(tempStep,1);
+        this.possibleYSteps.splice(tempStep5,1);
         scaledCombine.scale = 0.5;
         this.combine = scaledCombine;
         this.input.setDraggable(this.combine);
         this.combine.name = 'combine';
         
-        var tempStep = Phaser.Math.Between(0,this.possibleYSteps.length-1);
-        const scaledWrap = this.add.text(50, this.possibleYSteps[tempStep], "Wrap();", {
+        const tempStep = Phaser.Math.Between(0,this.possibleYSteps.length-1);
+        const scaledWrap = this.add.text(50, this.possibleYSteps[tempStep], "Wrap(nori, rice, SPAM);", {
             backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
         this.possibleYSteps.splice(tempStep,1);
@@ -205,8 +208,15 @@ export default class MusubiScene extends Phaser.Scene {
         this.input.setDraggable(this.wrap);
         this.wrap.name = 'wrap';
         
-        const feedback_text = this.add.text(20,20,"Click the check button to get feedback.",{
+        //title for level 3
+        const MainTitle = this.add.text(20,20,"Level 3: Place the Pseudocode in Order",{
             fontSize: '58px', fontStyle: 'bold',color:'0xff0000'
+        });
+        MainTitle.scale=0.5;
+        MainTitle.setVisible(true)
+        
+        const feedback_text = this.add.text(250,520,"Click the check button to\nget feedback.",{
+            fontSize: '50px', fontStyle: 'bold',color:'0xff0000'
         });
         feedback_text.scale=0.5;
         this.feedback_text = feedback_text;
@@ -219,17 +229,17 @@ export default class MusubiScene extends Phaser.Scene {
         checkDirections.on('pointerdown', () => this.clickCheckOrder());
 
         //win pop up 
-        this.rect = this.add.rectangle(400, 300, 410, 310, 0x000000);
+        this.rect = this.add.rectangle(400, 230, 410, 310, 0x000000);
         this.rect.setVisible(false);
-        this.popback = this.add.image(400, 300, "utensilpop");
+        this.popback = this.add.image(400, 230, "utensilpop");
         this.popback.displayWidth = 400;
         this.popback.displayHeight = 300;
         this.popback.setVisible(false);
-        this.poptext = this.add.text(230, 150, "GREAT JOB!", {
+        this.poptext = this.add.text(230, 120, "GREAT JOB!", {
             fontSize: '58px', fontStyle: 'bold', color: '0x000000'
         });
         this.poptext.setVisible(false);
-        this.arrow = this.add.image(400, 350, 'arrow');
+        this.arrow = this.add.image(400, 300, 'arrow');
         this.arrow.scale = 0.2;
         this.arrow.setInteractive({ useHandCursor: true });
         this.arrow.on('pointerdown', () => this.clickFinish());
@@ -244,7 +254,6 @@ export default class MusubiScene extends Phaser.Scene {
         //zone colors
         this.add.rectangle
         */
-
         // ------------------------------------------- POPUPS -------------------------------------------------    
     //recipe help button
     const recipeBtn = this.add.image(125,555, "recipe");
@@ -269,13 +278,13 @@ export default class MusubiScene extends Phaser.Scene {
 
     const spamTitle = this.add.text(480,70,'Spam Musubi Recipe', {color: "000000",  fontSize: '20px'})
     const spamSteps = this.add.text(425, 100, 
-      `Step 1: Slice spam into 8-10 slices. \n
-      Step 2: Fry SPAM on each side over medium heat until slightly crispy or until desired doneness. \n
-      Step 3: Place a strip of nori on a cutting board. Place your Musubi mold across the middle of the nori. Add Sushi Rice to the mold and press down. \n
-      Step 4: Remove the mold from the rice. \n
-      Step 5: Add some of the cooked SPAM to the top. \n
-      Step 6: Wrap up one side of the nori and stick it to the top of the SPAM, then wrap up the other side.\n
-      `, {wordWrap: {width: 325}, align: 'center', color: "000000"})
+    `Step 1: Slice spam into 8-10 slices. \n
+    Step 2: Fry SPAM on each side over medium heat until slightly crispy or until desired doneness. \n
+    Step 3: Add Sushi Rice to the mold and press down. \n
+    Step 4: Remove the rice from the mold. \n
+    Step 5: Add a slice of cooked SPAM to the top of the rice. \n
+    Step 6: Wrap up one side of the nori and stick it to the top of the SPAM, then wrap up the other side.\n
+    `, {wordWrap: {width: 325}, align: 'center', color: "000000"})
     
     spamTitle.setVisible(false)
     spamSteps.setVisible(false)
@@ -309,6 +318,14 @@ export default class MusubiScene extends Phaser.Scene {
       exitHelpBtn.setVisible(false);
       helpText.setVisible(false);
       directions.setVisible(false);
+
+      //disable interactivity
+      this.slice?.disableInteractive()
+      this.cook?.disableInteractive()
+      this.mold?.disableInteractive()
+      this.remove?.disableInteractive()
+      this.combine?.disableInteractive()
+      this.wrap?.disableInteractive()
     });
     
     //on help button pushed
@@ -321,6 +338,14 @@ export default class MusubiScene extends Phaser.Scene {
       exitRecipeBtn.setVisible(false)
       spamTitle.setVisible(false)
       spamSteps.setVisible(false)
+
+      //disable interactivity
+      this.slice?.disableInteractive()
+      this.cook?.disableInteractive()
+      this.mold?.disableInteractive()
+      this.remove?.disableInteractive()
+      this.combine?.disableInteractive()
+      this.wrap?.disableInteractive()
     });
 
     //on exit recipe button pushed
@@ -330,6 +355,14 @@ export default class MusubiScene extends Phaser.Scene {
       spamTitle.setVisible(false)
       spamSteps.setVisible(false)
       directions.setVisible(false)
+
+      //enable interactivity
+      this.slice?.setInteractive()
+      this.cook?.setInteractive()
+      this.mold?.setInteractive()
+      this.remove?.setInteractive()
+      this.combine?.setInteractive()
+      this.wrap?.setInteractive()
     });
 
     //on exit help button pushed
@@ -338,17 +371,24 @@ export default class MusubiScene extends Phaser.Scene {
       exitHelpBtn.setVisible(false)
       helpText.setVisible(false)
       directions.setVisible(false)
-    });
 
+      //enable interactivity
+      this.slice?.setInteractive()
+      this.cook?.setInteractive()
+      this.mold?.setInteractive()
+      this.remove?.setInteractive()
+      this.combine?.setInteractive()
+      this.wrap?.setInteractive()
+    });
     // ------------------------------------------- END POPUPS -------------------------------------------------
     } // end create function
     clickBack() {
-        this.scene.restart(this);
-        this.scene.switch("title-scene");
+        this.scene.restart(this)
+        this.scene.switch("recipe-scene");
     }
     clickFinish() {
         this.scene.restart(this)
-        this.levelCompletion?.play();
+        this.sceneCompletion?.play();
         this.scene.switch('title-scene');
     }
     clickCheckOrder(){
@@ -361,7 +401,7 @@ export default class MusubiScene extends Phaser.Scene {
                     <Phaser.GameObjects.GameObject>this.wrap];
                     const feedbackString = String(CheckPositions(order));
                     this.feedback_text?.setText(<string>feedbackString);
-        if(String(CheckPositions(order)) == 'All instructions are in the correct location') {
+        if(String(CheckPositions(order)) === 'All instructions are in\nthe correct location') {
             this.rect?.setVisible(true);
             this.popback?.setVisible(true);
             this.poptext?.setVisible(true);
