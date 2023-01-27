@@ -233,16 +233,6 @@ export default class MusubiScene extends Phaser.Scene {
         this.arrow.setInteractive({ useHandCursor: true });
         this.arrow.on('pointerdown', () => this.clickNext());
         this.arrow.setVisible(false);
-
-        //back button
-        const back = this.add.image(45, 555, "exit");
-        back.displayWidth = Number(main.config.width) * .08;
-        back.scaleY = back.scaleX;
-        back.setInteractive({ useHandCursor: true });
-        back.on('pointerdown', () => this.clickBack());
-
-        
-
        // ------------------------------------------- POPUPS -------------------------------------------------    
     //recipe help button
     const recipeBtn = this.add.image(125,555, "recipe");
@@ -392,7 +382,7 @@ export default class MusubiScene extends Phaser.Scene {
                     <Phaser.GameObjects.GameObject>this.step6];
         const feedbackString = String(CheckPositions(order));
         this.feedback_text?.setText(<string>feedbackString);
-        if(String(CheckPositions(order)) == 'All instructions are in the correct location') {
+        if(String(CheckPositions(order)) === 'All instructions are in\nthe correct location') {
             this.rect?.setVisible(true);
             this.popback?.setVisible(true);
             this.poptext?.setVisible(true);
