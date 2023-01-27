@@ -22,8 +22,25 @@ export default class MusubiScene extends Phaser.Scene {
     private poptext : Phaser.GameObjects.Text | undefined;
     private arrow : Phaser.GameObjects.Image | undefined;
 
+    //random placement parameters
+    private randomxMin : integer;
+    private randomxMax : integer;
+   
+    private randomyMin : integer;
+    private randomyMax : integer;
+    private yIncrement : integer;
+    private possibleYSteps : integer[];
+
     constructor() {
 		super('musubi-scene-3')
+
+        //define random placement parameters
+        this.randomxMin = 50;
+        this.randomxMax = 400;
+        this.randomyMin = 50;
+        this.randomyMax = 400;
+        this.yIncrement = 20;
+        this.possibleYSteps = [140,180,220,260,300,340];
 	}
 
     preload() {
@@ -79,49 +96,65 @@ export default class MusubiScene extends Phaser.Scene {
         */
 
         //pseudo code 
-        const scaledSlice = this.add.text(50, 50, "Slice();", {
+
+        var tempStep = Phaser.Math.Between(0,this.possibleYSteps.length-1);
+        const scaledSlice = this.add.text(50, this.possibleYSteps[tempStep], "Slice();", {
             backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
+        this.possibleYSteps.splice(tempStep,1);
         scaledSlice.scale = 0.5;
         this.slice = scaledSlice;
         this.input.setDraggable(this.slice);
         this.slice.name = 'slice';
         
-        const scaledCook = this.add.text(50, 90, "Cook();", {
+
+        var tempStep = Phaser.Math.Between(0,this.possibleYSteps.length-1);
+        const scaledCook = this.add.text(50, this.possibleYSteps[tempStep], "Cook();", {
             backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
+        this.possibleYSteps.splice(tempStep,1);
         scaledCook.scale = 0.5;
         this.cook = scaledCook;
         this.input.setDraggable(this.cook);
         this.cook.name = 'cook';
         
-        const scaledMold = this.add.text(50, 130, "Create-Mold();", {
+
+        var tempStep = Phaser.Math.Between(0,this.possibleYSteps.length-1);
+        const scaledMold = this.add.text(50, this.possibleYSteps[tempStep], "Create-Mold();", {
             backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
+        this.possibleYSteps.splice(tempStep,1);
         scaledMold.scale = 0.5;
         this.mold = scaledMold;
         this.input.setDraggable(this.mold);
         this.mold.name = 'mold';
         
-        const scaledRemove = this.add.text(50, 170, "Remove-Extra-Rice();", {
+
+        var tempStep = Phaser.Math.Between(0,this.possibleYSteps.length-1);
+        const scaledRemove = this.add.text(50, this.possibleYSteps[tempStep], "Remove-Extra-Rice();", {
             backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
+        this.possibleYSteps.splice(tempStep,1);
         scaledRemove.scale = 0.5;
         this.remove = scaledRemove;
         this.input.setDraggable(this.remove);
         this.remove.name = 'remove';
         
-        const scaledCombine = this.add.text(50, 210, "Combine();", {
+        var tempStep = Phaser.Math.Between(0,this.possibleYSteps.length-1);
+        const scaledCombine = this.add.text(50, this.possibleYSteps[tempStep], "Combine();", {
             backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
+        this.possibleYSteps.splice(tempStep,1);
         scaledCombine.scale = 0.5;
         this.combine = scaledCombine;
         this.input.setDraggable(this.combine);
         this.combine.name = 'combine';
         
-        const scaledWrap = this.add.text(50, 250, "Wrap();", {
+        var tempStep = Phaser.Math.Between(0,this.possibleYSteps.length-1);
+        const scaledWrap = this.add.text(50, this.possibleYSteps[tempStep], "Wrap();", {
             backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
+        this.possibleYSteps.splice(tempStep,1);
         scaledWrap.scale = 0.5;
         this.wrap = scaledWrap;
         this.input.setDraggable(this.wrap);
