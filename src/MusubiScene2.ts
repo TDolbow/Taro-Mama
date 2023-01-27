@@ -175,9 +175,9 @@ export default class MusubiScene extends Phaser.Scene {
     helpBtn.setInteractive({ useHandCursor: true });
     
     //for recipe popup
-    const recipePaper = this.add.image(275,-10, "list")
+    const recipePaper = this.add.image(325,-10, "list")
     recipePaper.setOrigin(0,0)
-    recipePaper.scale = .85
+    recipePaper.scale = .75
     recipePaper.setVisible(false)
 
     const exitRecipeBtn = this.add.image(725,70, "exit")
@@ -185,7 +185,7 @@ export default class MusubiScene extends Phaser.Scene {
     exitRecipeBtn.setInteractive({ useHandCursor: true });
     exitRecipeBtn.setVisible(false)
 
-    const spamTitle = this.add.text(490,70,'Spam Musubi Recipe')
+    const spamTitle = this.add.text(480,70,'Spam Musubi Recipe', {color: "000000", fontSize: '20px'})
     const spamSteps = this.add.text(425, 100, 
       `Step 1: Slice spam into 8-10 slices. \n
       Step 2: Fry SPAM on each side over medium heat until slightly crispy or until desired doneness. \n
@@ -193,15 +193,15 @@ export default class MusubiScene extends Phaser.Scene {
       Step 4: Remove the mold from the rice. \n
       Step 5: Add some of the cooked SPAM to the top. \n
       Step 6: Wrap up one side of the nori and stick it to the top of the SPAM, then wrap up the other side.\n
-      `, {wordWrap: {width: 325}, align: 'center'})
+      `, {wordWrap: {width: 325}, align: 'center', color: "000000"})
     
     spamTitle.setVisible(false)
     spamSteps.setVisible(false)
 
     //for help popup
-    const helpPaper = this.add.image(275,-10, "list")
+    const helpPaper = this.add.image(325,-10, "list")
     helpPaper.setOrigin(0,0)
-    helpPaper.scale = .85
+    helpPaper.scale = .75
     helpPaper.setVisible(false)
 
     const exitHelpBtn = this.add.image(725,70, "exit")
@@ -209,12 +209,12 @@ export default class MusubiScene extends Phaser.Scene {
     exitHelpBtn.setInteractive({ useHandCursor: true });
     exitHelpBtn.setVisible(false)
 
-    const helpText = this.add.text(525, 70,"Directions")
+    const helpText = this.add.text(525, 70,"Directions", {color: "000000", fontSize: '20px'})
     helpText.setVisible(false)
 
     const directions = this.add.text(430, 100, 
       `Level 2: Direction Sorting \n\n Drag and drop the directions on the screen in the correct order to make spam musubi. \n \n Reference the recipe in the recipe book for help.  
-      `, {wordWrap: {width: 325}, align: 'center'});
+      `, {wordWrap: {width: 325}, align: 'center', color: "000000"});
       directions.setVisible(false);
 
     //on recipe button pushed
