@@ -22,14 +22,25 @@ export default class MusubiScene extends Phaser.Scene {
     private poptext : Phaser.GameObjects.Text | undefined;
     private arrow : Phaser.GameObjects.Image | undefined;
 
-    //zones
-    //private zone1 : Phaser.GameObjects.Zone | undefined;
-
-    //sound
-    private levelCompletion : Phaser.Sound.BaseSound | undefined;
+    //random placement parameters
+    private randomxMin : integer;
+    private randomxMax : integer;
+   
+    private randomyMin : integer;
+    private randomyMax : integer;
+    private yIncrement : integer;
+    private possibleYSteps : integer[];
 
     constructor() {
 		super('musubi-scene-3')
+
+        //define random placement parameters
+        this.randomxMin = 50;
+        this.randomxMax = 400;
+        this.randomyMin = 50;
+        this.randomyMax = 400;
+        this.yIncrement = 20;
+        this.possibleYSteps = [140,180,220,260,300,340];
 	}
 
     preload() {
@@ -43,15 +54,23 @@ export default class MusubiScene extends Phaser.Scene {
     }
 
     create() {
+        //musubi
+        const scaledMusubi = this.add.image(400, 450, "musubi");
+        scaledMusubi.displayWidth = Number(main.config.width) * .2;
+        scaledMusubi.scaleY = scaledMusubi.scaleX;
+
         //background 
         const scaledbackground = this.add.image(400, 300, "brick");
         scaledbackground.displayWidth = Number(main.config.width);
         scaledbackground.displayHeight = Number(main.config.height);
 
         //table
-        const scaledTable = this.physics.add.image(400, 550, 'table')
+        const scaledTable = this.physics.add.image(400, 460, 'table');
         scaledTable.displayWidth = Number(700)
         scaledTable.scaleY = scaledTable.scaleX
+
+        //bottom bar
+        this.add.rectangle(400, 550, 800, 100, 0xffffff);
 
         //sounds
         const click_sound = this.sound.add("clicksound", {
@@ -76,62 +95,73 @@ export default class MusubiScene extends Phaser.Scene {
             gameObject.clearTint();
         });
 
-        /*
         //back button
-        const back = this.add.text(10, 500, "Quit", {
-            fontSize: '58px'
-            });
-        back.setTint(0xFF0000);
-        back.displayWidth = Number(main.config.width) * .1;
+        const back = this.add.image(45, 555, "exit");
+        back.displayWidth = Number(main.config.width) * .08;
         back.scaleY = back.scaleX;
         back.setInteractive({ useHandCursor: true });
         back.on('pointerdown', () => this.clickBack());
-        */
 
         //pseudo code 
-        const scaledSlice = this.add.text(50, 50, "Slice(SPAM);", {
+        var tempStep = Phaser.Math.Between(0,this.possibleYSteps.length-1);
+        const scaledSlice = this.add.text(50, this.possibleYSteps[tempStep], "Slice(SPAM);", {
             backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
+        this.possibleYSteps.splice(tempStep,1);
         scaledSlice.scale = 0.5;
         this.slice = scaledSlice;
         this.input.setDraggable(this.slice);
         this.slice.name = 'slice';
         
-        const scaledCook = this.add.text(50, 90, "Fry(SPAM);", {
+        var tempStep = Phaser.Math.Between(0,this.possibleYSteps.length-1);
+        const scaledCook = this.add.text(50, this.possibleYSteps[tempStep], "Fry(SPAM);", {
             backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
+        this.possibleYSteps.splice(tempStep,1);
         scaledCook.scale = 0.5;
         this.cook = scaledCook;
         this.input.setDraggable(this.cook);
         this.cook.name = 'cook';
         
-        const scaledMold = this.add.text(50, 130, "Add-To-Mold(Rice);", {
+
+        var tempStep = Phaser.Math.Between(0,this.possibleYSteps.length-1);
+        const scaledMold = this.add.text(50, this.possibleYSteps[tempStep], "Add-To-Mold(Rice);", {
             backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
+        this.possibleYSteps.splice(tempStep,1);
         scaledMold.scale = 0.5;
         this.mold = scaledMold;
         this.input.setDraggable(this.mold);
         this.mold.name = 'mold';
         
-        const scaledRemove = this.add.text(50, 170, "Remove-From-Mold(Rice);", {
+
+        var tempStep = Phaser.Math.Between(0,this.possibleYSteps.length-1);
+        const scaledRemove = this.add.text(50, this.possibleYSteps[tempStep], "Remove-From-Mold(Rice);", {
+
             backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
+        this.possibleYSteps.splice(tempStep,1);
         scaledRemove.scale = 0.5;
         this.remove = scaledRemove;
         this.input.setDraggable(this.remove);
         this.remove.name = 'remove';
         
-        const scaledCombine = this.add.text(50, 210, "Stack(SPAM, rice);", {
+        var tempStep = Phaser.Math.Between(0,this.possibleYSteps.length-1);
+        const scaledCombine = this.add.text(50, this.possibleYSteps[tempStep], "Stack(SPAM, rice);", {
             backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
+        this.possibleYSteps.splice(tempStep,1);
         scaledCombine.scale = 0.5;
         this.combine = scaledCombine;
         this.input.setDraggable(this.combine);
         this.combine.name = 'combine';
         
-        const scaledWrap = this.add.text(50, 250, "Wrap(nori, rice, SPAM);", {
+
+        var tempStep = Phaser.Math.Between(0,this.possibleYSteps.length-1);
+        const scaledWrap = this.add.text(50, this.possibleYSteps[tempStep], "Wrap(nori, rice, SPAM);", {
             backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
+        this.possibleYSteps.splice(tempStep,1);
         scaledWrap.scale = 0.5;
         this.wrap = scaledWrap;
         this.input.setDraggable(this.wrap);
@@ -142,29 +172,13 @@ export default class MusubiScene extends Phaser.Scene {
         });
         feedback_text.scale=0.5;
         this.feedback_text = feedback_text;
-          
-        const checkDirections = this.add.image(760, 480, 'check');
+        
+        //check directions button
+        const checkDirections = this.add.image(760, 550, 'check');
         checkDirections.displayWidth = Number(main.config.width) * .08;
         checkDirections.scaleY = checkDirections.scaleX;
         checkDirections.setInteractive({ useHandCursor: true });
         checkDirections.on('pointerdown', () => this.clickCheckOrder());
-
-        // //win pop up 
-        // this.rect = this.add.rectangle(400, 300, 410, 310, 0x000000);
-        // this.rect.setVisible(false);
-        // this.popback = this.add.image(400, 300, "utensilpop");
-        // this.popback.displayWidth = 400;
-        // this.popback.displayHeight = 300;
-        // this.popback.setVisible(false);
-        // this.poptext = this.add.text(230, 150, "GREAT JOB!", {
-        //     fontSize: '58px', fontStyle: 'bold', color: '0x000000'
-        // });
-        // this.poptext.setVisible(false);
-        // this.arrow = this.add.image(400, 350, 'arrow');
-        // this.arrow.scale = 0.2;
-        // this.arrow.setInteractive({ useHandCursor: true });
-        // this.arrow.on('pointerdown', () => this.clickFinish());
-        // this.arrow.setVisible(false);
 
         //win pop up 
         this.rect = this.add.rectangle(400, 230, 410, 310, 0x000000);
@@ -201,12 +215,12 @@ export default class MusubiScene extends Phaser.Scene {
 
         // ------------------------------------------- POPUPS -------------------------------------------------    
     //recipe help button
-    const recipeBtn = this.add.image(125,535, "recipe");
+    const recipeBtn = this.add.image(125,555, "recipe");
     recipeBtn.scale = .125;
     recipeBtn.setInteractive({ useHandCursor: true });
 
     //direction help button
-    const helpBtn = this.add.image(200, 540, "help")
+    const helpBtn = this.add.image(200, 560, "help")
     helpBtn.scale = .075
     helpBtn.setInteractive({ useHandCursor: true });
     
@@ -332,7 +346,6 @@ export default class MusubiScene extends Phaser.Scene {
         this.scene.restart(this)
         this.scene.switch("recipe-scene");
     }
-
     clickFinish() {
         this.scene.restart(this)
         this.levelCompletion?.play();
