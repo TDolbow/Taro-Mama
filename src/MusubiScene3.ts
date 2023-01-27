@@ -93,21 +93,21 @@ export default class MusubiScene extends Phaser.Scene {
         scaledRice.displayWidth = Number(main.config.width) * .2;
         scaledRice.scaleY = scaledRice.scaleX;
         this.rice = scaledRice;
-        this.musubi?.body.gameObject.setVisible(true);y
+        this.rice?.body.gameObject.setVisible(true);
 
         //seaweed
         const scaledSeaweed = this.physics.add.image(this.scale.width / 2, 430, "seaweed");
         scaledSeaweed.displayWidth = Number(main.config.width) * .12;
         scaledSeaweed.scaleY = scaledSeaweed.scaleX;
         this.seaweed = scaledSeaweed;
-        this.musubi?.body.gameObject.setVisible(true);
+        this.seaweed?.body.gameObject.setVisible(true);
 
         //spam
         const scaledSpam = this.physics.add.image(this.scale.width / 1.3, 430, "spam");
         scaledSpam.displayWidth = Number(main.config.width) * .15;
         scaledSpam.scaleY = scaledSpam.scaleX;
         this.spam = scaledSpam;
-        this.musubi?.body.gameObject.setVisible(true);
+        this.spam?.body.gameObject.setVisible(true);
 
         //musubi
         const scaledMusubi = this.physics.add.image(400, 450, "musubi");
