@@ -23,7 +23,7 @@ create() {
     });
 
     //credit
-    this.add.text(300,200, "A Special Thanks To: Minji Kong, Lori Pollock, Katie Wassill, the WCC, and the beautiful state of Hawaii!", {
+    this.add.text(100,400, "A Special Thanks To: Minji Kong, Lori Pollock,\nKatie Wassill, the WCC, and the beautiful state of Hawaii!", {
         color: '0x000000',
         align: "center"
     });
