@@ -43,15 +43,23 @@ export default class MusubiScene extends Phaser.Scene {
     }
 
     create() {
+        //musubi
+        const scaledMusubi = this.add.image(400, 450, "musubi");
+        scaledMusubi.displayWidth = Number(main.config.width) * .2;
+        scaledMusubi.scaleY = scaledMusubi.scaleX;
+
         //background 
         const scaledbackground = this.add.image(400, 300, "brick");
         scaledbackground.displayWidth = Number(main.config.width);
         scaledbackground.displayHeight = Number(main.config.height);
 
         //table
-        const scaledTable = this.physics.add.image(400, 550, 'table')
+        const scaledTable = this.physics.add.image(400, 460, 'table');
         scaledTable.displayWidth = Number(700)
         scaledTable.scaleY = scaledTable.scaleX
+
+        //bottom bar
+        this.add.rectangle(400, 550, 800, 100, 0xffffff);
 
         //sounds
         const click_sound = this.sound.add("clicksound", {
@@ -76,17 +84,12 @@ export default class MusubiScene extends Phaser.Scene {
             gameObject.clearTint();
         });
 
-        /*
         //back button
-        const back = this.add.text(10, 500, "Quit", {
-            fontSize: '58px'
-            });
-        back.setTint(0xFF0000);
-        back.displayWidth = Number(main.config.width) * .1;
+        const back = this.add.image(45, 555, "exit");
+        back.displayWidth = Number(main.config.width) * .08;
         back.scaleY = back.scaleX;
         back.setInteractive({ useHandCursor: true });
         back.on('pointerdown', () => this.clickBack());
-        */
 
         //pseudo code 
         const scaledSlice = this.add.text(50, 50, "Slice();", {
@@ -142,8 +145,9 @@ export default class MusubiScene extends Phaser.Scene {
         });
         feedback_text.scale=0.5;
         this.feedback_text = feedback_text;
-          
-        const checkDirections = this.add.image(760, 480, 'check');
+        
+        //check directions button
+        const checkDirections = this.add.image(760, 550, 'check');
         checkDirections.displayWidth = Number(main.config.width) * .08;
         checkDirections.scaleY = checkDirections.scaleX;
         checkDirections.setInteractive({ useHandCursor: true });
@@ -178,12 +182,12 @@ export default class MusubiScene extends Phaser.Scene {
 
         // ------------------------------------------- POPUPS -------------------------------------------------    
     //recipe help button
-    const recipeBtn = this.add.image(125,535, "recipe");
+    const recipeBtn = this.add.image(125,555, "recipe");
     recipeBtn.scale = .125;
     recipeBtn.setInteractive({ useHandCursor: true });
 
     //direction help button
-    const helpBtn = this.add.image(200, 540, "help")
+    const helpBtn = this.add.image(200, 560, "help")
     helpBtn.scale = .075
     helpBtn.setInteractive({ useHandCursor: true });
     
@@ -273,6 +277,10 @@ export default class MusubiScene extends Phaser.Scene {
 
     // ------------------------------------------- END POPUPS -------------------------------------------------
     } // end create function
+    clickBack() {
+        this.scene.restart(this);
+        this.scene.switch("title-scene");
+    }
     clickFinish() {
         this.scene.restart(this)
         this.levelCompletion?.play();
