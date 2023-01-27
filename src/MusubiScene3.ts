@@ -22,6 +22,15 @@ export default class MusubiScene extends Phaser.Scene {
     private poptext : Phaser.GameObjects.Text | undefined;
     private arrow : Phaser.GameObjects.Image | undefined;
 
+    //random placement parameters
+    private randomxMin : integer;
+    private randomxMax : integer;
+   
+    private randomyMin : integer;
+    private randomyMax : integer;
+    private yIncrement : integer;
+    private possibleYSteps : integer[];
+
     constructor() {
 		super('musubi-scene-3')
 
