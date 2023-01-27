@@ -27,9 +27,9 @@ export function CheckPositions(name_order: Phaser.GameObjects.GameObject[]){
         if(name_order[i].name !== sortedByHeight[i].name){
             console.log('Printing i value');
             console.log(name_order.indexOf(sortedByHeight[i]) - i);
-            return(String(`The instruction ${name_order[i]?.name} is out of order.`));
+            return(String(`The instruction ${name_order[i]?.name}\nis out of order.`));
         }
 
     }
-    return (String('All instructions are in the correct location'));
+    return (String('All instructions are in\nthe correct location'));
 }

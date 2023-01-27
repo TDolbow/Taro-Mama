@@ -194,7 +194,7 @@ export default class MusubiScene extends Phaser.Scene {
             gameObject.clearTint();
         });
 
-        const feedback_text = this.add.text(20,20,"Click the check button to get feedback.",{
+        const feedback_text = this.add.text(250,520,"Click the check button\nto get feedback.",{
             fontSize: '50px', fontStyle: 'bold',color:'0xff0000'
         });
         feedback_text.scale=0.5;
