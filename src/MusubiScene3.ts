@@ -103,9 +103,8 @@ export default class MusubiScene extends Phaser.Scene {
         back.on('pointerdown', () => this.clickBack());
 
         //pseudo code 
-
         var tempStep = Phaser.Math.Between(0,this.possibleYSteps.length-1);
-        const scaledSlice = this.add.text(50, this.possibleYSteps[tempStep], "Slice();", {
+        const scaledSlice = this.add.text(50, this.possibleYSteps[tempStep], "Slice(SPAM);", {
             backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
         this.possibleYSteps.splice(tempStep,1);
@@ -114,9 +113,8 @@ export default class MusubiScene extends Phaser.Scene {
         this.input.setDraggable(this.slice);
         this.slice.name = 'slice';
         
-
         var tempStep = Phaser.Math.Between(0,this.possibleYSteps.length-1);
-        const scaledCook = this.add.text(50, this.possibleYSteps[tempStep], "Cook();", {
+        const scaledCook = this.add.text(50, this.possibleYSteps[tempStep], "Fry(SPAM);", {
             backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
         this.possibleYSteps.splice(tempStep,1);
@@ -127,7 +125,7 @@ export default class MusubiScene extends Phaser.Scene {
         
 
         var tempStep = Phaser.Math.Between(0,this.possibleYSteps.length-1);
-        const scaledMold = this.add.text(50, this.possibleYSteps[tempStep], "Create-Mold();", {
+        const scaledMold = this.add.text(50, this.possibleYSteps[tempStep], "Add-To-Mold(Rice);", {
             backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
         this.possibleYSteps.splice(tempStep,1);
@@ -138,7 +136,8 @@ export default class MusubiScene extends Phaser.Scene {
         
 
         var tempStep = Phaser.Math.Between(0,this.possibleYSteps.length-1);
-        const scaledRemove = this.add.text(50, this.possibleYSteps[tempStep], "Remove-Extra-Rice();", {
+        const scaledRemove = this.add.text(50, this.possibleYSteps[tempStep], "Remove-From-Mold(Rice);", {
+
             backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
         this.possibleYSteps.splice(tempStep,1);
@@ -148,7 +147,7 @@ export default class MusubiScene extends Phaser.Scene {
         this.remove.name = 'remove';
         
         var tempStep = Phaser.Math.Between(0,this.possibleYSteps.length-1);
-        const scaledCombine = this.add.text(50, this.possibleYSteps[tempStep], "Combine();", {
+        const scaledCombine = this.add.text(50, this.possibleYSteps[tempStep], "Stack(SPAM, rice);", {
             backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
         this.possibleYSteps.splice(tempStep,1);
@@ -157,8 +156,9 @@ export default class MusubiScene extends Phaser.Scene {
         this.input.setDraggable(this.combine);
         this.combine.name = 'combine';
         
+
         var tempStep = Phaser.Math.Between(0,this.possibleYSteps.length-1);
-        const scaledWrap = this.add.text(50, this.possibleYSteps[tempStep], "Wrap();", {
+        const scaledWrap = this.add.text(50, this.possibleYSteps[tempStep], "Wrap(nori, rice, SPAM);", {
             backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
         this.possibleYSteps.splice(tempStep,1);
@@ -181,17 +181,17 @@ export default class MusubiScene extends Phaser.Scene {
         checkDirections.on('pointerdown', () => this.clickCheckOrder());
 
         //win pop up 
-        this.rect = this.add.rectangle(400, 300, 410, 310, 0x000000);
+        this.rect = this.add.rectangle(400, 230, 410, 310, 0x000000);
         this.rect.setVisible(false);
-        this.popback = this.add.image(400, 300, "utensilpop");
+        this.popback = this.add.image(400, 230, "utensilpop");
         this.popback.displayWidth = 400;
         this.popback.displayHeight = 300;
         this.popback.setVisible(false);
-        this.poptext = this.add.text(230, 150, "GREAT JOB!", {
+        this.poptext = this.add.text(230, 120, "GREAT JOB!", {
             fontSize: '58px', fontStyle: 'bold', color: '0x000000'
         });
         this.poptext.setVisible(false);
-        this.arrow = this.add.image(400, 350, 'arrow');
+        this.arrow = this.add.image(400, 300, 'arrow');
         this.arrow.scale = 0.2;
         this.arrow.setInteractive({ useHandCursor: true });
         this.arrow.on('pointerdown', () => this.clickFinish());
@@ -206,6 +206,12 @@ export default class MusubiScene extends Phaser.Scene {
         //zone colors
         this.add.rectangle
         */
+       //back button
+       const back = this.add.image(45, 555, "exit");
+       back.displayWidth = Number(main.config.width) * .08;
+       back.scaleY = back.scaleX;
+       back.setInteractive({ useHandCursor: true });
+       back.on('pointerdown', () => this.clickBack());
 
         // ------------------------------------------- POPUPS -------------------------------------------------    
     //recipe help button
@@ -231,13 +237,13 @@ export default class MusubiScene extends Phaser.Scene {
 
     const spamTitle = this.add.text(480,70,'Spam Musubi Recipe', {color: "000000",  fontSize: '20px'})
     const spamSteps = this.add.text(425, 100, 
-      `Step 1: Slice spam into 8-10 slices. \n
-      Step 2: Fry SPAM on each side over medium heat until slightly crispy or until desired doneness. \n
-      Step 3: Place a strip of nori on a cutting board. Place your Musubi mold across the middle of the nori. Add Sushi Rice to the mold and press down. \n
-      Step 4: Remove the mold from the rice. \n
-      Step 5: Add some of the cooked SPAM to the top. \n
-      Step 6: Wrap up one side of the nori and stick it to the top of the SPAM, then wrap up the other side.\n
-      `, {wordWrap: {width: 325}, align: 'center', color: "000000"})
+    `Step 1: Slice spam into 8-10 slices. \n
+    Step 2: Fry SPAM on each side over medium heat until slightly crispy or until desired doneness. \n
+    Step 3: Add Sushi Rice to the mold and press down. \n
+    Step 4: Remove the rice from the mold. \n
+    Step 5: Add a slice of cooked SPAM to the top of the rice. \n
+    Step 6: Wrap up one side of the nori and stick it to the top of the SPAM, then wrap up the other side.\n
+    `, {wordWrap: {width: 325}, align: 'center', color: "000000"})
     
     spamTitle.setVisible(false)
     spamSteps.setVisible(false)
@@ -337,8 +343,8 @@ export default class MusubiScene extends Phaser.Scene {
     // ------------------------------------------- END POPUPS -------------------------------------------------
     } // end create function
     clickBack() {
-        this.scene.restart(this);
-        this.scene.switch("title-scene");
+        this.scene.restart(this)
+        this.scene.switch("recipe-scene");
     }
     clickFinish() {
         this.scene.restart(this)
