@@ -74,6 +74,8 @@ export default class MusubiScene extends Phaser.Scene {
         this.randomyMax;
         this.randomyMin;
         this.yIncrement;
+        this.possibleYSteps = [140,180,220,260,300,340];
+
 
         //background 
         const scaledbackground = this.add.image(400, 300, "brick");
@@ -91,21 +93,21 @@ export default class MusubiScene extends Phaser.Scene {
         scaledRice.displayWidth = Number(main.config.width) * .2;
         scaledRice.scaleY = scaledRice.scaleX;
         this.rice = scaledRice;
-        this.rice?.body.gameObject.setVisible(true);
+        this.musubi?.body.gameObject.setVisible(true);y
 
         //seaweed
         const scaledSeaweed = this.physics.add.image(this.scale.width / 2, 430, "seaweed");
         scaledSeaweed.displayWidth = Number(main.config.width) * .12;
         scaledSeaweed.scaleY = scaledSeaweed.scaleX;
         this.seaweed = scaledSeaweed;
-        this.seaweed?.body.gameObject.setVisible(true);
+        this.musubi?.body.gameObject.setVisible(true);
 
         //spam
         const scaledSpam = this.physics.add.image(this.scale.width / 1.3, 430, "spam");
         scaledSpam.displayWidth = Number(main.config.width) * .15;
         scaledSpam.scaleY = scaledSpam.scaleX;
         this.spam = scaledSpam;
-        this.spam?.body.gameObject.setVisible(true);
+        this.musubi?.body.gameObject.setVisible(true);
 
         //musubi
         const scaledMusubi = this.physics.add.image(400, 450, "musubi");
@@ -389,6 +391,7 @@ export default class MusubiScene extends Phaser.Scene {
     clickFinish() {
         this.scene.restart(this)
         this.sceneCompletion?.play();
+        console.log('here');
         this.scene.switch('title-scene');
     }
     clickCheckOrder(){
