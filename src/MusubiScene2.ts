@@ -23,23 +23,16 @@ export default class MusubiScene extends Phaser.Scene {
     //random placement parameters
     private randomxMin : integer;
     private randomxMax : integer;
-   
     private randomyMin : integer;
     private randomyMax : integer;
     private yIncrement : integer;
     private possibleYSteps : integer[];
-
-
-
-    
-
 
     //sound
     private sceneCompletion : Phaser.Sound.BaseSound | undefined;
 
     constructor() {
 		super('musubi-scene-2')
-        
         //define random placement parameters
         this.randomxMin = 50;
         this.randomxMax = 400;
@@ -47,7 +40,6 @@ export default class MusubiScene extends Phaser.Scene {
         this.randomyMax = 400;
         this.yIncrement = 20;
         this.possibleYSteps = [140,180,220,260,300,340];
-
 	}
 
     preload() {
@@ -60,7 +52,6 @@ export default class MusubiScene extends Phaser.Scene {
         this.load.image("arrow","assets/buttons/rightarrow.png");
         //musubi
         this.load.image("musubi", "assets/ingredients/musubi.png");
-
         //for recipe help button
         this.load.image('recipe', 'assets/buttons/recipeBook.png')
         //for direction help button 
@@ -71,6 +62,12 @@ export default class MusubiScene extends Phaser.Scene {
     } //end preload function
 
     create() {
+        this.randomxMax;
+        this.randomxMin;
+        this.randomyMax;
+        this.randomyMin;
+        this.yIncrement;
+
         //background 
         const scaledbackground = this.add.image(400, 300, "brick");
         scaledbackground.displayWidth = Number(main.config.width);
@@ -84,77 +81,73 @@ export default class MusubiScene extends Phaser.Scene {
         //bottom bar
         this.add.rectangle(400, 550, 800, 100, 0xffffff);
 
-        var tempStep = Phaser.Math.Between(0,this.possibleYSteps.length-1);
+        const tempStep1 = Phaser.Math.Between(0,this.possibleYSteps.length-1);
         console.log(this.possibleYSteps);
-        console.log(this.possibleYSteps[tempStep])
+        console.log(this.possibleYSteps[tempStep1])
 
         //recipe directions
-        const scaledStep1 = this.add.text(50, this.possibleYSteps[tempStep], "Slice the spam", {
+        const scaledStep1 = this.add.text(50, this.possibleYSteps[tempStep1], "Slice the spam", {
             color: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
-        this.possibleYSteps.splice(tempStep,1);
+        this.possibleYSteps.splice(tempStep1,1);
         scaledStep1.scale = 0.5;
         this.step1 = scaledStep1;
         this.input.setDraggable(this.step1);
         this.step1.name = 'Slice the...';
         
-        var tempStep = Phaser.Math.Between(0,this.possibleYSteps.length-1);
-        
+        const tempStep2 = Phaser.Math.Between(0,this.possibleYSteps.length-1);
         console.log(this.possibleYSteps);
-        console.log(this.possibleYSteps[tempStep])
+        console.log(this.possibleYSteps[tempStep2])
 
-        const scaledStep2 = this.add.text(50, this.possibleYSteps[tempStep], "Cook the spam", {
+        const scaledStep2 = this.add.text(50, this.possibleYSteps[tempStep2], "Cook the spam", {
             color: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
-        this.possibleYSteps.splice(tempStep,1);
+        this.possibleYSteps.splice(tempStep2,1);
         scaledStep2.scale = 0.5;
         this.step2 = scaledStep2;
         this.input.setDraggable(this.step2);
         this.step2.name = 'Cook the...';
         
-        var tempStep = Phaser.Math.Between(0,this.possibleYSteps.length-1);
-
+        const tempStep3 = Phaser.Math.Between(0,this.possibleYSteps.length-1);
         console.log(this.possibleYSteps);
-        console.log(this.possibleYSteps[tempStep])
+        console.log(this.possibleYSteps[tempStep3])
 
-        const scaledStep3 = this.add.text(50, this.possibleYSteps[tempStep], "make musubi mold with rice", {
+        const scaledStep3 = this.add.text(50, this.possibleYSteps[tempStep3], "make musubi mold with rice", {
             color: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
-        this.possibleYSteps.splice(tempStep,1);
+        this.possibleYSteps.splice(tempStep3,1);
         scaledStep3.scale = 0.5;
         this.step3 = scaledStep3;
         this.input.setDraggable(this.step3);
         this.step3.name = 'make musubi...';
         
-        var tempStep = Phaser.Math.Between(0,this.possibleYSteps.length-1);
-
+        const tempStep4 = Phaser.Math.Between(0,this.possibleYSteps.length-1);
         console.log(this.possibleYSteps);
-        console.log(this.possibleYSteps[tempStep])
+        console.log(this.possibleYSteps[tempStep4])
 
-        const scaledStep4 = this.add.text(50, this.possibleYSteps[tempStep], "remove extra rice from musubi mold", {
+        const scaledStep4 = this.add.text(50, this.possibleYSteps[tempStep4], "remove extra rice from musubi mold", {
             color: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
-        this.possibleYSteps.splice(tempStep,1);
+        this.possibleYSteps.splice(tempStep4,1);
         scaledStep4.scale = 0.5;
         this.step4 = scaledStep4;
         this.input.setDraggable(this.step4);
         this.step4.name = 'remove extra...';
         
-        var tempStep = Phaser.Math.Between(0,this.possibleYSteps.length-1);
-
+        const tempStep5 = Phaser.Math.Between(0,this.possibleYSteps.length-1);
         console.log(this.possibleYSteps);
-        console.log(this.possibleYSteps[tempStep])
+        console.log(this.possibleYSteps[tempStep5])
 
-        const scaledStep5 = this.add.text(52,this.possibleYSteps[tempStep], "add cooked spam to rice mold", {
+        const scaledStep5 = this.add.text(52,this.possibleYSteps[tempStep5], "add cooked spam to rice mold", {
             color: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
-        this.possibleYSteps.splice(tempStep,1);
+        this.possibleYSteps.splice(tempStep5,1);
         scaledStep5.scale = 0.5;
         this.step5 = scaledStep5;
         this.input.setDraggable(this.step5);
         this.step5.name = 'add cooked...';
-        var tempStep = Phaser.Math.Between(0,this.possibleYSteps.length-1);
 
+        const tempStep = Phaser.Math.Between(0,this.possibleYSteps.length-1);
         console.log(this.possibleYSteps);
         console.log(this.possibleYSteps[tempStep])
 

@@ -25,15 +25,16 @@ export default class MusubiScene extends Phaser.Scene {
     //random placement parameters
     private randomxMin : integer;
     private randomxMax : integer;
-   
     private randomyMin : integer;
     private randomyMax : integer;
     private yIncrement : integer;
     private possibleYSteps : integer[];
 
+    //sound
+    private sceneCompletion : Phaser.Sound.BaseSound | undefined;
+
     constructor() {
 		super('musubi-scene-3')
-
         //define random placement parameters
         this.randomxMin = 50;
         this.randomxMax = 400;
@@ -54,6 +55,12 @@ export default class MusubiScene extends Phaser.Scene {
     }
 
     create() {
+        this.randomxMax;
+        this.randomxMin;
+        this.randomyMax;
+        this.randomyMin;
+        this.yIncrement;
+
         //musubi
         const scaledMusubi = this.add.image(400, 450, "musubi");
         scaledMusubi.displayWidth = Number(main.config.width) * .2;
@@ -79,7 +86,7 @@ export default class MusubiScene extends Phaser.Scene {
         const levelCompletion_sound = this.sound.add("levelCompletion", {
             volume: .6
           })
-        this.levelCompletion = levelCompletion_sound;
+        this.sceneCompletion = levelCompletion_sound;
 
         //drag n drop 
         this.input.dragDistanceThreshold = 16;
@@ -103,61 +110,63 @@ export default class MusubiScene extends Phaser.Scene {
         back.on('pointerdown', () => this.clickBack());
 
         //pseudo code 
+        const tempStep1 = Phaser.Math.Between(0,this.possibleYSteps.length-1);
 
-        var tempStep = Phaser.Math.Between(0,this.possibleYSteps.length-1);
-        const scaledSlice = this.add.text(50, this.possibleYSteps[tempStep], "Slice();", {
+        const scaledSlice = this.add.text(50, this.possibleYSteps[tempStep1], "Slice();", {
             backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
-        this.possibleYSteps.splice(tempStep,1);
+        this.possibleYSteps.splice(tempStep1,1);
         scaledSlice.scale = 0.5;
         this.slice = scaledSlice;
         this.input.setDraggable(this.slice);
         this.slice.name = 'slice';
         
+        const tempStep2 = Phaser.Math.Between(0,this.possibleYSteps.length-1);
 
-        var tempStep = Phaser.Math.Between(0,this.possibleYSteps.length-1);
-        const scaledCook = this.add.text(50, this.possibleYSteps[tempStep], "Cook();", {
+        const scaledCook = this.add.text(50, this.possibleYSteps[tempStep2], "Cook();", {
             backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
-        this.possibleYSteps.splice(tempStep,1);
+        this.possibleYSteps.splice(tempStep2,1);
         scaledCook.scale = 0.5;
         this.cook = scaledCook;
         this.input.setDraggable(this.cook);
         this.cook.name = 'cook';
         
+        const tempStep3 = Phaser.Math.Between(0,this.possibleYSteps.length-1);
 
-        var tempStep = Phaser.Math.Between(0,this.possibleYSteps.length-1);
-        const scaledMold = this.add.text(50, this.possibleYSteps[tempStep], "Create-Mold();", {
+        const scaledMold = this.add.text(50, this.possibleYSteps[tempStep3], "Create-Mold();", {
             backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
-        this.possibleYSteps.splice(tempStep,1);
+        this.possibleYSteps.splice(tempStep3,1);
         scaledMold.scale = 0.5;
         this.mold = scaledMold;
         this.input.setDraggable(this.mold);
         this.mold.name = 'mold';
         
+        const tempStep4 = Phaser.Math.Between(0,this.possibleYSteps.length-1);
 
-        var tempStep = Phaser.Math.Between(0,this.possibleYSteps.length-1);
-        const scaledRemove = this.add.text(50, this.possibleYSteps[tempStep], "Remove-Extra-Rice();", {
+        const scaledRemove = this.add.text(50, this.possibleYSteps[tempStep4], "Remove-Extra-Rice();", {
             backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
-        this.possibleYSteps.splice(tempStep,1);
+        this.possibleYSteps.splice(tempStep4,1);
         scaledRemove.scale = 0.5;
         this.remove = scaledRemove;
         this.input.setDraggable(this.remove);
         this.remove.name = 'remove';
         
-        var tempStep = Phaser.Math.Between(0,this.possibleYSteps.length-1);
-        const scaledCombine = this.add.text(50, this.possibleYSteps[tempStep], "Combine();", {
+        const tempStep5 = Phaser.Math.Between(0,this.possibleYSteps.length-1);
+
+        const scaledCombine = this.add.text(50, this.possibleYSteps[tempStep5], "Combine();", {
             backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
-        this.possibleYSteps.splice(tempStep,1);
+        this.possibleYSteps.splice(tempStep5,1);
         scaledCombine.scale = 0.5;
         this.combine = scaledCombine;
         this.input.setDraggable(this.combine);
         this.combine.name = 'combine';
         
-        var tempStep = Phaser.Math.Between(0,this.possibleYSteps.length-1);
+        const tempStep = Phaser.Math.Between(0,this.possibleYSteps.length-1);
+
         const scaledWrap = this.add.text(50, this.possibleYSteps[tempStep], "Wrap();", {
             backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
@@ -301,7 +310,6 @@ export default class MusubiScene extends Phaser.Scene {
       helpText.setVisible(false)
       directions.setVisible(false)
     });
-
     // ------------------------------------------- END POPUPS -------------------------------------------------
     } // end create function
     clickBack() {
@@ -310,7 +318,7 @@ export default class MusubiScene extends Phaser.Scene {
     }
     clickFinish() {
         this.scene.restart(this)
-        this.levelCompletion?.play();
+        this.sceneCompletion?.play();
         this.scene.switch('title-scene');
     }
     clickCheckOrder(){
