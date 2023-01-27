@@ -131,7 +131,7 @@ export default class MusubiScene extends Phaser.Scene {
         console.log(this.possibleYSteps);
         console.log(this.possibleYSteps[tempStep])
 
-        const scaledStep5 = this.add.text(50,this.possibleYSteps[tempStep], "add cooked spam to rice mold", {
+        const scaledStep5 = this.add.text(52,this.possibleYSteps[tempStep], "add cooked spam to rice mold", {
             color: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
         this.possibleYSteps.splice(tempStep,1);
@@ -139,7 +139,6 @@ export default class MusubiScene extends Phaser.Scene {
         this.step5 = scaledStep5;
         this.input.setDraggable(this.step5);
         this.step5.name = 'add cooked...';
-        
         var tempStep = Phaser.Math.Between(0,this.possibleYSteps.length-1);
 
         console.log(this.possibleYSteps);
