@@ -16,8 +16,14 @@ create() {
     scaledRecipe.displayWidth = Number(main.config.width) * 1.2;
     scaledRecipe.scaleY = scaledRecipe.scaleX
 
-    //create here
+    //game instruction text
     this.add.text(100, 200, "Welcome to Taro Mama!\nYou will cook a traditional Hawaiian meal by following \na recipe. Each level will progess in difficulty: \n\nFirst level - drag and drop the picture ingredients together\nSecond level - drag the ingredient intructions in order \nThird level - correctly order the pseudocode to create the dish.", {
+        color: '0x000000',
+        align: "center"
+    });
+
+    //credit
+    this.add.text(300,200, "A Special Thanks To: Minji Kong, Lori Pollock, Katie Wassill, the WCC, and the beautiful state of Hawaii!", {
         color: '0x000000',
         align: "center"
     });
