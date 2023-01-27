@@ -190,7 +190,7 @@ export default class MusubiScene extends Phaser.Scene {
             gameObject.clearTint();
         });
 
-        //title
+        //title for level 2
         const MainTitle = this.add.text(20,20,"Level 2: Place the ingredients in order",{
             fontSize: '58px', fontStyle: 'bold',color:'0xff0000'
         });
