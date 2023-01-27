@@ -1,3 +1,13 @@
+/*
+--- Third Game scene for the musubi recipe ---
+This game scene implements level three of the recipe game. 
+
+In this scene, six pseudo code components are displayed 
+The user can drag these components into a vertical order, and check their order with the check button.
+When the user combines the pieces, this scene will end.
+After the user completes the third scene, the user will be congradulated for completing the musubi level.
+*/
+
 import Phaser from 'phaser'
 import main from './main';
 
