@@ -76,6 +76,8 @@ export default class MusubiScene extends Phaser.Scene {
         this.randomyMax;
         this.randomyMin;
         this.yIncrement;
+        this.possibleYSteps = [140,180,220,260,300,340];
+
 
         //background 
         const scaledbackground = this.add.image(400, 300, "brick");
