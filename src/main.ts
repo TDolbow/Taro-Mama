@@ -1,7 +1,6 @@
 import Phaser from 'phaser'
 import InstrScene from './InstrScene';
 import TitleScene from './TitleScene'
-import SpamRecipe from './spamRecipe'
 import RecipeScene from './RecipeScene';
 import MusubiScene from './MusubiScene';
 import MusubiScene2 from './MusubiScene2';
@@ -26,7 +25,7 @@ const config: Phaser.Types.Core.GameConfig = {
 			gravity: { y: 0 },
 		},
 	},
-	scene: [TitleScene, RecipeScene, MusubiScene, MusubiScene2, MusubiScene3, InstrScene, SpamRecipe],
+	scene: [TitleScene, RecipeScene, MusubiScene, MusubiScene2, MusubiScene3, InstrScene],
 }
 
 export default new Phaser.Game(config)
