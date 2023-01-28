@@ -119,8 +119,7 @@ export default class MusubiScene extends Phaser.Scene {
         this.add.rectangle(400, 550, 800, 100, 0xffffff);
 
         const tempStep1 = Phaser.Math.Between(0,this.possibleYSteps.length-1);
-        console.log(this.possibleYSteps);
-        console.log(this.possibleYSteps[tempStep1])
+       
 
         //recipe directions
         const scaledStep1 = this.add.text(50, this.possibleYSteps[tempStep1],  "Slice the SPAM", {
@@ -133,8 +132,7 @@ export default class MusubiScene extends Phaser.Scene {
         this.step1.name = 'Slice the...';
         
         const tempStep2 = Phaser.Math.Between(0,this.possibleYSteps.length-1);
-        console.log(this.possibleYSteps);
-        console.log(this.possibleYSteps[tempStep2])
+        
 
         const scaledStep2 = this.add.text(50, this.possibleYSteps[tempStep2], "Fry the SPAM until crispy", {
             color: '#FFFFFF', backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
@@ -146,8 +144,7 @@ export default class MusubiScene extends Phaser.Scene {
         this.step2.name = 'Cook the...';
         
         const tempStep3 = Phaser.Math.Between(0,this.possibleYSteps.length-1);
-        console.log(this.possibleYSteps);
-        console.log(this.possibleYSteps[tempStep3])
+        
 
         const scaledStep3 = this.add.text(50, this.possibleYSteps[tempStep3], "Add rice to the sushi mold", {
             color: '#FFFFFF', backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
@@ -159,8 +156,7 @@ export default class MusubiScene extends Phaser.Scene {
         this.step3.name = 'make musubi...';
         
         const tempStep4 = Phaser.Math.Between(0,this.possibleYSteps.length-1);
-        console.log(this.possibleYSteps);
-        console.log(this.possibleYSteps[tempStep4])
+        
 
         const scaledStep4 = this.add.text(50, this.possibleYSteps[tempStep4], "Remove rice from the sushi mold", {
             color: '#FFFFFF', backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
@@ -172,9 +168,7 @@ export default class MusubiScene extends Phaser.Scene {
         this.step4.name = 'remove extra...';
         
         const tempStep5 = Phaser.Math.Between(0,this.possibleYSteps.length-1);
-        console.log(this.possibleYSteps);
-        console.log(this.possibleYSteps[tempStep5])
-
+        
         const scaledStep5 = this.add.text(52,this.possibleYSteps[tempStep5], "Stack SPAM on top of the rice", {
             color: '#FFFFFF', backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
         }).setInteractive();
@@ -188,8 +182,7 @@ export default class MusubiScene extends Phaser.Scene {
         this.step5.name = 'add cooked...';
 
         const tempStep = Phaser.Math.Between(0,this.possibleYSteps.length-1);
-        console.log(this.possibleYSteps);
-        console.log(this.possibleYSteps[tempStep])
+       
 
         const scaledStep6 = this.add.text(50, this.possibleYSteps[tempStep], "Wrap the nori over the rice and SPAM", {
             color: '#FFFFFF', backgroundColor: '0x000000', fontSize: '58px', fontStyle: 'bold'
