@@ -7,10 +7,10 @@ export function CheckPositions(name_order: Phaser.GameObjects.GameObject[]){
 
     //Sort elements by their y value.
     const sortedByHeight:Phaser.GameObjects.GameObject[] = name_order_copy.slice(0).sort((n1,n2) =>{
-        if(n1.y > n2.y){
+        if(n1.body.position.y > n2.body.position.y){
             return(1);
         }
-        if(n1.y < n2.y){
+        if(n1.body.position.y < n2.body.position.y){
             return(-1);
         }
         return(0);
