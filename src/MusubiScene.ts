@@ -1,3 +1,13 @@
+/*
+--- First Game scene for the musubi recipe ---
+This game scene implements level one of the recipe game. 
+
+In this scene, three visual musubi components are placed on the screen. 
+The user can drag these components onto one another, and combine into a piece of mususbi. 
+When the user combines the pieces, this scene will end.
+
+*/
+
 import Phaser from 'phaser'
 import main from './main';
 
