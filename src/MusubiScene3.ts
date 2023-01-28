@@ -15,9 +15,6 @@ import main from './main';
 import { CheckPositions } from './CheckPositions';
 
 export default class MusubiScene extends Phaser.Scene {
-    //sound
-    private levelCompletion : Phaser.Sound.BaseSound | undefined;
-
     //ingredients
     private rice : Phaser.GameObjects.GameObject | undefined;
     private seaweed : Phaser.GameObjects.GameObject | undefined;
