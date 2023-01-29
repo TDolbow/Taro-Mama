@@ -409,6 +409,8 @@ export default class MusubiScene extends Phaser.Scene {
         const feedbackString = String(CheckPositions(order));
         this.feedback_text?.setText(<string>feedbackString);
         if(String(CheckPositions(order)) === 'All instructions are in\nthe correct location') {
+            const soundEffect = this.sound.add("completedRecipe")
+            soundEffect.play();
             this.rect?.setVisible(true);
             this.popback?.setVisible(true);
             this.poptext?.setVisible(true);

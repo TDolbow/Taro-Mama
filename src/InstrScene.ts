@@ -7,7 +7,8 @@ export default class InstrScene extends Phaser.Scene {
 	}
 preload() {
     //preload here
-    this.load.image('list', 'public/assets/backgrounds/firstscene/ingredientList.png')
+    this.load.image('list', 'assets/backgrounds/firstscene/ingredientList.png');
+    this.load.image('exit', 'assets/buttons/exit.png');
 }
 create() {
     //background
@@ -28,15 +29,10 @@ create() {
         align: "center"
     });
 
-    const back = this.add.text(10, 500, "Back", {
-        fontSize: '40px',
-        color: '0xFF0000'
-        });
-      back.setTint(0xFF0000);
-      back.displayWidth = Number(main.config.width) * .1;
-      back.scaleY = back.scaleX;
-      back.setInteractive({ useHandCursor: true });
-      back.on('pointerdown', () => this.clickBack());
+    const back = this.add.image(110, 550, "exit");
+        back.scale = 0.1
+        back.setInteractive({ useHandCursor: true });
+        back.on('pointerdown', () => this.clickBack());
     
 }
 

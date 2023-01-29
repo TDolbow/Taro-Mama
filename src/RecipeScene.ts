@@ -9,6 +9,7 @@ preload() {
     this.load.image("kitchen", "assets/backgrounds/titlescene/background.jpg");
     this.load.image("recipeText", "assets/backgrounds/recipeScene/recipeText.png");
     this.load.image("musubiText", "assets/backgrounds/recipeScene/spam-musubi.png");
+    this.load.image('exit', 'assets/buttons/exit.png');
 }
 create() {
     //kitchen background
@@ -30,12 +31,8 @@ create() {
         scaledMusubi.on('pointerdown', () => this.clickMusubi());
 
     //back button
-        const back = this.add.text(30, 500, "Back", {
-            color: '0xFF0000',
-            fontSize: '58px'
-            });
-        back.displayWidth = Number(main.config.width) * .1;
-        back.scaleY = back.scaleX;
+        const back = this.add.image(50, 550, "exit");
+        back.scale = 0.1
         back.setInteractive({ useHandCursor: true });
         back.on('pointerdown', () => this.clickBack());
 
