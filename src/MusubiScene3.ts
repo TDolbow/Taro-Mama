@@ -254,15 +254,6 @@ export default class MusubiScene extends Phaser.Scene {
         this.arrow.on('pointerdown', () => this.clickFinish());
         this.arrow.setVisible(false);
 
-        /*
-        //zone 1
-        this.zone1?.setRectangleDropZone(200, 50);
-        this.zone1?.setX(400);
-        this.zone1?.setY(450);
-
-        //zone colors
-        this.add.rectangle
-        */
         // ------------------------------------------- POPUPS -------------------------------------------------    
     //recipe help button
     const recipeBtn = this.add.image(125,555, "recipe");
@@ -397,7 +388,6 @@ export default class MusubiScene extends Phaser.Scene {
     }
     clickFinish() {
         this.scene.restart(this)
-        this.sceneCompletion?.play();
         console.log('here');
         this.scene.switch('title-scene');
     }
@@ -412,6 +402,7 @@ export default class MusubiScene extends Phaser.Scene {
                     const feedbackString = String(CheckPositions(order));
                     this.feedback_text?.setText(<string>feedbackString);
         if(String(CheckPositions(order)) === 'All instructions are in\nthe correct location') {
+            this.sceneCompletion?.play();
             this.rect?.setVisible(true);
             this.popback?.setVisible(true);
             this.poptext?.setVisible(true);
