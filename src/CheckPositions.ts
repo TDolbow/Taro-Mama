@@ -8,7 +8,7 @@ for feedback purposes. Otherwise, this method returns the string: `The instructi
 
 import Phaser from 'phaser';
 
-export function CheckPositions(name_order: Phaser.GameObjects.GameObject[]){
+export function CheckPositions(name_order: any[]){ 
     const name_order_copy = name_order;
 
     //Sort elements by their y value.
