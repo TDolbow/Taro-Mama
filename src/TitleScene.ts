@@ -65,7 +65,7 @@ export default class TitleScene extends Phaser.Scene {
 
 		//on mute button pushed
 		muteBtn.on('pointerdown', () => {
-			music1.pause()
+			main.sound.mute = true;
 		});
 		// -------------------------------- END MUTE BUTTON --------------------------------
 
@@ -77,8 +77,7 @@ export default class TitleScene extends Phaser.Scene {
 
 		//on mute button pushed
 		unmuteBtn.on('pointerdown', () => {
-			music1.play()
-	
+			main.sound.mute = false;
 		});
 		// -------------------------------- END UNMUTE BUTTON --------------------------------
 
