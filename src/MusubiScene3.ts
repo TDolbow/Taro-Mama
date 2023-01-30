@@ -165,7 +165,7 @@ export default class MusubiScene extends Phaser.Scene {
         scaledSlice.scale = 0.5;
         this.slice = scaledSlice;
         this.input.setDraggable(this.slice);
-        this.slice.name = 'slice';
+        this.slice.name = 'Slice(SPAM);';
         
         const tempStep2 = Phaser.Math.Between(0,this.possibleYSteps.length-1);
         const scaledCook = this.add.text(50, this.possibleYSteps[tempStep2], "Fry(SPAM);", {
@@ -175,7 +175,7 @@ export default class MusubiScene extends Phaser.Scene {
         scaledCook.scale = 0.5;
         this.cook = scaledCook;
         this.input.setDraggable(this.cook);
-        this.cook.name = 'cook';
+        this.cook.name = 'Fry(SPAM);';
         
         const tempStep3 = Phaser.Math.Between(0,this.possibleYSteps.length-1);
         const scaledMold = this.add.text(50, this.possibleYSteps[tempStep3], "Add-To-Mold(Rice);", {
@@ -185,7 +185,7 @@ export default class MusubiScene extends Phaser.Scene {
         scaledMold.scale = 0.5;
         this.mold = scaledMold;
         this.input.setDraggable(this.mold);
-        this.mold.name = 'mold';
+        this.mold.name = 'Add-To-Mold(Rice);';
         
         const tempStep4 = Phaser.Math.Between(0,this.possibleYSteps.length-1);
         const scaledRemove = this.add.text(50, this.possibleYSteps[tempStep4], "Remove-From-Mold(Rice);", {
@@ -195,7 +195,7 @@ export default class MusubiScene extends Phaser.Scene {
         scaledRemove.scale = 0.5;
         this.remove = scaledRemove;
         this.input.setDraggable(this.remove);
-        this.remove.name = 'remove';
+        this.remove.name = 'Remove-From-Mold(Rice)';
         
         const tempStep5 = Phaser.Math.Between(0,this.possibleYSteps.length-1);
         const scaledCombine = this.add.text(50, this.possibleYSteps[tempStep5], "Stack(SPAM, rice);", {
@@ -205,7 +205,7 @@ export default class MusubiScene extends Phaser.Scene {
         scaledCombine.scale = 0.5;
         this.combine = scaledCombine;
         this.input.setDraggable(this.combine);
-        this.combine.name = 'combine';
+        this.combine.name = 'Stack(SPAM, rice);';
         
         const tempStep = Phaser.Math.Between(0,this.possibleYSteps.length-1);
         const scaledWrap = this.add.text(50, this.possibleYSteps[tempStep], "Wrap(nori, rice, SPAM);", {
@@ -215,7 +215,7 @@ export default class MusubiScene extends Phaser.Scene {
         scaledWrap.scale = 0.5;
         this.wrap = scaledWrap;
         this.input.setDraggable(this.wrap);
-        this.wrap.name = 'wrap';
+        this.wrap.name = 'Wrap(nori, rice, SPAM);';
         
         //title for level 3
         const MainTitle = this.add.text(20,20,"Level 3: Place the Pseudocode in Order",{

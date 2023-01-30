@@ -141,7 +141,7 @@ export default class MusubiScene extends Phaser.Scene {
         scaledStep2.scale = 0.5;
         this.step2 = scaledStep2;
         this.input.setDraggable(this.step2);
-        this.step2.name = 'Cook the...';
+        this.step2.name = 'Fry the...';
         
         const tempStep3 = Phaser.Math.Between(0,this.possibleYSteps.length-1);
         
@@ -153,7 +153,7 @@ export default class MusubiScene extends Phaser.Scene {
         scaledStep3.scale = 0.5;
         this.step3 = scaledStep3;
         this.input.setDraggable(this.step3);
-        this.step3.name = 'make musubi...';
+        this.step3.name = 'Add the rice...';
         
         const tempStep4 = Phaser.Math.Between(0,this.possibleYSteps.length-1);
         
@@ -165,7 +165,7 @@ export default class MusubiScene extends Phaser.Scene {
         scaledStep4.scale = 0.5;
         this.step4 = scaledStep4;
         this.input.setDraggable(this.step4);
-        this.step4.name = 'remove extra...';
+        this.step4.name = 'Remove rice...';
         
         const tempStep5 = Phaser.Math.Between(0,this.possibleYSteps.length-1);
         
@@ -179,7 +179,7 @@ export default class MusubiScene extends Phaser.Scene {
 
         this.step5.name = 'step5';
         
-        this.step5.name = 'add cooked...';
+        this.step5.name = 'Stack SPAM...';
 
         const tempStep = Phaser.Math.Between(0,this.possibleYSteps.length-1);
        
@@ -191,7 +191,7 @@ export default class MusubiScene extends Phaser.Scene {
         scaledStep6.scale = 0.5;
         this.step6 = scaledStep6;
         this.input.setDraggable(this.step6);
-        this.step6.name = 'wrap spam...';
+        this.step6.name = 'Wrap the nori...';
 
         //sounds
         const click_sound = this.sound.add("clicksound", {
